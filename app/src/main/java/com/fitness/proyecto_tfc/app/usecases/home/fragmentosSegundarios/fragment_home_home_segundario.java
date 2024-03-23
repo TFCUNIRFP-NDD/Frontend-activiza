@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.fitness.proyecto_tfc.R;
 import com.fitness.proyecto_tfc.app.model.clases.Entrenamiento;
 import com.fitness.proyecto_tfc.app.usecases.home.CustomAdapter;
+import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmento_home_con_entrenamiento.fragment_home_training;
 
 import org.jetbrains.annotations.Nullable;
 

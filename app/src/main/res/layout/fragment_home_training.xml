@@ -5,6 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".app.usecases.home.fragmentosSegundarios.fragmento_home_con_entrenamiento.fragment_home_training">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:textSize="20dp"
+        android:text="Entrenamientos" />
 
+    <include
+    layout="@layout/diseno_entrenamiento_con_entrenamiento"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    />
 
 </FrameLayout>
