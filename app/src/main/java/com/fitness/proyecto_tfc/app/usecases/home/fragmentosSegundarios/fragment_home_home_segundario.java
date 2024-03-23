@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class fragment_home_home_segundario extends Fragment {
     private TextView objetivoTextView;
     private TextView duracionTextView;
     private TextView categoriaTextView;
+    private TextView  textodisenorutinaTextView;
+    private ImageView imagenentrenamientofondoImage;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -69,6 +72,8 @@ public class fragment_home_home_segundario extends Fragment {
         objetivoTextView = view.findViewById(R.id.objetivo);
         duracionTextView = view.findViewById(R.id.duracion);
         categoriaTextView = view.findViewById(R.id.categoria);
+        textodisenorutinaTextView = view.findViewById(R.id.textoDisenoRutina);
+        imagenentrenamientofondoImage = view.findViewById(R.id.imagenEntrenamientoFondo);
 
         Entrenamiento entrenamiento = getDataFromDatabase(id);
         Toast.makeText(requireContext(), "ID de la rutina: " + id, Toast.LENGTH_SHORT).show();
@@ -77,6 +82,8 @@ public class fragment_home_home_segundario extends Fragment {
             duracionTextView.setText(String.valueOf("La duración de la rutina es de "+entrenamiento.getDuracion()+" días"));
             String resultado = TextUtils.join(", ", entrenamiento.getTipo());
             categoriaTextView.setText("Categoría: " + resultado);
+            textodisenorutinaTextView.setText((entrenamiento.getNombre()));
+            imagenentrenamientofondoImage.setImageResource(entrenamiento.getImagenId());
         }
 
         return view;
