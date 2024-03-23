@@ -4,11 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -84,6 +87,32 @@ public class fragment_home_home_segundario extends Fragment {
             categoriaTextView.setText("Categoría: " + resultado);
             textodisenorutinaTextView.setText((entrenamiento.getNombre()));
             imagenentrenamientofondoImage.setImageResource(entrenamiento.getImagenId());
+            // Obtener una referencia al botón
+            Button disenoRutinaAmpliadaButton = view.findViewById(R.id.agregarRutina);
+
+            // Agregar un OnClickListener al botón
+            disenoRutinaAmpliadaButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Crear una instancia del nuevo fragmento
+                    fragment_home_training nuevoFragmento = new fragment_home_training();
+
+                    // Obtener el FragmentManager
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+                    // Iniciar una transacción de fragmento
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                    // Reemplazar el fragmento actual con el nuevo fragmento
+                    transaction.replace(R.id.fragment_container, nuevoFragmento);
+
+                    // Agregar la transacción a la pila de retroceso
+                    transaction.addToBackStack(null);
+
+                    // Commit de la transacción
+                    transaction.commit();
+                }
+            });
         }
 
         return view;
