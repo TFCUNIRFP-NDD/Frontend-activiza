@@ -56,19 +56,9 @@ public class fragment_home_training extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.diseno_entrenamiento_con_entrenamiento, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_training, container, false);
 
-        calendarView = rootView.findViewById(R.id.calendarView);
 
-        // Agregamos un listener para escuchar los cambios de fecha
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                // Muestra un mensaje de Toast con la fecha seleccionada
-                String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                Toast.makeText(getActivity(), "Fecha seleccionada: " + selectedDate, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return rootView;
     }
