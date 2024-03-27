@@ -4,29 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Panel de control"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Entrenamientos"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:paddingLeft="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="0dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
