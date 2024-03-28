@@ -14,6 +14,7 @@ public class HomeVerificacion {
     public boolean recogerEntrenamiento(){
         //probamos si recoge datos que nos entre a la bbdd
         //Esto se tiene que cambiar por llamadas a la bbdd
+        //Si es positivo muestra el entrenamiento sino la lista para que lo escojas
         boolean prueba = true;
         if(prueba){
             return true;

@@ -1,8 +1,12 @@
 package com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmento_home_con_entrenamiento;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitness.proyecto_tfc.R;
+import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmento_dia_entrenamiento.fragment_dia_rutina;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +46,9 @@ public class fragment_home_training extends Fragment {
     private TextView diaEntrenamiento2_porcentaje;
     private TextView diaEntrenamiento3;
     private TextView diaEntrenamiento3_porcentaje;
-
+    private CardView cardViewEntrenamiento1;
+    private CardView cardViewEntrenamiento2;
+    private CardView cardViewEntrenamiento3;
 
     public fragment_home_training() {
         // Required empty public constructor
@@ -101,7 +108,76 @@ public class fragment_home_training extends Fragment {
         diaEntrenamiento3.setText("Nuevo entrenamiento 3");
         diaEntrenamiento3_porcentaje.setText("100%");
 
+        // Inicializar CardViews
+        cardViewEntrenamiento1 = rootView.findViewById(R.id.cardViewEntrenamiento1);
+        cardViewEntrenamiento2 = rootView.findViewById(R.id.cardViewEntrenamiento2);
+        cardViewEntrenamiento3 = rootView.findViewById(R.id.cardViewEntrenamiento3);
+
+        // Establecer OnClickListener para cada CardView
+        cardViewEntrenamiento1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String porcentaje1 = ((TextView) cardViewEntrenamiento1.findViewById(R.id.cardViewTextoEntrenamiento1_2)).getText().toString();
+                if (isNumeric(porcentaje1)) {
+                    // Si el porcentaje es un número, ejecutar la acción deseada aquí
+                    // Inicia una transacción de fragmentos
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Reemplaza el fragmento actual con NuevoFragmento
+                    fragment_dia_rutina fragmentoRutina = new fragment_dia_rutina();
+                    fragmentTransaction.replace(R.id.fragment_container, fragmentoRutina);
+
+                    // Opcional: puedes agregar la transacción a la pila para permitir el retroceso
+                    fragmentTransaction.addToBackStack(null);
+
+                    // Completa la transacción
+                    fragmentTransaction.commit();
+
+                }
+            }
+        });
+
+        cardViewEntrenamiento2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String porcentaje2 = ((TextView) cardViewEntrenamiento2.findViewById(R.id.cardViewTextoEntrenamiento2_2)).getText().toString();
+                if (isNumeric(porcentaje2)) {
+                    // Si el porcentaje es un número, ejecutar la acción deseada aquí
+                }
+            }
+        });
+
+        cardViewEntrenamiento3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String porcentaje3 = ((TextView) cardViewEntrenamiento3.findViewById(R.id.cardViewTextoEntrenamiento3_2)).getText().toString();
+                if (isNumeric(porcentaje3)) {
+                    // Si el porcentaje es un número, ejecutar la acción deseada aquí
+                }
+            }
+        });
+
+
         return rootView;
+    }
+    // Método para verificar si una cadena es numérica
+    private boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+
+        // Eliminar el último carácter si existe
+        if (str.length() > 1) {
+            str = str.substring(0, str.length() - 1);
+        }
+
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

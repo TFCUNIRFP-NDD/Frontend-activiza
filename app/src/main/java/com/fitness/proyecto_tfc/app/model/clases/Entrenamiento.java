@@ -10,8 +10,8 @@ public class Entrenamiento {
     private List<String> tipo;
     private int entrenador_id;
     private int gimnasio_id;
-
     private int imagenId;
+    private List<Ejercicio> ejercicios;
 
     public Entrenamiento(int rutina_id, String nombre, String descripcion, int duracion, List<String> tipo, int entrenador_id, int gimnasio_id, int imagenId) {
         this.rutina_id = rutina_id;
@@ -88,5 +88,13 @@ public class Entrenamiento {
 
     public void setGimnasio_id(int gimnasio_id) {
         this.gimnasio_id = gimnasio_id;
+    }
+
+    public List<Ejercicio> getEjercicios() {
+        return ejercicios;
+    }
+
+    public void setEjercicios(List<Ejercicio> ejercicios) {
+        this.ejercicios = ejercicios;
     }
 }
