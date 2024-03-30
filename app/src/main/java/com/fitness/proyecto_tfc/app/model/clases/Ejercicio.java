@@ -6,6 +6,7 @@ import java.util.List;
 public class Ejercicio{
         private int id;//Ej: 1
         private String nombre;//Ej: Cinta de correr
+        private String descripcion;
         private int imagen;//Ej: una chica caminando
         private int repeticiones;//Ej: 0
         private int series;//Ej: 0
@@ -13,7 +14,7 @@ public class Ejercicio{
         private double descanso;//Ej: 30segundos
         private boolean compledado;//Ej: true
 
-    public Ejercicio(int id, String nombre, int imagen, int repeticiones, int series, double minutos, double descanso, boolean compledado) {
+    public Ejercicio(int id, String nombre, int imagen, int repeticiones, int series, double minutos, double descanso, boolean compledado, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.imagen = imagen;
@@ -22,6 +23,7 @@ public class Ejercicio{
         this.minutos = minutos;
         this.descanso = descanso;
         this.compledado = compledado;
+        this.descripcion = descripcion;
     }
     public Ejercicio(){
 
@@ -89,5 +91,13 @@ public class Ejercicio{
 
     public void setCompledado(boolean compledado) {
         this.compledado = compledado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

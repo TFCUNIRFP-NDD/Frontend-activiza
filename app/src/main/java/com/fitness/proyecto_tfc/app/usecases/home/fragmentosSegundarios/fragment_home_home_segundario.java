@@ -110,6 +110,12 @@ public class fragment_home_home_segundario extends Fragment {
                     // Agregar la transacción a la pila de retroceso
                     transaction.addToBackStack(null);
 
+                    // Elimina el fragmento actual del back stack
+                    fragmentManager.popBackStack();
+
+                    // Agrega la transacción a la pila de retroceso (opcional)
+                    transaction.addToBackStack(null);
+
                     // Commit de la transacción
                     transaction.commit();
                 }

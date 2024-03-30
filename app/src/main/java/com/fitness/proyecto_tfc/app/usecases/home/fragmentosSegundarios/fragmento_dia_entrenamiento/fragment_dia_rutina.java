@@ -21,6 +21,7 @@ import com.fitness.proyecto_tfc.app.model.clases.Ejercicio;
 import com.fitness.proyecto_tfc.app.model.clases.Entrenamiento;
 import com.fitness.proyecto_tfc.app.usecases.home.CustomAdapter;
 import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragment_home_home_segundario;
+import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmentoEjercicio.ejercicio;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -100,20 +101,30 @@ public class fragment_dia_rutina extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Navegación al fragmento específico
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                // Aquí obtienes el elemento de la lista que se ha clicado
-                int ejercicioId = dataList.get(position).getId();
+                // Obtener el objeto Ejercicio seleccionado
+                Ejercicio ejercicioSeleccionado = dataList.get(position);
 
-                // Utiliza el método newInstance para crear una nueva instancia de fragment_home_home_segundario con el ID de la rutina
-                fragment_home_home_segundario fragment = fragment_home_home_segundario.newInstance(ejercicioId);
+                // Crear una instancia del fragmento
+                ejercicio fragmento = new ejercicio();
 
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                // Crear un Bundle para pasar el parámetro al fragmento
+                Bundle bundle = new Bundle();
+                // Agregar el ID del ejercicio como parámetro
+                bundle.putInt("id_ejercicio", ejercicioSeleccionado.getId());
 
+                // Establecer el Bundle como argumento del fragmento
+                fragmento.setArguments(bundle);
+
+                // Obtén el FragmentManager del Fragment
+                FragmentManager fragmentManager = getParentFragmentManager(); // Usar getChildFragmentManager() si estás dentro de un fragmento
+
+                // Iniciar la transacción para mostrar el fragmento
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                // Reemplazar el fragmento actual con el nuevo fragmento y agregarlo a la pila de retroceso
+                transaction.replace(R.id.fragment_container, fragmento)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

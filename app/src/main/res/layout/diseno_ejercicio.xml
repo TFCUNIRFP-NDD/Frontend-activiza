@@ -10,7 +10,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imagenEjercicio"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/cinta_correr"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/nombreEjercicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -27,17 +27,17 @@
         android:textAlignment="center"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imagenEjercicio" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/descripcionEjercicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="50dp"
         android:text="Tiempo recomendado: 8 min, 110 - 140"
         android:textSize="17dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/nombreEjercicio" />
 
 
     <FrameLayout
@@ -47,7 +47,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="75dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/descripcionEjercicio">
 
         <View
             android:layout_width="match_parent"
@@ -57,6 +57,7 @@
         <!-- Aquí puedes agregar el TextView o ImageView que quieras mostrar dentro del círculo -->
         <!-- Ejemplo con un TextView -->
         <TextView
+            android:id="@+id/repeticionesTexto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -83,7 +84,7 @@
         android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/descripcionEjercicio">
 
         <View
             android:layout_width="match_parent"
@@ -93,6 +94,7 @@
         <!-- Aquí puedes agregar el TextView o ImageView que quieras mostrar dentro del círculo -->
         <!-- Ejemplo con un TextView -->
         <TextView
+            android:id="@+id/DescansoTexto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -120,7 +122,7 @@
         android:layout_marginTop="75dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/descripcionEjercicio">
 
         <View
             android:layout_width="match_parent"
@@ -130,6 +132,7 @@
         <!-- Aquí puedes agregar el TextView o ImageView que quieras mostrar dentro del círculo -->
         <!-- Ejemplo con un TextView -->
         <TextView
+            android:id="@+id/minutosTexto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -150,7 +153,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frameLayout4" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/botonIniciar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
@@ -165,16 +168,17 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4">
+        app:layout_constraintTop_toBottomOf="@+id/botonIniciar">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/anadirMinutos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Añade Minutos" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/myButton"
+        android:id="@+id/botonMas"
         style="@style/Base.Theme.botonCuadrado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -183,10 +187,10 @@
         android:text="+"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/botonIniciar" />
 
     <TextView
-        android:id="@+id/timerTextView"
+        android:id="@+id/tiempoTexto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tiempo restante: 10:00"
@@ -194,7 +198,7 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myButton" />
+        app:layout_constraintTop_toBottomOf="@+id/botonMas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

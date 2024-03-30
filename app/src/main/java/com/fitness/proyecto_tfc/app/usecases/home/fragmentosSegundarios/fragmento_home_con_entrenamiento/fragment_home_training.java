@@ -132,6 +132,12 @@ public class fragment_home_training extends Fragment {
                     // Opcional: puedes agregar la transacción a la pila para permitir el retroceso
                     fragmentTransaction.addToBackStack(null);
 
+                    // Elimina el fragmento actual del back stack
+                    fragmentManager.popBackStack();
+
+                    // Agrega la transacción a la pila de retroceso (opcional)
+                    fragmentTransaction.addToBackStack(null);
+
                     // Completa la transacción
                     fragmentTransaction.commit();
 
@@ -154,6 +160,12 @@ public class fragment_home_training extends Fragment {
                     fragmentTransaction.replace(R.id.fragment_container, fragmentoRutina);
 
                     // Opcional: puedes agregar la transacción a la pila para permitir el retroceso
+                    fragmentTransaction.addToBackStack(null);
+
+                    // Elimina el fragmento actual del back stack
+                    fragmentManager.popBackStack();
+
+                    // Agrega la transacción a la pila de retroceso (opcional)
                     fragmentTransaction.addToBackStack(null);
 
                     // Completa la transacción
@@ -179,6 +191,13 @@ public class fragment_home_training extends Fragment {
 
                     fragmentTransaction.replace(R.id.fragment_container, fragment);
                     fragmentTransaction.addToBackStack(null);
+
+                    // Elimina el fragmento actual del back stack
+                    fragmentManager.popBackStack();
+
+                    // Agrega la transacción a la pila de retroceso (opcional)
+                    fragmentTransaction.addToBackStack(null);
+
                     fragmentTransaction.commit();
                 }
             }
