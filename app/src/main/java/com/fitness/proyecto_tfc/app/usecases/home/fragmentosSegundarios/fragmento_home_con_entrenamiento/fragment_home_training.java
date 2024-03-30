@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitness.proyecto_tfc.R;
+import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragment_home_home_segundario;
 import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmento_dia_entrenamiento.fragment_dia_rutina;
 
 import org.jetbrains.annotations.Nullable;
@@ -144,6 +145,19 @@ public class fragment_home_training extends Fragment {
                 String porcentaje2 = ((TextView) cardViewEntrenamiento2.findViewById(R.id.cardViewTextoEntrenamiento2_2)).getText().toString();
                 if (isNumeric(porcentaje2)) {
                     // Si el porcentaje es un número, ejecutar la acción deseada aquí
+                    // Inicia una transacción de fragmentos
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Reemplaza el fragmento actual con NuevoFragmento
+                    fragment_dia_rutina fragmentoRutina = new fragment_dia_rutina();
+                    fragmentTransaction.replace(R.id.fragment_container, fragmentoRutina);
+
+                    // Opcional: puedes agregar la transacción a la pila para permitir el retroceso
+                    fragmentTransaction.addToBackStack(null);
+
+                    // Completa la transacción
+                    fragmentTransaction.commit();
                 }
             }
         });
@@ -153,7 +167,19 @@ public class fragment_home_training extends Fragment {
             public void onClick(View v) {
                 String porcentaje3 = ((TextView) cardViewEntrenamiento3.findViewById(R.id.cardViewTextoEntrenamiento3_2)).getText().toString();
                 if (isNumeric(porcentaje3)) {
-                    // Si el porcentaje es un número, ejecutar la acción deseada aquí
+                    // Navegación al fragmento específico
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Aquí obtienes el elemento de la lista que se ha clicado
+                    int ejercicioId = v.getId();
+
+                    // Utiliza el método newInstance para crear una nueva instancia de fragment_home_home_segundario con el ID de la rutina
+                    fragment_home_home_segundario fragment = fragment_home_home_segundario.newInstance(ejercicioId);
+
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             }
         });

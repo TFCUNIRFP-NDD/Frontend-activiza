@@ -32,5 +32,12 @@
         <!-- Agrega cualquier otro color personalizado que necesites -->
     </style>
 
+    <style name="Base.Theme.botonCuadrado" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="android:background">@drawable/orange_square_button_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <!-- Agrega cualquier otro color personalizado que necesites -->
+    </style>
+
     <style name="Theme.Proyecto_TFC" parent="Base.Theme.Proyecto_TFC" />
 </resources>

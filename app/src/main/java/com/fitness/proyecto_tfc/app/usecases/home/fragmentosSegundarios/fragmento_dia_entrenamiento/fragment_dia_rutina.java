@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.fitness.proyecto_tfc.R;
 import com.fitness.proyecto_tfc.app.model.clases.Ejercicio;
@@ -74,10 +75,17 @@ public class fragment_dia_rutina extends Fragment {
     }
     private ListView listView;
     private CustomAdapterRutina adapter;
+    private TextView porcentaje;
+    private TextView nombre;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dia_rutina, container, false);
+        nombre = view.findViewById(R.id.cardViewTextoEntrenamiento1_1);
+        porcentaje = view.findViewById(R.id.cardViewTextoEntrenamiento1_2);
+        //aqui cojemos los datos de la bbdd y los sustituimos
+        nombre.setText("1 dia");
+        porcentaje.setText("50%");
         listView = view.findViewById(R.id.listViewEjercicios);
         return view;
     }
