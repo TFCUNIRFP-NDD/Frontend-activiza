@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Campos del Onboarding -->
+    <string name="app_name">Activiza</string>
+    <string name="activiza">Activiza</string>
+    <string name="siguiente">Siguiente</string>
+
+    <!-- Campos de comprobacion de errores -->
+    <string name="error">Error en el campo</string>
+    <string name="none"></string>
+    <string name="ganar_masa_muscular">Ganar masa muscular</string>
+    <string name="perder_peso">perder peso</string>
+    <string name="mujer">Mujer</string>
+    <string name="hombre">Hombre</string>
+    <string name="comenzar">comenzar</string>
+    <string name="borrar_cookies">Borrar Cookies</string>
+
+    <!-- Campos del menu de abajo -->
+    <string name="entrenamientos">Entrenamientos</string>
+    <string name="settings">Ajustes</string>
+    <string name="feel">Comunidad</string>
+
+    <!-- Campos del fragmento de la rutina pantalla de seleccion -->
+    <string name="seleccionar_entrenamiento">Selecciona tu entrenamiento</string>
+    <string name="rutinas_hombre">RUTINAS HOMBRE</string>
+
+    <!-- Campos del fragmento de la rutina pantalla de rutina -->
+    <string name="plan_de_entrenameiento">Plan de entrenameiento</string>
+    <string name="categorias">Categorías:</string>
+
+
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
+</resources>
