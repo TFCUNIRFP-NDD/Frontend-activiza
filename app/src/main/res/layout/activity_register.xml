@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.view.login.LoginActivity">
+
+    <ImageView
+        android:layout_width="168dp"
+        android:layout_height="131dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_app_3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/butler_bold_stencil"
+        android:text="@string/activiza"
+        android:textAllCaps="true"
+        android:textColor="@color/image_color"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/butler_bold_stencil"
+        android:text="@string/signup"
+        android:textColor="@color/primary_color"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="48dp"
+         android:orientation="horizontal"
+         android:layout_marginTop="32dp"
+         android:layout_marginLeft="8dp"
+         android:layout_marginRight="32dp">
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@drawable/ic_person_fill"
+             android:layout_gravity="center"
+             android:layout_marginLeft="16dp"
+             />
+
+         <EditText
+             android:id="@+id/et_name"
+             android:layout_width="match_parent"
+             android:layout_height="48dp"
+             android:inputType="text"
+             android:hint="@string/username"/>
+
+
+
+     </LinearLayout>-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_name_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_email_signup"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/hint_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_password_signup"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/hint_password"
+        app:endIconMode="password_toggle">
+        <!--app:helperText="La contraseña debe tener al menos: 8 caracteres de longitud, una letra mayúscula,una letra minúscula,un número y un carácter especial como @, #,$,/ etc."
+        app:helperTextEnabled="false">-->
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="48dp"
+         android:orientation="horizontal"
+         android:layout_marginTop="32dp"
+         android:layout_marginLeft="8dp"
+         android:layout_marginRight="32dp">
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@drawable/ic_email"
+             android:layout_gravity="center"
+             android:layout_marginLeft="16dp"
+             />
+
+         <EditText
+             android:id="@+id/et_email_signup"
+             android:layout_width="match_parent"
+             android:layout_height="48dp"
+             android:inputType="textEmailAddress"
+             android:hint="@string/hint_email"/>
+
+
+
+     </LinearLayout>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="48dp"
+         android:orientation="horizontal"
+         android:layout_marginTop="32dp"
+         android:layout_marginLeft="8dp"
+         android:layout_marginRight="32dp">
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@drawable/ic_key"
+             android:layout_gravity="center"
+             android:layout_marginLeft="16dp"
+             />
+
+
+         <EditText
+             android:id="@+id/et_password_signup"
+             android:layout_width="match_parent"
+             android:layout_height="48dp"
+             android:inputType="textPassword"
+             android:hint="@string/hint_password"/>
+
+
+
+     </LinearLayout>-->
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginRight="32dp"
+        app:cardBackgroundColor="@color/primary_color"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="@string/btn_continue"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@drawable/ic_google_24"
+        android:padding="8dp"
+        android:text="@string/acces_google"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
