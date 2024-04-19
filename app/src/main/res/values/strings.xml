@@ -28,6 +28,21 @@
     <string name="plan_de_entrenameiento">Plan de entrenameiento</string>
     <string name="categorias">Categorías:</string>
 
+    <!-- Campos del login y registro-->
+    <string name="nombre_app">Activiza</string>
+    <string name="signin">Sign In</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="acces_google">Acount Google</string>
+    <string name="reset_password">Forgot password?</string>
+    <string name="create_account">New user?</string>
+    <string name="register">Register</string>
+    <string name="signup">Sign Up</string>
+    <string name="content_description">a</string>
+    <string name="username">Username</string>
+    <string name="btn_continue">Continue</string>
+
+
 
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
 </resources>

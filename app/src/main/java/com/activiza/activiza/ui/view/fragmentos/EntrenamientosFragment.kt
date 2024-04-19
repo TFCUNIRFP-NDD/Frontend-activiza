@@ -88,7 +88,7 @@ class EntrenamientosFragment : Fragment() {
         }
     }
     private fun fragmentRutinaCompleta(id: Int) {
-        fragmentListener = HomeActivity()
+        //fragmentListener = HomeActivity()
         val rutinaIDFragment = RutinaIDFragment()
         fragmentListener.onClickChangeFragments(rutinaIDFragment)
     }
