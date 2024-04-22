@@ -16,7 +16,7 @@ class FragmentFunctions: OnFragmentActionsListener{
 
     override fun onClickChangeFragments(fragment: Fragment) {
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.flHomeActivity, fragment)
+        fragmentTransaction.replace(R.id.navHostFragment, fragment)
         fragmentTransaction.commit()
     }
 
