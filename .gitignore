@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> david
 *.iml
 .gradle
 /local.properties
@@ -14,6 +17,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+<<<<<<< HEAD
 =======
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -399,3 +403,5 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,java,django
 >>>>>>> origin/main
+=======
+>>>>>>> david
