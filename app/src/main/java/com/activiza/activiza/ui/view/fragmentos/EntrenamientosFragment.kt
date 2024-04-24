@@ -91,6 +91,7 @@ class EntrenamientosFragment : Fragment() {
             } catch (e: IOException) {
                 // Manejar el error al realizar la solicitud HTTP
                 Log.e("Error", "Error al realizar la solicitud HTTP: ${e.message}")
+                anadirDatosRetrofit()
             } finally {
                 // Ocultar el progressBar después de cargar los datos o manejar el error
                 binding.pbCargaRutina.visibility = View.GONE
