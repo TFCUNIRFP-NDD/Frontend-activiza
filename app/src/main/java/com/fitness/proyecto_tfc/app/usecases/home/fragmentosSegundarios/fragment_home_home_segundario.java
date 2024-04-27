@@ -4,12 +4,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 import com.fitness.proyecto_tfc.R;
 import com.fitness.proyecto_tfc.app.model.clases.Entrenamiento;
 import com.fitness.proyecto_tfc.app.usecases.home.CustomAdapter;
+import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmento_home_con_entrenamiento.fragment_home_training;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -35,6 +40,8 @@ public class fragment_home_home_segundario extends Fragment {
     private TextView objetivoTextView;
     private TextView duracionTextView;
     private TextView categoriaTextView;
+    private TextView  textodisenorutinaTextView;
+    private ImageView imagenentrenamientofondoImage;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -69,6 +76,8 @@ public class fragment_home_home_segundario extends Fragment {
         objetivoTextView = view.findViewById(R.id.objetivo);
         duracionTextView = view.findViewById(R.id.duracion);
         categoriaTextView = view.findViewById(R.id.categoria);
+        textodisenorutinaTextView = view.findViewById(R.id.textoDisenoRutina);
+        imagenentrenamientofondoImage = view.findViewById(R.id.imagenEntrenamientoFondo);
 
         Entrenamiento entrenamiento = getDataFromDatabase(id);
         Toast.makeText(requireContext(), "ID de la rutina: " + id, Toast.LENGTH_SHORT).show();
@@ -77,6 +86,40 @@ public class fragment_home_home_segundario extends Fragment {
             duracionTextView.setText(String.valueOf("La duración de la rutina es de "+entrenamiento.getDuracion()+" días"));
             String resultado = TextUtils.join(", ", entrenamiento.getTipo());
             categoriaTextView.setText("Categoría: " + resultado);
+            textodisenorutinaTextView.setText((entrenamiento.getNombre()));
+            imagenentrenamientofondoImage.setImageResource(entrenamiento.getImagenId());
+            // Obtener una referencia al botón
+            Button disenoRutinaAmpliadaButton = view.findViewById(R.id.agregarRutina);
+
+            // Agregar un OnClickListener al botón
+            disenoRutinaAmpliadaButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Crear una instancia del nuevo fragmento
+                    fragment_home_training nuevoFragmento = new fragment_home_training();
+
+                    // Obtener el FragmentManager
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+                    // Iniciar una transacción de fragmento
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                    // Reemplazar el fragmento actual con el nuevo fragmento
+                    transaction.replace(R.id.fragment_container, nuevoFragmento);
+
+                    // Agregar la transacción a la pila de retroceso
+                    transaction.addToBackStack(null);
+
+                    // Elimina el fragmento actual del back stack
+                    fragmentManager.popBackStack();
+
+                    // Agrega la transacción a la pila de retroceso (opcional)
+                    transaction.addToBackStack(null);
+
+                    // Commit de la transacción
+                    transaction.commit();
+                }
+            });
         }
 
         return view;
