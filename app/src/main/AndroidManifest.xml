@@ -21,15 +21,7 @@
         <activity
             android:name=".ui.view.login.LoginActivity"
             android:exported="false" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.view.fragmentos.FeelsFragment"
-            android:exported="false" />
         <activity
             android:name=".ui.view.HomeActivity"
             android:exported="false" />
@@ -42,7 +34,7 @@
         <activity
             android:name=".ui.view.OnboardingActivity"
             android:exported="false" />
-        <!-- <activity
+         <activity
             android:name=".ui.view.splash.SplashActivity"
             android:exported="true">
            <intent-filter>
@@ -50,7 +42,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
     </application>
 
 </manifest>

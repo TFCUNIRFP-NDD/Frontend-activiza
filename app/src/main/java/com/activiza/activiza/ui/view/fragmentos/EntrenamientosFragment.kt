@@ -1,24 +1,21 @@
 package com.activiza.activiza.ui.view.fragmentos
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
 import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.domain.APIListener
-import com.activiza.activiza.domain.OnFragmentActionsListener
-import com.activiza.activiza.ui.view.HomeActivity
-import com.activiza.activiza.ui.viewmodel.FragmentFunctions
 import com.activiza.activiza.ui.viewmodel.RutinasAdapter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -29,12 +26,11 @@ import java.io.IOException
 class EntrenamientosFragment : Fragment() {
     private var _binding: FragmentEntrenamientosBinding? = null
     private val binding get() = _binding!!
-    lateinit var fragmentListener : OnFragmentActionsListener
 
     //cambiar la posicion de > < que hay pero hacia arriba y abajo por defecto esta abajo
     private var isArrowUp = false // Variable de estado
     private var genero:String = ""
-
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,39 +55,44 @@ class EntrenamientosFragment : Fragment() {
     }
 
     private fun anadirDatosRetrofit() {
-        //Iniciar el progressBar hasta que cargue los datos
+        val binding = _binding ?: return  // Verificar si _binding es nulo y salir de la función si lo es
+
+        // Iniciar el progressBar hasta que cargue los datos
         binding.pbCargaRutina.visibility = View.VISIBLE
-        GlobalScope.launch(Dispatchers.IO) {
+
+        // Utilizar el scope del ciclo de vida del fragmento para manejar las corrutinas
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val call = getRetrofit().create(APIListener::class.java)
-                    .getTodasRutinas()
-                    .execute()
+                // Realizar la solicitud HTTP en el hilo de fondo
+                val call = withContext(Dispatchers.IO) {
+                    getRetrofit().create(APIListener::class.java)
+                        .getTodasRutinas()
+                        .execute()
+                }
+
+                // Verificar si la respuesta no es nula
                 val rutinas = call.body()
                 if (rutinas != null) {
-                    withContext(Dispatchers.Main) {
-                        // Configurar RecyclerView
-                        val adapter = RutinasAdapter(rutinas) { rutinaId ->
-                            fragmentRutinaCompleta(rutinaId)
-                        }
-                        binding.rvRutinas.adapter = adapter
-                        binding.rvRutinas.layoutManager = LinearLayoutManager(requireContext())
-                        //Ocultar el progressBar en ocultar los datos
-                        binding.pbCargaRutina.visibility = View.GONE
+                    // Configurar el RecyclerView en el hilo principal
+                    binding.rvRutinas.adapter = RutinasAdapter(rutinas) { rutinaId ->
+                        findNavController().navigate(R.id.action_entrenamientosFragment_to_rutinaIDFragment)
                     }
+                    binding.rvRutinas.layoutManager = LinearLayoutManager(requireContext())
                 } else {
+                    // Manejar el caso donde la respuesta es nula
                     Log.e("Error", "La respuesta de la llamada Retrofit es nula")
                 }
             } catch (e: IOException) {
+                // Manejar el error al realizar la solicitud HTTP
                 Log.e("Error", "Error al realizar la solicitud HTTP: ${e.message}")
-                // Manejar el error según corresponda
+                anadirDatosRetrofit()
+            } finally {
+                // Ocultar el progressBar después de cargar los datos o manejar el error
+                binding.pbCargaRutina.visibility = View.GONE
             }
         }
     }
-    private fun fragmentRutinaCompleta(id: Int) {
-        //fragmentListener = HomeActivity()
-        val rutinaIDFragment = RutinaIDFragment()
-        fragmentListener.onClickChangeFragments(rutinaIDFragment)
-    }
+
 
     private fun inicializarEventos() {
         binding.ivArrow.setOnClickListener {

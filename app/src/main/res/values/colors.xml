@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
+    <color name="black">#242424</color>
+    <color name="white">#FFFFFF</color>
+    <color name="negroAzulado">#35424a</color>
+    <color name="oro">#ffbf00</color>
+    <color name="rojoClaro">#f85f6a</color>
+    <color name="grisClaro">#abb5be</color>
+    <color name="grisAzulado">#989eb1</color>
+    <color name="colorAnaranjado">#debb48</color>
+    <color name="azulTwitter">#1DA1F2</color>
+    <color name="azulFacebook">#3b5998</color>
+=======
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
@@ -9,4 +21,5 @@
     <color name="primary_color">#f85f6a</color>
     <color name="gray_dark">#666363</color>
     <color name="image_color">#163643</color>
+>>>>>>> david
 </resources>

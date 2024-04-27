@@ -11,7 +11,9 @@ import com.activiza.activiza.R
 import com.activiza.activiza.data.RutinaData
 import com.activiza.activiza.ui.view.fragmentos.RutinaIDFragment
 
-class RutinasAdapter(private val rutinas: List<RutinaData>, private val onItemClick: (Int) -> Unit)
+class RutinasAdapter(
+    private val rutinas: List<RutinaData>,
+    private val onItemClick: (Int) -> Unit,)
     : RecyclerView.Adapter<RutinasAdapter.RutinaViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RutinaViewHolder {
