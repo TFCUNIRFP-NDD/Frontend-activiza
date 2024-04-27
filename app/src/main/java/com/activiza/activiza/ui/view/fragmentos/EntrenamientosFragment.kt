@@ -1,27 +1,21 @@
 package com.activiza.activiza.ui.view.fragmentos
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
 import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.domain.APIListener
-import com.activiza.activiza.domain.OnFragmentActionsListener
-import com.activiza.activiza.ui.view.HomeActivity
-import com.activiza.activiza.ui.viewmodel.FragmentFunctions
 import com.activiza.activiza.ui.viewmodel.RutinasAdapter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -36,7 +30,7 @@ class EntrenamientosFragment : Fragment() {
     //cambiar la posicion de > < que hay pero hacia arriba y abajo por defecto esta abajo
     private var isArrowUp = false // Variable de estado
     private var genero:String = ""
-
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
