@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.usecases.home.fragmentosSegundarios.fragmento_dia_entrenamiento.fragment_dia_rutina">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Ejercicio"
+        android:textSize="20dp"
+        />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        >
+        <TextView
+            android:id="@+id/cardViewTextoEntrenamiento1_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1 dia de entrenamiento" />
+
+        <TextView
+            android:id="@+id/cardViewTextoEntrenamiento1_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:paddingLeft="20dp"
+            android:text="0%"
+            android:textColor="@color/rojoClaro"
+            android:textSize="20dp" />
+    </androidx.cardview.widget.CardView>
+    <ListView
+        android:id="@+id/listViewEjercicios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="70dp"
+         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:text="Comenzar Entrenamiento"
+        android:textSize="20dp" />
+
+</FrameLayout>

@@ -7,28 +7,29 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.fragment.app.ListFragment;
 
 import com.fitness.proyecto_tfc.app.usecases.home.fragmentosPrincipales.Home_fragment_home;
 import com.fitness.proyecto_tfc.app.usecases.home.fragmentosPrincipales.Home_fragment_reel;
 import com.fitness.proyecto_tfc.app.usecases.home.fragmentosPrincipales.Home_fragment_settings;
+import com.fitness.proyecto_tfc.app.usecases.home.fragmentosSegundarios.fragmento_home_con_entrenamiento.fragment_home_training;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.fitness.proyecto_tfc.R;
 
 
 public class Home extends AppCompatActivity {
-
+    HomeVerificacion verificacion = new HomeVerificacion();
+    boolean tieneentrenamiento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
+        // Aquí asignamos el valor correcto a tieneentrenamiento
+        tieneentrenamiento = HomeVerificacion.tieneentrenamiento;
 
-        /*BottomNavigationView navView = findViewById(R.id.nav_view_home);
-        navView.setSelectedItemId(R.id.action_home);
-        ControladorHome navigationController = new ControladorHome(this);
-        navView.setOnItemSelectedListener(navigationController);*/
+        //LLamamos al principio de crear el fragmento al fragmento 1
+        cambiarFragmento(1);
 
         BottomNavigationView navView = findViewById(R.id.nav_view_home);
         navView.setOnItemSelectedListener(item -> {
@@ -56,7 +57,11 @@ public class Home extends AppCompatActivity {
 
         switch (opcion) {
             case 1:
-                fragment = new Home_fragment_home();
+                if(tieneentrenamiento){
+                    fragment = new fragment_home_training();
+                }else {
+                    fragment = new Home_fragment_home();
+                }
                 break;
             case 2:
                 fragment = new Home_fragment_reel();
@@ -66,7 +71,11 @@ public class Home extends AppCompatActivity {
                 break;
             default:
                 // Fragmento predeterminado, si no se selecciona ninguna opción válida
-                fragment = new Home_fragment_home();
+                if(tieneentrenamiento){
+                    fragment = new fragment_home_training();
+                }else {
+                    fragment = new Home_fragment_home();
+                }
                 break;
         }
 
