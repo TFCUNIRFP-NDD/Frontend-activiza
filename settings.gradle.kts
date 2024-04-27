@@ -13,6 +13,10 @@ dependencyResolutionManagement {
     }
 }
 
+<<<<<<< HEAD
 rootProject.name = "Proyecto_TFC"
+=======
+rootProject.name = "Activiza"
+>>>>>>> david
 include(":app")
  
