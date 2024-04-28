@@ -4,5 +4,9 @@ plugins {
 <<<<<<< HEAD
 =======
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
+<<<<<<< HEAD
 >>>>>>> david
+=======
+    id("androidx.navigation.safeargs.kotlin") version "2.7.1" apply false
+>>>>>>> master
 }

@@ -7,6 +7,7 @@ data class RutinaData(
     @SerializedName("nombre") var nombre:String,
     @SerializedName("tipo") var tipo:String,
     @SerializedName("descripcion") var descripcion:String,
-    //@SerializedName("entrenador") var entrenador:Int,
-    @SerializedName("ejercicios") var ejercicios:List<EjerciciosData>
+    @SerializedName("entrenador") var entrenador:String,
+    @SerializedName("ejercicios") var ejercicios:List<EjerciciosData>,
+    @SerializedName("media") var media:String
 )

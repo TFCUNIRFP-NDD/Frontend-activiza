@@ -39,7 +39,7 @@
     <string name="rutinas_hombre">RUTINAS HOMBRE</string>
 
     <!-- Campos del fragmento de la rutina pantalla de rutina -->
-    <string name="plan_de_entrenameiento">Plan de entrenameiento</string>
+    <string name="plan_de_entrenamiento">Plan de entrenamiento</string>
     <string name="categorias">Categorías:</string>
 
     <!-- Campos del login y registro-->
@@ -58,5 +58,10 @@
 
 
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
+<<<<<<< HEAD
 >>>>>>> david
+=======
+    <string name="agregar">Agregar</string>
+    <string name="panel_de_control">Panel de control</string>
+>>>>>>> master
 </resources>
