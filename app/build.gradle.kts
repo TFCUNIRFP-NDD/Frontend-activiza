@@ -4,6 +4,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
+
 android {
     namespace = "com.activiza.activiza"
     compileSdk = 34
