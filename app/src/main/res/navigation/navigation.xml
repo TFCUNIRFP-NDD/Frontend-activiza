@@ -18,7 +18,12 @@ app:startDestination="@id/entrenamientosFragment">
     android:id="@+id/rutinaIDFragment"
     android:name="com.activiza.activiza.ui.view.fragmentos.RutinaIDFragment"
     android:label="fragment_rutina_id"
-    tools:layout="@layout/fragment_rutina_id" />
+    tools:layout="@layout/fragment_rutina_id" >
+    <argument
+        android:name="id"
+        app:argType="integer"
+        android:defaultValue="0" />
+</fragment>
 <fragment
     android:id="@+id/feelsFragment"
     android:name="com.activiza.activiza.ui.view.fragmentos.FeelsFragment"

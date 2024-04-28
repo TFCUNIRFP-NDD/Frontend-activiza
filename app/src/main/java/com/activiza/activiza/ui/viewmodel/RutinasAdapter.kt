@@ -4,12 +4,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.activiza.activiza.R
 import com.activiza.activiza.data.RutinaData
 import com.activiza.activiza.ui.view.fragmentos.RutinaIDFragment
+import com.squareup.picasso.Picasso
 
 class RutinasAdapter(
     private val rutinas: List<RutinaData>,
@@ -35,10 +37,15 @@ class RutinasAdapter(
 
     inner class RutinaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nombreRutina: TextView = itemView.findViewById(R.id.tvNameItemRutina)
+        private val imagenRutina: ImageView = itemView.findViewById(R.id.ivBackgroundItemRutina)
 
         fun bind(rutina: RutinaData) {
             nombreRutina.text = rutina.nombre
+            deUrlAImageView(rutina.media,imagenRutina)
         }
+    }
+    fun deUrlAImageView(url:String, imageView:ImageView){
+        Picasso.get().load(url).into(imageView)
     }
 
 }

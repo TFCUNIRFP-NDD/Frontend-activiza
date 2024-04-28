@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.databinding.ActivityHomeBinding
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.view.fragmentos.EntrenamientosFragment
 import com.activiza.activiza.ui.view.fragmentos.FeelsFragment
 import com.activiza.activiza.ui.view.fragmentos.SettingsFragment
@@ -15,6 +16,7 @@ import com.activiza.activiza.ui.view.fragmentos.SettingsFragment
 class HomeActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityHomeBinding
+    lateinit var ActivizaDataBaseHelper:ActivizaDataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun inicializarVariables() {
-
+        ActivizaDataBaseHelper = ActivizaDataBaseHelper(this)
     }
 
     private fun addEvents() {

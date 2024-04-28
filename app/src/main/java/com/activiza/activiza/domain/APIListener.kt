@@ -23,7 +23,7 @@ interface APIListener {
     fun getTodasRutinas(): Call<List<RutinaData>>
 
     @GET("rutina/{rutina}")
-    fun getRutina(@Path("rutina") rutina:String): Call<RutinaData>
+    fun getRutina(@Path("rutina") rutina:Int): Call<RutinaData>
 
     @POST("api-token-auth/")
     fun authenticate(@Body authData: AuthData): Call<TokenResponse>

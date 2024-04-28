@@ -18,7 +18,7 @@
             android:gravity="center"
             android:textSize="30sp"
             android:layout_marginVertical="20dp"
-            android:text="@string/plan_de_entrenameiento"
+            android:text="@string/plan_de_entrenamiento"
             />
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:id="@+id/ivRutinaItem"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/ic_prueba_fondo"
+            tools:src="@drawable/ic_prueba_fondo"
             android:scaleType="centerCrop"
             android:alpha="0.5"
             />
@@ -88,6 +88,17 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_line"
+            />
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="300dp"
+            android:layout_marginTop="40dp"
+            android:padding="15dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/agregar"
+            android:textAllCaps="true"
             />
     </LinearLayout>
 </FrameLayout>

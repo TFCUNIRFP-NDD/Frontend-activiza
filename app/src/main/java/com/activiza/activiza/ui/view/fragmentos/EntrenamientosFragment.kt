@@ -75,7 +75,9 @@ class EntrenamientosFragment : Fragment() {
                 if (rutinas != null) {
                     // Configurar el RecyclerView en el hilo principal
                     binding.rvRutinas.adapter = RutinasAdapter(rutinas) { rutinaId ->
-                        findNavController().navigate(R.id.action_entrenamientosFragment_to_rutinaIDFragment)
+                        findNavController().navigate(EntrenamientosFragmentDirections.actionEntrenamientosFragmentToRutinaIDFragment(
+                            id = rutinaId
+                        ))
                     }
                     binding.rvRutinas.layoutManager = LinearLayoutManager(requireContext())
                 } else {

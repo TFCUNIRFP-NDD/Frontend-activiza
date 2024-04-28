@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -40,7 +41,11 @@ android {
 
 dependencies {
 
+    val picasso_version = "2.71828"
     val navVersion = "2.7.0"
+    //Picasso
+    implementation ("com.squareup.picasso:picasso:$picasso_version")
+
     //Navegación entre fragmentos
     implementation ("androidx.navigation:navigation-fragment-ktx:$$navVersion")
     implementation ("androidx.navigation:navigation-ui-ktx:$$navVersion")
