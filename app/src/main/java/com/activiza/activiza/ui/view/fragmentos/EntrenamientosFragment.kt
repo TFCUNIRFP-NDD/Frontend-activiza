@@ -12,8 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
+import com.activiza.activiza.data.RutinaData
 import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.domain.APIListener
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.viewmodel.RutinasAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +32,8 @@ class EntrenamientosFragment : Fragment() {
     //cambiar la posicion de > < que hay pero hacia arriba y abajo por defecto esta abajo
     private var isArrowUp = false // Variable de estado
     private var genero:String = ""
-    private lateinit var navController: NavController
+    lateinit var db: ActivizaDataBaseHelper
+    var rutina: RutinaData? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,8 +45,20 @@ class EntrenamientosFragment : Fragment() {
     }
 
     private fun initUI() {
+        mostrarPanelDeControl()
         inicializarVariables()
         inicializarEventos()
+    }
+
+    private fun mostrarPanelDeControl() {
+        db = ActivizaDataBaseHelper(binding.tvRutinaName.context)
+        rutina = db.obtenerPrimeraRutina()
+        if(rutina != null){
+            binding.hsvSubMenu.visibility = View.VISIBLE
+            binding.btnPanelDeControl.setOnClickListener {
+                findNavController().navigate(R.id.action_entrenamientosFragment_to_panelDeControlFragment)
+            }
+        }
     }
 
     private fun inicializarVariables() {

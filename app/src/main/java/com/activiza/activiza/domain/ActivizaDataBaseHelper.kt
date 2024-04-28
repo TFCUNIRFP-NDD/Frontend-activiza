@@ -111,4 +111,28 @@ class ActivizaDataBaseHelper(context:Context) :
         val borrarRutinasQuery = "DELETE FROM $TABLE_NAME_RUTINAS"
         db?.execSQL(borrarRutinasQuery)
     }
+    fun obtenerPrimeraRutina(): RutinaData? {
+        var rutina: RutinaData? = null
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_RUTINAS LIMIT 1"
+        val cursor = db.rawQuery(query, null)
+        cursor.use {
+            if (it.moveToFirst()) {
+                val id = it.getInt(it.getColumnIndexOrThrow(COLUMN_ID))
+                val nombre = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+                val entrenador = it.getString(it.getColumnIndexOrThrow(COLUMN_ENTRENADOR))
+                val tipo = it.getString(it.getColumnIndexOrThrow(COLUMN_TIPO))
+                val descripcion = it.getString(it.getColumnIndexOrThrow(COLUMN_DESCRIPCION))
+                val media = it.getString(it.getColumnIndexOrThrow(COLUMN_MEDIA))
+
+                // Aquí debes manejar la lista de ejercicios, dependiendo de cómo estén almacenados en la base de datos
+
+                rutina = RutinaData(id, nombre, tipo, descripcion, entrenador, listOf(), media)
+            }else{
+                null //si no se encuentra ningún dato, devuelve null
+            }
+        }
+        db.close()
+        return rutina
+    }
 }

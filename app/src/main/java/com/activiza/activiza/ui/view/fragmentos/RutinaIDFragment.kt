@@ -97,7 +97,7 @@ class RutinaIDFragment : Fragment() {
                 var ejercicio:EjerciciosData = EjerciciosData(it.id,it.nombre,it.descripcion,it.repeticiones,it.duracion,it.descanso,it.media)
                 db.insertEjercicio(ejercicio,rutina.id)
             }
-
+            findNavController().navigate(R.id.action_rutinaIDFragment_to_panelDeControlFragment)
         }
     }
 
