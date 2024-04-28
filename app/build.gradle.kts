@@ -21,7 +21,6 @@ android {
 
     defaultConfig {
         applicationId = "com.activiza.activiza"
->>>>>>> david
         minSdk = 24
         targetSdk = 34
         versionCode = 1
