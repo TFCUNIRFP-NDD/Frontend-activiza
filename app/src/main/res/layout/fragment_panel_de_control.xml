@@ -48,6 +48,13 @@
                 android:text="@string/entrenamientos"
                 android:layout_marginStart="10dp"
                 />
+            <Button
+                android:id="@+id/btnEliminarRutina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eliminar_rutina"
+                android:layout_marginStart="10dp"
+                />
         </LinearLayout>
         </HorizontalScrollView>
         <androidx.cardview.widget.CardView
@@ -82,7 +89,6 @@
                 tools:text="Nombre de la rutina"
                 />
         </androidx.cardview.widget.CardView>
-
         <TextView
             android:id="@+id/tvDescripcionPanelDeControl"
             android:layout_width="match_parent"
@@ -98,11 +104,33 @@
             android:text="@string/siguiente_entrenamiento"
             android:layout_marginHorizontal="20dp"
             />
-        <CalendarView
-            android:id="@+id/cvCalendario"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="400dp"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textViewMonthYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"/>
+
+            <GridView
+                android:id="@+id/gridViewCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewMonthYear"
+                android:numColumns="7"
+                android:stretchMode="columnWidth"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
+
+        </RelativeLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -46,6 +46,13 @@
                     android:text="@string/entrenamientos"
                     android:layout_marginStart="10dp"
                     />
+                <Button
+                    android:id="@+id/btnEliminarRutina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eliminar_rutina"
+                    android:layout_marginStart="10dp"
+                    />
             </LinearLayout>
         </HorizontalScrollView>
         <LinearLayout

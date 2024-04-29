@@ -58,6 +58,10 @@ class EntrenamientosFragment : Fragment() {
             binding.btnPanelDeControl.setOnClickListener {
                 findNavController().navigate(R.id.action_entrenamientosFragment_to_panelDeControlFragment)
             }
+            binding.btnEliminarRutina.setOnClickListener {
+                db.borrarEjerciciosYRutinas()
+                binding.hsvSubMenu.visibility = View.GONE
+            }
         }
     }
 

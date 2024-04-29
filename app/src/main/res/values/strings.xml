@@ -47,4 +47,5 @@
     <string name="agregar">Agregar</string>
     <string name="panel_de_control">Panel de control</string>
     <string name="siguiente_entrenamiento">Siguiente entrenamiento:</string>
+    <string name="eliminar_rutina">Eliminar rutina</string>
 </resources>
