@@ -132,10 +132,11 @@
 
         </RelativeLayout>
         <Button
+            android:id="@+id/btnComenzarEntrenamiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Comenzar Entrenamiento"
+            android:text="@string/comenzar_entrenamiento"
             />
     </LinearLayout>
 

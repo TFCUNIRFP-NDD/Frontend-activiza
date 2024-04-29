@@ -48,4 +48,7 @@
     <string name="panel_de_control">Panel de control</string>
     <string name="siguiente_entrenamiento">Siguiente entrenamiento:</string>
     <string name="eliminar_rutina">Eliminar rutina</string>
+    <string name="comenzar_entrenamiento">Comenzar Entrenamiento</string>
+    <string name="no_tienes_cuenta">¿Aún no tienes cuenta?</string>
+    <string name="google">Google</string>
 </resources>

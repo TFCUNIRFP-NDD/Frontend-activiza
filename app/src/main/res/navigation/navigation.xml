@@ -50,5 +50,13 @@ app:startDestination="@id/entrenamientosFragment">
         <action
             android:id="@+id/action_panelDeControlFragment_to_entrenamientosFragment"
             app:destination="@id/entrenamientosFragment" />
+        <action
+            android:id="@+id/action_panelDeControlFragment_to_comenzarEntrenamientoFragment"
+            app:destination="@id/comenzarEntrenamientoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/comenzarEntrenamientoFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.ComenzarEntrenamientoFragment"
+        android:label="fragment_comenzar_entrenamiento"
+        tools:layout="@layout/fragment_comenzar_entrenamiento" />
 </navigation>

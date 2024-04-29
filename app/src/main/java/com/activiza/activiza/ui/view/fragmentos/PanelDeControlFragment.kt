@@ -144,6 +144,9 @@ class PanelDeControlFragment : Fragment() {
             db.borrarEjerciciosYRutinas()
             findNavController().navigate(R.id.action_panelDeControlFragment_to_entrenamientosFragment)
         }
+        binding.btnComenzarEntrenamiento.setOnClickListener {
+            findNavController().navigate(R.id.action_panelDeControlFragment_to_comenzarEntrenamientoFragment)
+        }
     }
 
     private fun pintarDatos() {

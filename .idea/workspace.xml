@@ -10,6 +10,16 @@
           <theme>@style/Theme.Activiza</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+        <config>
+          <theme>@style/Theme.Activiza</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_comenzar_entrenamiento.xml">
+        <config>
+          <theme>@style/Theme.Activiza</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_entrenamientos.xml">
         <config>
           <theme>@style/Theme.Activiza</theme>
@@ -41,19 +51,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Se a realizado cambios en la navegacion y se a añadido panel de control y logica que hace que si tienes una rutina aparezca un menu arriba en el cual podras acceder a tu panel de control">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/selector_current_day_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/grid_item_day.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.main.iml" afterDir="false" />
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Se a creado un diseño de calendario personalizado que pinta los dias en gris hasta el dia actual que lo pinta de color rojo y los dias posteriores los pinta transparente">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_google_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_comenzar_entrenamiento.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PanelDeControlFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PanelDeControlFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_entrenamientos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_entrenamientos.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_google_24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_panel_de_control.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_panel_de_control.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,11 +232,20 @@
       <option name="project" value="LOCAL" />
       <updated>1714339573249</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Se a creado un diseño de calendario personalizado que pinta los dias en gris hasta el dia actual que lo pinta de color rojo y los dias posteriores los pinta transparente">
+      <option name="closed" value="true" />
+      <created>1714424680956</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714424680956</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se a realizado cambios en la navegacion y se a añadido panel de control y logica que hace que si tienes una rutina aparezca un menu arriba en el cual podras acceder a tu panel de control" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se a realizado cambios en la navegacion y se a añadido panel de control y logica que hace que si tienes una rutina aparezca un menu arriba en el cual podras acceder a tu panel de control" />
+    <MESSAGE value="Se a creado un diseño de calendario personalizado que pinta los dias en gris hasta el dia actual que lo pinta de color rojo y los dias posteriores los pinta transparente" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se a creado un diseño de calendario personalizado que pinta los dias en gris hasta el dia actual que lo pinta de color rojo y los dias posteriores los pinta transparente" />
   </component>
 </project>
