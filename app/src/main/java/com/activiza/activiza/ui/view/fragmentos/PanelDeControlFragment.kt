@@ -101,9 +101,13 @@ class PanelDeControlFragment : Fragment() {
                 // Cambia el color de fondo de los días anteriores al día actual
                 if (position < currentDayIndex) {
                     view.setBackgroundColor(Color.GRAY) // Cambia el color a tu elección
-                } else if (position == currentDayIndex)
-                    view.setBackgroundResource(R.color.splash_background)
-                    else {
+                } else if (position == currentDayIndex) {
+                    if(db.obtenerEstadoDeRutina(rutina.id,obtenerFechaActual())){
+                        view.setBackgroundResource(R.color.green)
+                    }else {
+                        view.setBackgroundResource(R.color.splash_background)
+                    }
+                }else {
                         // Restablece el color de fondo para los días posteriores o iguales al día actual
                         view.setBackgroundColor(Color.TRANSPARENT) // Cambia el color a tu elección
                     }
@@ -161,6 +165,11 @@ class PanelDeControlFragment : Fragment() {
     private fun recogerRutina() {
         db = ActivizaDataBaseHelper(binding.tvDescripcionPanelDeControl.context)
         rutina = db.obtenerPrimeraRutina()!!
+    }
+    fun obtenerFechaActual(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
     }
 
     override fun onDestroyView() {

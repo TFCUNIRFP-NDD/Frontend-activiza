@@ -1,11 +1,16 @@
 package com.activiza.activiza.domain
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.RutinaData
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ActivizaDataBaseHelper(context:Context) :
     SQLiteOpenHelper(context, DATABASENAME, null, DATABASE_VERSION){
@@ -33,6 +38,13 @@ class ActivizaDataBaseHelper(context:Context) :
             private const val COLUMN_DESCANSO = "descanso"
             //private const val COLUMN_MEDIA = "media"
 
+            //create entrenamiento
+            //private const val COLUMN_ID = "id"
+            private const val TABLE_NAME_ENTRENAMIENTOS = "entrenamiento"
+            private const val COLUMN_ID_EJERCICIO = "id_ejercicio"
+            private const val COLUMN_FECHA = "fecha"
+            private const val COLUMN_COMPLETADO = "completado"
+
         }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -59,16 +71,25 @@ class ActivizaDataBaseHelper(context:Context) :
                 "$COLUMN_MEDIA VARCHAR(255)," +
                 "FOREIGN KEY($COLUMN_NAME) REFERENCES $TABLE_NAME_RUTINAS($COLUMN_NAME) ON DELETE CASCADE)"
         db?.execSQL(createEjercicios)
+
+        //Crear la tabla para los entrenamientos
+        val createEntrenamientosTable = ("CREATE TABLE $TABLE_NAME_ENTRENAMIENTOS (" +
+                "$COLUMN_ID INTEGER PRIMARY KEY," +
+                "$COLUMN_ID_EJERCICIO INTEGER," +
+                "$COLUMN_FECHA DATE," +
+                "$COLUMN_COMPLETADO INTEGER," +
+                "FOREIGN KEY($COLUMN_ID_EJERCICIO) REFERENCES $TABLE_NAME_EJERCICIOS($COLUMN_ID) ON DELETE CASCADE)")
+        db?.execSQL(createEntrenamientosTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        /*
         val dropTableQuery = "DROP TABLE IF EXISTS $TABLE_NAME_RUTINAS"
         db?.execSQL(dropTableQuery)
         val dropTableQueryTableQuery = "DROP TABLE IF EXISTS $TABLE_NAME_EJERCICIOS"
         db?.execSQL(dropTableQueryTableQuery)
+        val dropTableQueryEntrenamientos = "DROP TABLE IF EXISTS $TABLE_NAME_ENTRENAMIENTOS"
+        db?.execSQL(dropTableQueryEntrenamientos)
         onCreate(db)
-        */
     }
     fun insertRutina(rutinas: RutinaData) {
         val db = writableDatabase
@@ -99,7 +120,21 @@ class ActivizaDataBaseHelper(context:Context) :
             put(COLUMN_MEDIA, ejercicio.media)
         }
         db.insert(TABLE_NAME_EJERCICIOS, null, values)
+
+        // Inserta automáticamente un entrenamiento asociado con el estado de completitud inicializado en 0 (no completado)
+        val entrenamientoValues = ContentValues().apply {
+            put(COLUMN_ID_EJERCICIO, ejercicio.id)
+            put(COLUMN_FECHA, obtenerFechaActual()) // Puedes definir una función para obtener la fecha actual
+            put(COLUMN_COMPLETADO, 0) // 0 representa "no completado"
+        }
+        db.insert(TABLE_NAME_ENTRENAMIENTOS, null, entrenamientoValues)
+
         db.close()
+    }
+    fun obtenerFechaActual(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
     }
     fun borrarEjerciciosYRutinas() {
         val db = writableDatabase
@@ -134,5 +169,90 @@ class ActivizaDataBaseHelper(context:Context) :
         }
         db.close()
         return rutina
+    }
+    fun getEjercicio(id:Int): EjerciciosData? {
+        var ejercicio: EjerciciosData? = null
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_EJERCICIOS where id = $id"
+        val cursor = db.rawQuery(query, null)
+        cursor.use {
+            if (it.moveToFirst()) {
+                val id = it.getInt(it.getColumnIndexOrThrow(COLUMN_ID))
+                val nombre = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+                val descripcion = it.getString(it.getColumnIndexOrThrow(COLUMN_DESCRIPCION))
+                val repeticiones = it.getInt(it.getColumnIndexOrThrow(COLUMN_REPETICIONES))
+                val duracion = it.getInt(it.getColumnIndexOrThrow(COLUMN_DURACION))
+                val descanso = it.getInt(it.getColumnIndexOrThrow(COLUMN_DESCANSO))
+                val media = it.getString(it.getColumnIndexOrThrow(COLUMN_MEDIA))
+
+                // Aquí debes manejar la lista de ejercicios, dependiendo de cómo estén almacenados en la base de datos
+
+                ejercicio = EjerciciosData(id, nombre, descripcion, repeticiones, duracion, descanso, media)
+            }else{
+                null //si no se encuentra ningún dato, devuelve null
+            }
+        }
+        db.close()
+        return ejercicio
+    }
+    @SuppressLint("Range")
+    fun getEjerciciosDeRutina(rutinaId: Int): ArrayList<EjerciciosData> {
+        val ejerciciosList = ArrayList<EjerciciosData>()
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID_RUTINA = $rutinaId"
+        val cursor = db.rawQuery(query, null)
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                do {
+                    val id = cursor.getInt(it.getColumnIndex(COLUMN_ID))
+                    val nombre = cursor.getString(it.getColumnIndex(COLUMN_NAME))
+                    val descripcion = cursor.getString(it.getColumnIndex(COLUMN_DESCRIPCION))
+                    val repeticiones = cursor.getInt(it.getColumnIndex(COLUMN_REPETICIONES))
+                    val duracion = cursor.getInt(it.getColumnIndex(COLUMN_DURACION))
+                    val descanso = cursor.getInt(it.getColumnIndex(COLUMN_DESCANSO))
+                    val media = cursor.getString(it.getColumnIndex(COLUMN_MEDIA))
+                    val ejercicio = EjerciciosData(id, nombre , descripcion, repeticiones, duracion, descanso, media)
+                    ejerciciosList.add(ejercicio)
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
+        }
+        db.close()
+        return ejerciciosList
+    }
+    fun marcarEntrenamientoComoCompletado(entrenamientoId: Int, fecha: String) {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_COMPLETADO, 1) // 1 representa "completado"
+        }
+        db.update(TABLE_NAME_ENTRENAMIENTOS, values, "$COLUMN_ID = ? AND $COLUMN_FECHA = ?", arrayOf(entrenamientoId.toString(), fecha))
+        db.close()
+    }
+    @SuppressLint("Range")
+    fun obtenerEstadoDeRutina(rutinaId: Int, fecha: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_RUTINAS WHERE $COLUMN_ID = $rutinaId"
+        val cursor = db.rawQuery(query, null)
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                do {
+                    val rutinaId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+                    val completado = obtenerEstadoDeEntrenamiento(rutinaId, fecha)
+                    if (!completado) {
+                        return false // Si un entrenamiento no está completado, la rutina no está completa
+                    }
+                } while (cursor.moveToNext())
+            }
+            return true // Si todos los entrenamientos están completados, la rutina está completa
+        }
+    }
+    fun obtenerEstadoDeEntrenamiento(entrenamientoId: Int, fecha: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID_EJERCICIO = $entrenamientoId AND $COLUMN_FECHA = '$fecha' AND $COLUMN_COMPLETADO = 1"
+        val cursor = db.rawQuery(query, null)
+        val completado = cursor.count > 0
+        cursor.close()
+        db.close()
+        return completado
     }
 }

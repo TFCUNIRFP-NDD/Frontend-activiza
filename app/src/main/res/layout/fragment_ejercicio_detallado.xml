@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.view.fragmentos.EjercicioDetalladoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/ejercicio"
+            android:gravity="center"
+            android:layout_marginVertical="20dp"
+            />
+        <ImageView
+            android:id="@+id/ivImagenDetalladaEjercicio"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            tools:background="@drawable/ic_prueba_fondo"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            >
+        <TextView
+            android:id="@+id/tvTituloEjercicioDetallado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            tools:text="Cinta de correr"
+            />
+        <TextView
+            android:id="@+id/tvDescripcionEjercicioDetallado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            tools:text="Tiempo recomendado 8min, 110 - 140 lpm"
+            />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom|left"
+            >
+            <FrameLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <!-- Imagen -->
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circle" />
+
+                <!-- Texto -->
+                <TextView
+                    android:id="@+id/tvRepeticionesCircle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/no"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    /> <!-- Color del texto -->
+
+            </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/repeticiones"
+                />
+        </LinearLayout>
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Imagen -->
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/circle" />
+
+            <!-- Texto -->
+            <TextView
+                android:id="@+id/tvDescansoCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="30"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                /> <!-- Color del texto -->
+
+            <ImageView
+                android:id="@+id/ivDescansoCircle"
+                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/lock_circle"
+                android:visibility="invisible"
+                />
+        </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/descanso"
+            android:textAlignment="center"
+            />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            >
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <!-- Imagen -->
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circle" />
+
+                <!-- Texto -->
+                <TextView
+                    android:id="@+id/tvMinutosCircle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0/8"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    /> <!-- Color del texto -->
+
+            </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/minutos"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+        <Button
+            android:id="@+id/btnCompletar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/completar"
+            android:paddingTop="15dp"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingBottom="15dp"
+            />
+    </LinearLayout>
+
+</ScrollView>
