@@ -4,24 +4,32 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.view.MotionEvent
 import android.widget.Toast
-import com.activiza.activiza.R
+import com.activiza.activiza.data.RegisterRequest
+import com.activiza.activiza.data.RegisterResponse
+import com.activiza.activiza.data.SessionManager
 import com.activiza.activiza.databinding.ActivityRegisterBinding
+import com.activiza.activiza.domain.ApiClient
 import com.activiza.activiza.ui.view.OnboardingActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var apiClient: ApiClient
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        apiClient = ApiClient()
+        sessionManager = SessionManager(this)
 
-
-        ////Funcionalidad al clickar en las cajas de email, password y nombre
+        //Funcionalidad al clickar en las cajas de email, password y nombre
         binding.etEmailSignup.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 validateEmailFormat()
@@ -47,47 +55,54 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        //Funcionalidad boton Login
+        ///Funcionalidad boton Register
         binding.btnRegister.setOnClickListener {
-            val nameNotEmpty = binding.etNameSignup.text.toString().isNotEmpty()
-            val emailNotEmpty = binding.etEmailSignup.text.toString().isNotEmpty()
-            val passwordNotEmpty = binding.etPasswordSignup.text.toString().isNotEmpty()
-            val validEmailFormat =
-                Patterns.EMAIL_ADDRESS.matcher(binding.etEmailSignup.text.toString()).matches()
+            val name = binding.etNameSignup.text.toString()
+            val email = binding.etEmailSignup.text.toString()
+            val password = binding.etPasswordSignup.text.toString()
+            val validEmailFormat = Patterns.EMAIL_ADDRESS.matcher(email).matches()
             val validPasswordFormat = "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!]).*$".toRegex()
 
+            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                if (validEmailFormat && validPasswordFormat.matches(password)) {
+                    val registerRequest = RegisterRequest(name, email, password)
+                    apiClient.getApiServiceRegister().register(registerRequest)
+                        .enqueue(object : Callback<RegisterResponse> {
+                            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                                // Manejar el error al registrar
+                                Toast.makeText(applicationContext, "Error al registrar", Toast.LENGTH_SHORT).show()
+                            }
 
+                            override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
+                                val registerResponse = response.body()
 
-            when {
-                nameNotEmpty && emailNotEmpty && passwordNotEmpty -> {
-                    if (validEmailFormat && validPasswordFormat.matches(binding.etPasswordSignup.text.toString())) {
-                        intent = Intent(this, OnboardingActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        if (!validEmailFormat) {
-                            Toast.makeText(
-                                this,
-                                "Por favor, introduce un email válido",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        if (!validPasswordFormat.matches(binding.etPasswordSignup.text.toString())) {
-                            Toast.makeText(
-                                this,
-                                "Por favor, introduce una contraseña válida",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                                // Verificar si la respuesta es exitosa y guardar el token de autenticación
+                                if (registerResponse != null && registerResponse.statusCode == 200) {
+                                    sessionManager.saveAuthToken(registerResponse.token)
+
+                                    // Registro exitoso, redirigir a la actividad principal
+                                    val intent = Intent(this@RegisterActivity, OnboardingActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    // Error al registrar
+                                    Toast.makeText(applicationContext, "Error al registrar: ${registerResponse?.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        })
+                } else {
+                    if (!validEmailFormat) {
+                        Toast.makeText(this, "Por favor, introduce un email válido", Toast.LENGTH_SHORT).show()
+                    }
+                    if (!validPasswordFormat.matches(password)) {
+                        Toast.makeText(this, "Por favor, introduce una contraseña válida", Toast.LENGTH_SHORT).show()
                     }
                 }
-
-                else -> {
-                    Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT)
-                        .show()
-                }
+            } else {
+                Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
     }
