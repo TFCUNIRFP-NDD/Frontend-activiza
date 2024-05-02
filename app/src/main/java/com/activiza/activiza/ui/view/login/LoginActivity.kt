@@ -5,73 +5,91 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import com.activiza.activiza.R
+import com.activiza.activiza.data.AuthData
+import com.activiza.activiza.data.TokenResponse
 import com.activiza.activiza.databinding.ActivityLoginBinding
-import com.activiza.activiza.ui.view.HomeActivity
+import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.ui.view.OnboardingActivity
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var apiService: APIListener // Asegúrate de tener la interfaz APIService definida en tu código
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Funcionalidad al clickar en las cajas de email y password
-        binding.etEmail.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                if(validateEmailFormat()){
-                    val intent = Intent(this, OnboardingActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                }
-            }
-        }
+        // Configuración de Retrofit
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://34.163.215.184/activiza/") // Reemplaza con la URL base de tu API
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        binding.etPassword.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
+        apiService = retrofit.create(APIListener::class.java)
 
-            }
-        }
-
-        //Funcionalidad boton Login
+        // Funcionalidad al hacer clic en el botón Login
         binding.btnLogin.setOnClickListener {
             val emailNotEmpty = binding.etEmail.text.toString().isNotEmpty()
-            val validEmailFormat = Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()
             val passwordNotEmpty = binding.etPassword.text.toString().isNotEmpty()
 
             when {
-                emailNotEmpty && validEmailFormat && passwordNotEmpty -> {
-                    val intent = Intent(this, OnboardingActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                emailNotEmpty && passwordNotEmpty -> {
+                    // Si todos los campos están llenos y el formato de correo electrónico es válido, intentamos autenticar al usuario
+                    val authData = AuthData(
+                        binding.etEmail.text.toString(),
+                        binding.etPassword.text.toString()
+                    )
+                    authenticateUser(authData)
                 }
                 else -> {
+                    // Si falta algún campo o el formato de correo electrónico no es válido, mostramos un mensaje de error
                     Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-
+        // Funcionalidad al hacer clic en el enlace para registrarse
         binding.tvRegister.setOnClickListener {
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
     }
 
-    //Valida si el formato de email es correcto
-    private fun validateEmailFormat(): Boolean {
-        val validEmailFormat =
-            Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()
-        if (!validEmailFormat) {
-            binding.tiEmail.error = "Por favor, introduce un email válido"
-        } else {
-            binding.tiEmail.error = null
-        }
-        return validEmailFormat
+    private fun authenticateUser(authData: AuthData) {
+        // Realizamos la llamada a la API para autenticar al usuario
+        apiService.authenticate(authData).enqueue(object : Callback<TokenResponse> {
+            override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
+                if (response.isSuccessful) {
+                    // Si la autenticación es exitosa, podemos manejar la respuesta aquí
+                    val tokenResponse = response.body()
+                    // Por ejemplo, podemos guardar el token en SharedPreferences y navegar a la siguiente actividad
+                    tokenResponse?.token?.let { token ->
+                        // Guardamos el token (aquí deberías implementar la lógica para guardar el token)
+                        // Luego, navegamos a la siguiente actividad
+                        val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    // Si la autenticación falla, mostramos un mensaje de error
+                    Toast.makeText(this@LoginActivity, "Error de autenticación", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                // Si ocurre un error en la llamada a la API, mostramos un mensaje de error
+                Toast.makeText(this@LoginActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
-    //Falta añadir funciones para comprobar si el email y la contraseña existen
+    // Aquí puedes agregar más métodos según sea necesario
 }

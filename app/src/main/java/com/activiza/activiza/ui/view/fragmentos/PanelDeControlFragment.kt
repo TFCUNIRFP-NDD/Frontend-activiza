@@ -149,11 +149,11 @@ class PanelDeControlFragment : Fragment() {
 
     private fun inicializarEventos() {
         binding.btnEntrenamientos.setOnClickListener {
-            findNavController().navigate(R.id.action_panelDeControlFragment_to_entrenamientosFragment)
+            findNavController().popBackStack()
         }
         binding.btnEliminarRutina.setOnClickListener{
             db.borrarEjerciciosYRutinas()
-            findNavController().navigate(R.id.action_panelDeControlFragment_to_entrenamientosFragment)
+            findNavController().popBackStack()
         }
         binding.btnComenzarEntrenamiento.setOnClickListener {
             findNavController().navigate(R.id.action_panelDeControlFragment_to_comenzarEntrenamientoFragment)

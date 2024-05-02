@@ -1,6 +1,5 @@
 package com.activiza.activiza.ui.view.fragmentos
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,15 +10,12 @@ import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
 import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.RutinaData
-import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.databinding.FragmentRutinaIdBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
-import com.activiza.activiza.ui.viewmodel.RutinasAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

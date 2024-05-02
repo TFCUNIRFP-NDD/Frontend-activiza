@@ -76,25 +76,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Se han agregado los ejercicios y su recyclerView y actividad detallada, también se a agregado la lógica del calendario a falta de pequeñas cosas">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/EntrenamientoData.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/AuthData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/AuthData.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/Onboarding3Activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/Onboarding3Activity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/OnboardingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/OnboardingActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EjercicioDetalladoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EjercicioDetalladoFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PanelDeControlFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PanelDeControlFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/RutinaIDFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/RutinaIDFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/RegisterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/RegisterActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/EntrenamientosAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/EntrenamientosAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,7 +279,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714508980696</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor">
+      <option name="closed" value="true" />
+      <created>1714667482422</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714667482422</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -298,6 +295,18 @@
     <MESSAGE value="Se a creado un diseño de calendario personalizado que pinta los dias en gris hasta el dia actual que lo pinta de color rojo y los dias posteriores los pinta transparente" />
     <MESSAGE value="Arreglado diseño de login cambiada imagen de google de png a vector y navegacion hacia el recyclerView de entrenamientos" />
     <MESSAGE value="Se han agregado los ejercicios y su recyclerView y actividad detallada, también se a agregado la lógica del calendario a falta de pequeñas cosas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se han agregado los ejercicios y su recyclerView y actividad detallada, también se a agregado la lógica del calendario a falta de pequeñas cosas" />
+    <MESSAGE value="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt</url>
+          <line>70</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

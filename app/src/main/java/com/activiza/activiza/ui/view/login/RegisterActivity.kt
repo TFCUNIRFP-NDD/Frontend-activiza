@@ -40,11 +40,7 @@ class RegisterActivity : AppCompatActivity() {
             if (!hasFocus) {
                 binding.tiPasswordSignup.setHelperTextEnabled(false)
 
-                if(validatePasswordFormat()){
-                    val intent = Intent(this, OnboardingActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                }
+                validatePasswordFormat()
             }else{
                 binding.tiPasswordSignup.setHelperTextEnabled(true)
                 binding.tiPasswordSignup.helperText = "La contraseña debe tener al menos: " +
@@ -66,7 +62,8 @@ class RegisterActivity : AppCompatActivity() {
             when {
                 nameNotEmpty && emailNotEmpty && passwordNotEmpty -> {
                     if (validEmailFormat && validPasswordFormat.matches(binding.etPasswordSignup.text.toString())) {
-                        intent = Intent(this, OnboardingActivity::class.java)
+                        val intent = Intent(this, OnboardingActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     } else {
