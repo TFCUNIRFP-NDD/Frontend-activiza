@@ -53,9 +53,16 @@ class PanelDeControlFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initUI() {
         recogerRutina()
+        comprobarRutina()
         pintarDatos()
         calendarioModificado()
         inicializarEventos()
+    }
+
+    private fun comprobarRutina() {
+        if(db.obtenerFecha() != obtenerFechaActual() || db.obtenerFecha().isNullOrEmpty()){
+            db.cambiarFechaActual(obtenerFechaActual(), rutina.id)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -103,9 +110,9 @@ class PanelDeControlFragment : Fragment() {
                     view.setBackgroundColor(Color.GRAY) // Cambia el color a tu elección
                 } else if (position == currentDayIndex) {
                     if(db.obtenerEstadoDeRutina(rutina.id,obtenerFechaActual())){
-                        view.setBackgroundResource(R.color.green)
-                    }else {
                         view.setBackgroundResource(R.color.splash_background)
+                    }else {
+                        view.setBackgroundResource(R.color.green)
                     }
                 }else {
                         // Restablece el color de fondo para los días posteriores o iguales al día actual

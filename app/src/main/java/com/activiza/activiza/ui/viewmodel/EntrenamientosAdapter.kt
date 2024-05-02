@@ -1,5 +1,7 @@
 package com.activiza.activiza.ui.viewmodel
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,13 +41,15 @@ private val onItemClick: (Int) -> Unit,)
         private val nombreEjercicio: TextView = itemView.findViewById(R.id.tvNombreEjercicioItem)
         private val imagenEjercicio: ImageView = itemView.findViewById(R.id.ivImagenEjercicioItem)
 
+        @SuppressLint("ResourceType")
         fun bind(ejercicio: EjerciciosData) {
             nombreEjercicio.text = ejercicio.nombre
             deUrlAImageView(ejercicio.media,imagenEjercicio)
             var db: ActivizaDataBaseHelper
             db = ActivizaDataBaseHelper(nombreEjercicio.context)
+            var ejercicioBooleano =db.obtenerEstadoDeEntrenamiento(ejercicio.id,obtenerFechaActual())
 
-            if(db.obtenerEstadoDeEntrenamiento(ejercicio.id,obtenerFechaActual())){
+            if(ejercicioBooleano){
                 itemView.setBackgroundColor(itemView.context.getColor(R.color.green))
             }
         }

@@ -68,12 +68,48 @@ app:startDestination="@id/entrenamientosFragment">
         android:name="com.activiza.activiza.ui.view.fragmentos.EjercicioDetalladoFragment"
         android:label="fragment_ejercicio_detallado"
         tools:layout="@layout/fragment_ejercicio_detallado" >
-        <action
-            android:id="@+id/action_ejercicioDetalladoFragment_to_comenzarEntrenamientoFragment"
-            app:destination="@id/comenzarEntrenamientoFragment" />
         <argument
             android:name="id"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <activity
+        android:id="@+id/onboardingActivity"
+        android:name="com.activiza.activiza.ui.view.OnboardingActivity"
+        android:label="activity_onboarding"
+        tools:layout="@layout/activity_onboarding" >
+    <action
+        android:id="@+id/action_onboarding_to_onboarding2"
+        app:destination="@id/onboarding2Activity" />
+    </activity>
+    <activity
+        android:id="@+id/onboarding2Activity"
+        android:name="com.activiza.activiza.ui.view.Onboarding2Activity"
+        android:label="activity_onboarding2"
+        tools:layout="@layout/activity_onboarding2" >
+        <action
+            android:id="@+id/action_onboarding_to_onboarding2"
+            app:destination="@id/onboarding3Activity" />
+    </activity>
+    <activity
+        android:id="@+id/onboarding3Activity"
+        android:name="com.activiza.activiza.ui.view.Onboarding3Activity"
+        android:label="activity_onboarding3"
+        tools:layout="@layout/activity_onboarding3" >
+        <action
+            android:id="@+id/action_onboarding_to_onboarding2"
+            app:destination="@id/entrenamientosFragment" />
+    </activity>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.activiza.activiza.ui.view.login.LoginActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" >
+        <action
+            android:id="@+id/action_onboarding_to_onboarding2"
+            app:destination="@id/onboardingActivity" />
+        <action
+            android:id="@+id/entrenamientosFragment"
+            app:destination="@id/onboardingActivity" />
+    </activity>
 </navigation>

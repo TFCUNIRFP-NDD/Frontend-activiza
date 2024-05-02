@@ -22,7 +22,11 @@ class LoginActivity : AppCompatActivity() {
         //Funcionalidad al clickar en las cajas de email y password
         binding.etEmail.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                validateEmailFormat()
+                if(validateEmailFormat()){
+                    val intent = Intent(this, OnboardingActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
             }
         }
 

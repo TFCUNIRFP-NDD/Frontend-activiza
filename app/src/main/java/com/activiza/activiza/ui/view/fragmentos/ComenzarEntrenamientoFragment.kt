@@ -39,7 +39,7 @@ class ComenzarEntrenamientoFragment : Fragment() {
 
     private fun adaptarLaVista() {
         // Configurar el RecyclerView en el hilo principal
-        binding.rvEjercicios.adapter = EntrenamientosAdapter(ejercicios) { rutinaId ->
+        binding.rvEjercicios.adapter = EntrenamientosAdapter(ejercicios,) { rutinaId ->
             findNavController().navigate(ComenzarEntrenamientoFragmentDirections.actionComenzarEntrenamientoFragmentToEjercicioDetalladoFragment(
                 id = rutinaId
             ))

@@ -16,6 +16,7 @@ import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.viewmodel.RutinasAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

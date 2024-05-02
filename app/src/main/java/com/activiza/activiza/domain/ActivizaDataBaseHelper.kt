@@ -142,6 +142,10 @@ class ActivizaDataBaseHelper(context:Context) :
         val borrarEjerciciosQuery = "DELETE FROM $TABLE_NAME_EJERCICIOS"
         db?.execSQL(borrarEjerciciosQuery)
 
+        // Borrar todos los entrenamientos
+        val borrarEntrenamientosQuery = "DELETE FROM $TABLE_NAME_ENTRENAMIENTOS"
+        db?.execSQL(borrarEntrenamientosQuery)
+
         // Borrar todas las rutinas
         val borrarRutinasQuery = "DELETE FROM $TABLE_NAME_RUTINAS"
         db?.execSQL(borrarRutinasQuery)
@@ -231,28 +235,80 @@ class ActivizaDataBaseHelper(context:Context) :
     @SuppressLint("Range")
     fun obtenerEstadoDeRutina(rutinaId: Int, fecha: String): Boolean {
         val db = this.readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME_RUTINAS WHERE $COLUMN_ID = $rutinaId"
+        val query = "SELECT $COLUMN_ID FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID_RUTINA = $rutinaId"
         val cursor = db.rawQuery(query, null)
         cursor.use {
             if (cursor.moveToFirst()) {
                 do {
-                    val rutinaId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
-                    val completado = obtenerEstadoDeEntrenamiento(rutinaId, fecha)
-                    if (!completado) {
-                        return false // Si un entrenamiento no está completado, la rutina no está completa
+                    val ejercicioId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+                    if (!todosEntrenamientosCompletadosParaEjercicio(ejercicioId, fecha)) {
+                        return false // Si algún entrenamiento no está completado, la rutina no está completa
                     }
                 } while (cursor.moveToNext())
             }
             return true // Si todos los entrenamientos están completados, la rutina está completa
         }
     }
+    fun todosEntrenamientosCompletadosParaEjercicio(ejercicioId: Int, fecha: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID_EJERCICIO = $ejercicioId AND $COLUMN_FECHA = '$fecha' AND $COLUMN_COMPLETADO = 1"
+        val cursor = db.rawQuery(query, null)
+        val todosCompletados = cursor.count > 0
+        cursor.close()
+        db.close()
+        return todosCompletados
+    }
+
     fun obtenerEstadoDeEntrenamiento(entrenamientoId: Int, fecha: String): Boolean {
         val db = this.readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID_EJERCICIO = $entrenamientoId AND $COLUMN_FECHA = '$fecha' AND $COLUMN_COMPLETADO = 1"
+        val query = "SELECT * FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID = $entrenamientoId AND $COLUMN_FECHA = '$fecha' AND $COLUMN_COMPLETADO = 1"
         val cursor = db.rawQuery(query, null)
-        val completado = cursor.count > 0
+        val completado = cursor.count > 0 // Verificar si se encontraron entrenamientos completados
         cursor.close()
         db.close()
         return completado
+    }
+    @SuppressLint("Range")
+    fun obtenerFecha() : String? {
+        val db = this.readableDatabase
+        val query = "SELECT fecha FROM $TABLE_NAME_ENTRENAMIENTOS LIMIT 1"
+        val cursor = db.rawQuery(query, null)
+        var fecha: String? = null
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                do {
+                    fecha = cursor.getString(cursor.getColumnIndex(COLUMN_FECHA))
+                } while (cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        db.close()
+        return fecha
+    }
+    @SuppressLint("Range")
+    fun cambiarFechaActual(nuevaFecha:String, rutinaId:Int) {
+        val db = this.writableDatabase
+        val query = "UPDATE $TABLE_NAME_ENTRENAMIENTOS SET $COLUMN_FECHA = ?, $COLUMN_COMPLETADO = 1 WHERE $COLUMN_ID_EJERCICIO IN (SELECT $COLUMN_ID FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID_RUTINA = ?)"
+        val args = arrayOf(nuevaFecha, rutinaId.toString())
+        db.execSQL(query, args)
+        db.close()
+    }
+    @SuppressLint("Range")
+    fun obtenerIdRutinaPorIdEjercicio(ejercicioId: Int): Int {
+        val db = this.readableDatabase
+        var idRutina = -1 // Valor predeterminado en caso de que no se encuentre ninguna coincidencia
+
+        val query = "SELECT $COLUMN_ID_RUTINA FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID = ?"
+        val selectionArgs = arrayOf(ejercicioId.toString())
+
+        val cursor = db.rawQuery(query, selectionArgs)
+        if (cursor.moveToFirst()) {
+            idRutina = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_RUTINA))
+        }
+
+        cursor.close()
+        db.close()
+
+        return idRutina
     }
 }

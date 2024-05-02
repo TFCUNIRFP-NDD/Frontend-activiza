@@ -43,12 +43,9 @@ class RutinaIDFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRutinaIdBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        db = ActivizaDataBaseHelper(binding.btnAgregar.context)
         initUI()
+        return binding.root
     }
 
     private fun anadirDatosRetrofit() {
@@ -85,7 +82,6 @@ class RutinaIDFragment : Fragment() {
     private fun initUI() {
         // Inicializar la interfaz de usuario del fragmento si es necesario
         anadirDatosRetrofit()
-        db = ActivizaDataBaseHelper(binding.btnAgregar.context)
         anadirEventos()
     }
 
