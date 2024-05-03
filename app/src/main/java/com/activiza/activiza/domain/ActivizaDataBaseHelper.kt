@@ -3,7 +3,6 @@ package com.activiza.activiza.domain
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.activiza.activiza.data.DetallesUsuarioData
@@ -352,12 +351,26 @@ class ActivizaDataBaseHelper(context:Context) :
 
     fun obtenerEstadoDeEntrenamiento(entrenamientoId: Int, fecha: String): Boolean {
         val db = this.readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID = $entrenamientoId AND $COLUMN_FECHA = '$fecha' AND $COLUMN_COMPLETADO = 1"
-        val cursor = db.rawQuery(query, null)
+        val query = "SELECT * FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID = ? AND $COLUMN_FECHA = ? AND $COLUMN_COMPLETADO = 1"
+        val cursor = db.rawQuery(query, arrayOf(entrenamientoId.toString(), fecha))
         val completado = cursor.count > 0 // Verificar si se encontraron entrenamientos completados
         cursor.close()
         db.close()
         return completado
+    }
+    fun obtenerCantidadEntrenamientosCompletados(): Int {
+        val db = this.readableDatabase
+        val query = "SELECT COUNT(*) FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_COMPLETADO = 1"
+        val cursor = db.rawQuery(query, null)
+        var count = 0
+        cursor.use {
+            if (it.moveToFirst()) {
+                count = it.getInt(0)
+            }
+        }
+        cursor.close()
+        db.close()
+        return count
     }
     @SuppressLint("Range")
     fun obtenerIdEntrenamientoPorIdEjercicio(ejercicioId: Int): Int {
@@ -397,24 +410,6 @@ class ActivizaDataBaseHelper(context:Context) :
         val args = arrayOf(nuevaFecha, rutinaId.toString())
         db.execSQL(query, args)
         db.close()
-    }
-    @SuppressLint("Range")
-    fun obtenerIdRutinaPorIdEjercicio(ejercicioId: Int): Int {
-        val db = this.readableDatabase
-        var idRutina = -1 // Valor predeterminado en caso de que no se encuentre ninguna coincidencia
-
-        val query = "SELECT $COLUMN_ID_RUTINA FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID = ?"
-        val selectionArgs = arrayOf(ejercicioId.toString())
-
-        val cursor = db.rawQuery(query, selectionArgs)
-        if (cursor.moveToFirst()) {
-            idRutina = cursor.getInt(cursor.getColumnIndex(COLUMN_ID_RUTINA))
-        }
-
-        cursor.close()
-        db.close()
-
-        return idRutina
     }
     fun updateUsuario(usuario: UsuarioData): Boolean {
         val db = writableDatabase

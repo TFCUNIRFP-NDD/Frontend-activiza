@@ -1,7 +1,6 @@
 package com.activiza.activiza.ui.viewmodel
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.activiza.activiza.R
 import com.activiza.activiza.data.EjerciciosData
-import com.activiza.activiza.data.EntrenamientoData
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat

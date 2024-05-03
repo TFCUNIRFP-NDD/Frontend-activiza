@@ -76,14 +76,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/DetallesUsuarioData.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/UsuarioData.kt" afterDir="false" />
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Arreglo de bugs como el del color del calendario y la navegacion de fragmentos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EjercicioDetalladoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EjercicioDetalladoFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PanelDeControlFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PanelDeControlFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/EntrenamientosAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/EntrenamientosAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_comenzar_entrenamiento.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_comenzar_entrenamiento.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714735473683</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Arreglo de bugs como el del color del calendario y la navegacion de fragmentos">
+      <option name="closed" value="true" />
+      <created>1714737225261</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1714737225261</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -313,6 +319,7 @@
     <MESSAGE value="Se han agregado los ejercicios y su recyclerView y actividad detallada, también se a agregado la lógica del calendario a falta de pequeñas cosas" />
     <MESSAGE value="Login acabado y recoge el token perfectamente" />
     <MESSAGE value="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor" />
+    <MESSAGE value="Arreglo de bugs como el del color del calendario y la navegacion de fragmentos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglo de bugs como el del color del calendario y la navegacion de fragmentos" />
   </component>
 </project>
