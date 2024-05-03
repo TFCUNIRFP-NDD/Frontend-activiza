@@ -6,8 +6,10 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.RutinaData
+import com.activiza.activiza.data.UsuarioData
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -45,6 +47,22 @@ class ActivizaDataBaseHelper(context:Context) :
             private const val COLUMN_FECHA = "fecha"
             private const val COLUMN_COMPLETADO = "completado"
 
+            //create usuario
+            //private const val COLUMN_ID = "id"
+            private const val TABLE_NAME_USUARIOS = "usuarios"
+            //private const val COLUMN_NAME = "nombre"
+            private const val COLUMN_TOKEN = "token"
+            private const val COLUMN_PASSWORD = "password"
+
+            //create Detalles
+            private const val TABLE_NAME_DETALLE_USUARIOS = "detalles_usuarios"
+            private const val COLUMN_ALTURA = "altura"
+            private const val COLUMN_PESO = "peso"
+            private const val COLUMN_GENERO = "genero"
+            private const val COLUMN_OBJETIVO = "objetivo"
+            private const val COLUMN_ID_USUARIO = "id_usuario"
+
+
         }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -55,7 +73,7 @@ class ActivizaDataBaseHelper(context:Context) :
                     "$COLUMN_NAME varchar(255), " +
                     "$COLUMN_ENTRENADOR varchar(255), " +
                     "$COLUMN_TIPO varchar(255), " +
-                    "$COLUMN_DESCRIPCION varchar(255), " +
+                    "$COLUMN_DESCRIPCION TEXT, " +
                     "$COLUMN_MEDIA varchar(255))"
         db?.execSQL(createTableRutinas)
 
@@ -63,7 +81,7 @@ class ActivizaDataBaseHelper(context:Context) :
         val createEjercicios = "CREATE TABLE $TABLE_NAME_EJERCICIOS (" +
                 "$COLUMN_ID INTEGER  PRIMARY KEY," +
                 "$COLUMN_ID_RUTINA INTEGER," +
-                "$COLUMN_DESCRIPCION VARCHAR(255)," +
+                "$COLUMN_DESCRIPCION TEXT," +
                 "$COLUMN_NAME VARCHAR(255)," +
                 "$COLUMN_REPETICIONES INTEGER," +
                 "$COLUMN_DURACION INTEGER," +
@@ -80,6 +98,24 @@ class ActivizaDataBaseHelper(context:Context) :
                 "$COLUMN_COMPLETADO INTEGER," +
                 "FOREIGN KEY($COLUMN_ID_EJERCICIO) REFERENCES $TABLE_NAME_EJERCICIOS($COLUMN_ID) ON DELETE CASCADE)")
         db?.execSQL(createEntrenamientosTable)
+
+        val CREATE_TABLE_USUARIOS = ("CREATE TABLE " + TABLE_NAME_USUARIOS + "("
+                + COLUMN_TOKEN + " TEXT NOT NULL,"
+                + COLUMN_NAME + " TEXT NOT NULL,"
+                + COLUMN_PASSWORD + " TEXT NOT NULL"
+                + ")")
+        db?.execSQL(CREATE_TABLE_USUARIOS)
+
+        val CREATE_TABLE_DETALLES_USUARIOS = ("CREATE TABLE " + TABLE_NAME_DETALLE_USUARIOS + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ALTURA + " REAL,"
+                + COLUMN_PESO + " REAL,"
+                + COLUMN_GENERO + " TEXT,"
+                + COLUMN_OBJETIVO + " TEXT,"
+                + COLUMN_ID_USUARIO + " INTEGER,"
+                + " FOREIGN KEY (" + COLUMN_ID_USUARIO + ") REFERENCES " + TABLE_NAME_USUARIOS + "(" + COLUMN_ID + ")"
+                + ")")
+        db?.execSQL(CREATE_TABLE_DETALLES_USUARIOS)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -89,6 +125,10 @@ class ActivizaDataBaseHelper(context:Context) :
         db?.execSQL(dropTableQueryTableQuery)
         val dropTableQueryEntrenamientos = "DROP TABLE IF EXISTS $TABLE_NAME_ENTRENAMIENTOS"
         db?.execSQL(dropTableQueryEntrenamientos)
+        val dropTableQueryUsuarios = "DROP TABLE IF EXISTS $TABLE_NAME_USUARIOS"
+        db?.execSQL(dropTableQueryUsuarios)
+        val dropTableQueryDetalleUsuarios = "DROP TABLE IF EXISTS $TABLE_NAME_DETALLE_USUARIOS"
+        db?.execSQL(dropTableQueryDetalleUsuarios)
         onCreate(db)
     }
     fun insertRutina(rutinas: RutinaData) {
@@ -131,6 +171,57 @@ class ActivizaDataBaseHelper(context:Context) :
 
         db.close()
     }
+    fun insertUsuario(usuario: UsuarioData) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_NAME, usuario.nombre)
+            put(COLUMN_TOKEN, usuario.token)
+            put(COLUMN_PASSWORD, usuario.password)
+            // Aquí podrías incluir más columnas si deseas
+        }
+        db.insert(TABLE_NAME_USUARIOS, null, values)
+        db.close()
+    }
+    fun insertDetallesUsuario(detalles: DetallesUsuarioData, id:Int) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_ALTURA, detalles.altura)
+            put(COLUMN_PESO, detalles.peso)
+            put(COLUMN_GENERO, detalles.genero)
+            put(COLUMN_OBJETIVO, detalles.objetivo)
+            put(COLUMN_ID_USUARIO, id)
+            // Aquí podrías incluir más columnas si deseas
+        }
+        db.insert(TABLE_NAME_DETALLE_USUARIOS, null, values)
+        db.close()
+    }
+    @SuppressLint("Range")
+    fun getUsuario(): UsuarioData? {
+        val db = readableDatabase
+        val cursor = db.query(
+            TABLE_NAME_USUARIOS,
+            arrayOf(COLUMN_TOKEN, COLUMN_NAME, COLUMN_PASSWORD),
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        var usuario: UsuarioData? = null
+
+        if (cursor.moveToFirst()) {
+            val token = cursor.getString(cursor.getColumnIndex(COLUMN_TOKEN))
+            val nombre = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+            val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
+            usuario = UsuarioData(token, nombre, password)
+        }
+
+        cursor.close()
+        db.close()
+        return usuario
+    }
+
     fun obtenerFechaActual(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = Date()
@@ -269,6 +360,20 @@ class ActivizaDataBaseHelper(context:Context) :
         return completado
     }
     @SuppressLint("Range")
+    fun obtenerIdEntrenamientoPorIdEjercicio(ejercicioId: Int): Int {
+        val db = this.readableDatabase
+        val query = "SELECT $COLUMN_ID FROM $TABLE_NAME_ENTRENAMIENTOS WHERE $COLUMN_ID_EJERCICIO = $ejercicioId LIMIT 1"
+        val cursor = db.rawQuery(query, null)
+        var entrenamientoId = -1 // Valor predeterminado si no se encuentra ningún entrenamiento para el ejercicio
+        cursor.use {
+            if (it.moveToFirst()) {
+                entrenamientoId = it.getInt(it.getColumnIndex(COLUMN_ID))
+            }
+        }
+        db.close()
+        return entrenamientoId
+    }
+    @SuppressLint("Range")
     fun obtenerFecha() : String? {
         val db = this.readableDatabase
         val query = "SELECT fecha FROM $TABLE_NAME_ENTRENAMIENTOS LIMIT 1"
@@ -310,5 +415,23 @@ class ActivizaDataBaseHelper(context:Context) :
         db.close()
 
         return idRutina
+    }
+    fun updateUsuario(usuario: UsuarioData): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_TOKEN, usuario.token)
+            put(COLUMN_NAME, usuario.nombre)
+            put(COLUMN_PASSWORD, usuario.password)
+        }
+
+        val rowsAffected = db.update(
+            TABLE_NAME_USUARIOS,
+            values,
+            "$COLUMN_TOKEN = ?",
+            arrayOf(usuario.nombre.toString())
+        )
+
+        db.close()
+        return rowsAffected > 0
     }
 }

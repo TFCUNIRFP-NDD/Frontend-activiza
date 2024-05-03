@@ -1,14 +1,20 @@
 package com.activiza.activiza.ui.view.login
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.TextView
 import android.widget.Toast
 import com.activiza.activiza.data.AuthData
 import com.activiza.activiza.data.TokenResponse
+import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.ActivityLoginBinding
 import com.activiza.activiza.domain.APIListener
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.view.OnboardingActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,18 +26,23 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var apiService: APIListener // Asegúrate de tener la interfaz APIService definida en tu código
+    private lateinit var sharedPreferences:SharedPreferences
+    lateinit var db: ActivizaDataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+
+        db = ActivizaDataBaseHelper(binding.tvRegister.context)
+
         // Configuración de Retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("http://34.163.215.184/activiza/") // Reemplaza con la URL base de tu API
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
         apiService = retrofit.create(APIListener::class.java)
 
         // Funcionalidad al hacer clic en el botón Login
@@ -62,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun authenticateUser(authData: AuthData) {
+    fun authenticateUser(authData: AuthData) {
         // Realizamos la llamada a la API para autenticar al usuario
         apiService.authenticate(authData).enqueue(object : Callback<TokenResponse> {
             override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
@@ -71,7 +82,24 @@ class LoginActivity : AppCompatActivity() {
                     val tokenResponse = response.body()
                     // Por ejemplo, podemos guardar el token en SharedPreferences y navegar a la siguiente actividad
                     tokenResponse?.token?.let { token ->
-                        // Guardamos el token (aquí deberías implementar la lógica para guardar el token)
+                        // Guardamos el token (aquí implementamos lógica de la bbdd sustituir usuario)
+                        var usuarioData = UsuarioData(
+                            token,
+                            authData.username,
+                            authData.password
+                        )
+                        var usuarioDataComprobacion = db.getUsuario()
+
+                        if(usuarioDataComprobacion?.nombre != null) {
+                            if (usuarioDataComprobacion?.password != usuarioData.password && usuarioData.nombre != usuarioDataComprobacion?.nombre) {
+                                db.updateUsuario(usuarioData)
+                            }
+                        }else{
+                            db.insertUsuario(usuarioData)
+                        }
+                        //recogemos el token de la base de datos
+                        val editor = sharedPreferences.edit()
+                        editor.putString("token", intent.getStringExtra(token))
                         // Luego, navegamos a la siguiente actividad
                         val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
