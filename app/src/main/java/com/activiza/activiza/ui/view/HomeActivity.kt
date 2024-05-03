@@ -20,15 +20,16 @@ import com.activiza.activiza.ui.view.fragmentos.SettingsFragment
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityHomeBinding
-    lateinit var db:ActivizaDataBaseHelper
-    lateinit var navHostFragment:NavHostFragment
+    lateinit var binding: ActivityHomeBinding
+    lateinit var db: ActivizaDataBaseHelper
+    lateinit var navHostFragment: NavHostFragment
     private var elementosPermitidos = setOf(
         R.id.entrenamientosFragment,
         R.id.panelDeControlFragment,
         R.id.feelsFragment,
         R.id.settingsFragment
     )
+    private var ultimoFragmentoVisitado: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNavigationView = binding.bottomNavigationView
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
 
@@ -54,6 +56,7 @@ class HomeActivity : AppCompatActivity() {
         inicializarVariables()
         addEvents()
     }
+
     private fun handleBottomNavigation(menuItem: MenuItem, navController: NavController): Boolean {
         val destinationId = menuItem.itemId
 
@@ -63,6 +66,9 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Elemento no permitido", Toast.LENGTH_SHORT).show()
             return false
         }
+
+        // Guardar el ID del último fragmento visitado
+        ultimoFragmentoVisitado = destinationId
 
         // Si el elemento es permitido, continuar con la navegación
         navController.navigate(destinationId)
@@ -76,10 +82,11 @@ class HomeActivity : AppCompatActivity() {
     private fun addEvents() {
         /** Activar el boton para borrar las cookies
         binding.btnBorrarCookies.setOnClickListener {
-            destruirSesiones()
+        destruirSesiones()
         }
-        **/
+         **/
     }
+
     private fun destruirSesiones() {
         val sharedPreferences = getSharedPreferences("datos_sesion", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -88,17 +95,14 @@ class HomeActivity : AppCompatActivity() {
 
         editor.apply()
     }
+
     override fun onBackPressed() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)
-        // Verificar si el fragmento actual está en la lista de fragmentos permitidos
-        val currentFragmentId = currentFragment?.childFragmentManager?.fragments?.get(0)?.id
-        if (currentFragmentId != null && currentFragmentId in elementosPermitidos) {
-            super.onBackPressed() // Si está permitido, permite el comportamiento predeterminado de retroceso
-        } else {
-            // Si no está permitido, cierra la actividad
+        // Si hay un fragmento anterior, navegar a él
+        if (ultimoFragmentoVisitado != null) {
             finish()
+        } else {
+            // Si no hay un fragmento anterior, ejecutar el comportamiento predeterminado
+            super.onBackPressed()
         }
     }
-
-
 }

@@ -109,7 +109,7 @@ class PanelDeControlFragment : Fragment() {
                 if (position < currentDayIndex) {
                     view.setBackgroundColor(Color.GRAY) // Cambia el color a tu elección
                 } else if (position == currentDayIndex) {
-                    if(db.obtenerEstadoDeRutina(rutina.id,obtenerFechaActual())){
+                    if(!db.obtenerEstadoDeRutina(rutina.id,obtenerFechaActual())){
                         view.setBackgroundResource(R.color.splash_background)
                     }else {
                         view.setBackgroundResource(R.color.green)

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.activiza.activiza.R
 import com.activiza.activiza.data.EjerciciosData
+import com.activiza.activiza.data.EntrenamientoData
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -47,7 +48,8 @@ private val onItemClick: (Int) -> Unit,)
             deUrlAImageView(ejercicio.media,imagenEjercicio)
             var db: ActivizaDataBaseHelper
             db = ActivizaDataBaseHelper(nombreEjercicio.context)
-            var ejercicioBooleano =db.obtenerEstadoDeEntrenamiento(ejercicio.id,obtenerFechaActual())
+            var entrenamientoId = db.obtenerIdEntrenamientoPorIdEjercicio(ejercicio.id)
+            var ejercicioBooleano =db.obtenerEstadoDeEntrenamiento(entrenamientoId,obtenerFechaActual())
 
             if(ejercicioBooleano){
                 itemView.setBackgroundColor(itemView.context.getColor(R.color.green))

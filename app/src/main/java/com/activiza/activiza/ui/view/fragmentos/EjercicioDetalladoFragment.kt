@@ -45,7 +45,8 @@ class EjercicioDetalladoFragment : Fragment() {
 
     private fun inicializarEventos() {
         binding.btnCompletar.setOnClickListener {
-            db.marcarEntrenamientoComoCompletado(args.id,obtenerFechaActual())
+            var idEntrenamiento = db.obtenerIdEntrenamientoPorIdEjercicio(args.id)
+            db.marcarEntrenamientoComoCompletado(idEntrenamiento,obtenerFechaActual())
             findNavController().popBackStack()
         }
     }
