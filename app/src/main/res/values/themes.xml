@@ -1,51 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Proyecto_TFC" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/colorAnaranjado</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/grisClaro</item>
-        <item name="colorSecondaryVariant">@color/oro</item>
-        <!-- Agrega cualquier otro color personalizado que necesites -->
-    </style>
-
-    <style name="Base.Theme.Proyecto_TFC_login" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/rojoClaro</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/grisClaro</item>
-        <item name="colorSecondaryVariant">@color/oro</item>
-        <!-- Agrega cualquier otro color personalizado que necesites -->
-    </style>
-
-    <style name="Base.Theme.twitter" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/azulTwitter</item>
-        <!-- Agrega cualquier otro color personalizado que necesites -->
-    </style>
-
-    <style name="Base.Theme.facebook" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/azulFacebook</item>
-        <!-- Agrega cualquier otro color personalizado que necesites -->
-    </style>
-
-    <style name="Base.Theme.botonCuadrado" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="android:background">@drawable/orange_square_button_background</item>
-        <item name="android:textColor">@android:color/white</item>
-        <!-- Agrega cualquier otro color personalizado que necesites -->
-    </style>
-
-    <style name="Theme.Proyecto_TFC" parent="Base.Theme.Proyecto_TFC" />
-=======
     <style name="Base.Theme.Activiza" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/primary_color</item>
     </style>
 
+
     <style name="Theme.Activiza" parent="Base.Theme.Activiza" />
->>>>>>> david
+    <style name="CalendarioDiaNaranja">
+        <item name="android:textColor">#FFA500</item>
+    </style>
 </resources>

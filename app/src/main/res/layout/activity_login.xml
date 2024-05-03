@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.view.login.LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        tools:context=".ui.view.login.LoginActivity">
 
     <ImageView
         android:layout_width="168dp"
@@ -28,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:text="@string/signin"
         android:textSize="19sp"
@@ -98,56 +106,32 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tv_reset_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/reset_password"
-        android:textColor="@color/gray_line"
-        android:textSize="14sp"
-        android:layout_marginRight="25dp"
-        android:layout_gravity="end"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_google_24"
-        android:padding="8dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/acces_google"
-        android:textSize="14sp"
-        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="16dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical|center">
 
         <TextView
             android:id="@+id/tv_account"
-            android:layout_width="150dp"
-            android:layout_height="36dp"
-            android:text="¿Aún no tienes cuenta?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_tienes_cuenta"
             android:textColor="@color/gray_line"
             android:textSize="14sp"
-            android:layout_marginLeft="60dp"/>
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/tv_register"
-            android:layout_width="100dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/register"
-            android:layout_marginLeft="3dp"
             android:textColor="@color/primary_color"
             android:textSize="14sp"/>
     </LinearLayout>
 
+    </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>

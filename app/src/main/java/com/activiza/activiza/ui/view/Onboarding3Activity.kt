@@ -36,8 +36,9 @@ class Onboarding3Activity : AppCompatActivity() {
 
     private fun siguienteIntent() {
         guardarSesiones()
-        val homeAcitivity = Intent(this,HomeActivity::class.java)
-        startActivity(homeAcitivity)
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     private fun guardarSesiones() {

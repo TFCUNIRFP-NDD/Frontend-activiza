@@ -1,6 +1,5 @@
 package com.activiza.activiza.ui.view.fragmentos
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,15 +10,12 @@ import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
 import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.RutinaData
-import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.databinding.FragmentRutinaIdBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
-import com.activiza.activiza.ui.viewmodel.RutinasAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,12 +39,9 @@ class RutinaIDFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRutinaIdBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        db = ActivizaDataBaseHelper(binding.btnAgregar.context)
         initUI()
+        return binding.root
     }
 
     private fun anadirDatosRetrofit() {
@@ -85,7 +78,6 @@ class RutinaIDFragment : Fragment() {
     private fun initUI() {
         // Inicializar la interfaz de usuario del fragmento si es necesario
         anadirDatosRetrofit()
-        db = ActivizaDataBaseHelper(binding.btnAgregar.context)
         anadirEventos()
     }
 
@@ -97,7 +89,7 @@ class RutinaIDFragment : Fragment() {
                 var ejercicio:EjerciciosData = EjerciciosData(it.id,it.nombre,it.descripcion,it.repeticiones,it.duracion,it.descanso,it.media)
                 db.insertEjercicio(ejercicio,rutina.id)
             }
-
+            findNavController().navigate(R.id.action_rutinaIDFragment_to_panelDeControlFragment)
         }
     }
 

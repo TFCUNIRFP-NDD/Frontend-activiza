@@ -23,8 +23,9 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if(sesionesCompletas()){
-            var pantallaHome = Intent(this, HomeActivity::class.java)
-            startActivity(pantallaHome)
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
         initUI()
     }

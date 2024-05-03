@@ -1,15 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-=======
 
     <!-- Campos del Onboarding -->
     <string name="app_name">Activiza</string>
@@ -55,7 +44,18 @@
 
 
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
-
     <string name="agregar">Agregar</string>
     <string name="panel_de_control">Panel de control</string>
+    <string name="siguiente_entrenamiento">Siguiente entrenamiento:</string>
+    <string name="eliminar_rutina">Eliminar rutina</string>
+    <string name="comenzar_entrenamiento">Comenzar Entrenamiento</string>
+    <string name="no_tienes_cuenta">¿Aún no tienes cuenta?</string>
+    <string name="google">Google</string>
+    <string name="ejercicio">Ejercicio</string>
+    <string name="comenzar_rutina">Comenzar rutina</string>
+    <string name="no">NO</string>
+    <string name="repeticiones">Repeticiones</string>
+    <string name="descanso">Descanso</string>
+    <string name="minutos">Minutos</string>
+    <string name="completar">Completar</string>
 </resources>

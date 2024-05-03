@@ -1,17 +1,18 @@
 package com.activiza.activiza.ui.viewmodel
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.activiza.activiza.R
 import com.activiza.activiza.data.RutinaData
-import com.activiza.activiza.ui.view.fragmentos.RutinaIDFragment
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RutinasAdapter(
     private val rutinas: List<RutinaData>,

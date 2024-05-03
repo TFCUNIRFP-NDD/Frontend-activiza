@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.databinding.ActivityRegisterBinding
 import com.activiza.activiza.ui.view.OnboardingActivity
@@ -54,14 +55,15 @@ class RegisterActivity : AppCompatActivity() {
             val passwordNotEmpty = binding.etPasswordSignup.text.toString().isNotEmpty()
             val validEmailFormat =
                 Patterns.EMAIL_ADDRESS.matcher(binding.etEmailSignup.text.toString()).matches()
-            val validPasswordFormat = "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!]).*$".toRegex()
+            val validPasswordFormat = "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!.?]).*$".toRegex()
 
 
 
             when {
                 nameNotEmpty && emailNotEmpty && passwordNotEmpty -> {
                     if (validEmailFormat && validPasswordFormat.matches(binding.etPasswordSignup.text.toString())) {
-                        intent = Intent(this, OnboardingActivity::class.java)
+                        val intent = Intent(this, OnboardingActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     } else {

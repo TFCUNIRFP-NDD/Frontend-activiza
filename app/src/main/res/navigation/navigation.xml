@@ -13,6 +13,9 @@ app:startDestination="@id/entrenamientosFragment">
     <action
         android:id="@+id/action_entrenamientosFragment_to_rutinaIDFragment"
         app:destination="@id/rutinaIDFragment" />
+    <action
+        android:id="@+id/action_entrenamientosFragment_to_panelDeControlFragment"
+        app:destination="@id/panelDeControlFragment" />
 </fragment>
 <fragment
     android:id="@+id/rutinaIDFragment"
@@ -23,6 +26,11 @@ app:startDestination="@id/entrenamientosFragment">
         android:name="id"
         app:argType="integer"
         android:defaultValue="0" />
+    <action
+        android:id="@+id/action_rutinaIDFragment_to_panelDeControlFragment"
+        app:destination="@id/panelDeControlFragment"
+        app:popUpTo="@id/rutinaIDFragment"
+        app:popUpToInclusive="true" />
 </fragment>
 <fragment
     android:id="@+id/feelsFragment"
@@ -34,4 +42,59 @@ app:startDestination="@id/entrenamientosFragment">
     android:name="com.activiza.activiza.ui.view.fragmentos.SettingsFragment"
     android:label="fragment_settings"
     tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/panelDeControlFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.PanelDeControlFragment"
+        android:label="fragment_panel_de_control"
+        tools:layout="@layout/fragment_panel_de_control" >
+        <action
+            android:id="@+id/action_panelDeControlFragment_to_entrenamientosFragment"
+            app:destination="@id/entrenamientosFragment" />
+        <action
+            android:id="@+id/action_panelDeControlFragment_to_comenzarEntrenamientoFragment"
+            app:destination="@id/comenzarEntrenamientoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/comenzarEntrenamientoFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.ComenzarEntrenamientoFragment"
+        android:label="fragment_comenzar_entrenamiento"
+        tools:layout="@layout/fragment_comenzar_entrenamiento" >
+        <action
+            android:id="@+id/action_comenzarEntrenamientoFragment_to_ejercicioDetalladoFragment"
+            app:destination="@id/ejercicioDetalladoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ejercicioDetalladoFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.EjercicioDetalladoFragment"
+        android:label="fragment_ejercicio_detallado"
+        tools:layout="@layout/fragment_ejercicio_detallado" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <activity
+        android:id="@+id/onboardingActivity"
+        android:name="com.activiza.activiza.ui.view.OnboardingActivity"
+        android:label="activity_onboarding"
+        tools:layout="@layout/activity_onboarding" >
+    </activity>
+    <activity
+        android:id="@+id/onboarding2Activity"
+        android:name="com.activiza.activiza.ui.view.Onboarding2Activity"
+        android:label="activity_onboarding2"
+        tools:layout="@layout/activity_onboarding2" >
+    </activity>
+    <activity
+        android:id="@+id/onboarding3Activity"
+        android:name="com.activiza.activiza.ui.view.Onboarding3Activity"
+        android:label="activity_onboarding3"
+        tools:layout="@layout/activity_onboarding3" >
+    </activity>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.activiza.activiza.ui.view.login.LoginActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" >
+    </activity>
 </navigation>
