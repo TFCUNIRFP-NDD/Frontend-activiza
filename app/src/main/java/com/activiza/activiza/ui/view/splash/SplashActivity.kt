@@ -50,7 +50,7 @@ class SplashActivity : AppCompatActivity() {
 
         comprobarDatos()
         // Programar la notificación diaria si aún no se ha enviado hoy
-        if (!isNotificationAlreadySentToday()) {
+        if (!isNotificationAlreadySentToday() && db.obtenerPrimeraRutina() != null) {
             programarNotificacionDiaria()
         }
     }
