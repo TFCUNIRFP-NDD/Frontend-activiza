@@ -43,7 +43,6 @@ dependencies {
 
     val picasso_version = "2.71828"
     val navVersion = "2.7.0"
-    //Calendario
 
     //Picasso
     implementation ("com.squareup.picasso:picasso:$picasso_version")

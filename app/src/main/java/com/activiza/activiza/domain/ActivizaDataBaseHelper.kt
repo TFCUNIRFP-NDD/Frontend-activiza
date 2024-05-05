@@ -406,7 +406,7 @@ class ActivizaDataBaseHelper(context:Context) :
     @SuppressLint("Range")
     fun cambiarFechaActual(nuevaFecha:String, rutinaId:Int) {
         val db = this.writableDatabase
-        val query = "UPDATE $TABLE_NAME_ENTRENAMIENTOS SET $COLUMN_FECHA = ?, $COLUMN_COMPLETADO = 1 WHERE $COLUMN_ID_EJERCICIO IN (SELECT $COLUMN_ID FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID_RUTINA = ?)"
+        val query = "UPDATE $TABLE_NAME_ENTRENAMIENTOS SET $COLUMN_FECHA = ?, $COLUMN_COMPLETADO = 0 WHERE $COLUMN_ID_EJERCICIO IN (SELECT $COLUMN_ID FROM $TABLE_NAME_EJERCICIOS WHERE $COLUMN_ID_RUTINA = ?)"
         val args = arrayOf(nuevaFecha, rutinaId.toString())
         db.execSQL(query, args)
         db.close()
