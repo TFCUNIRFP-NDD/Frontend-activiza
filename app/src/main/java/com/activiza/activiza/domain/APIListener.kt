@@ -7,6 +7,7 @@ import com.activiza.activiza.data.TokenResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -20,7 +21,7 @@ interface APIListener {
     fun getTodosEjercicios(): Call<List<EjerciciosData>>
 
     @GET("rutina")
-    fun getTodasRutinas(): Call<List<RutinaData>>
+    fun getTodasRutinas(@Header("Authorization") token: String): Call<List<RutinaData>>
 
     @GET("rutina/{rutina}")
     fun getRutina(@Path("rutina") rutina:Int): Call<RutinaData>

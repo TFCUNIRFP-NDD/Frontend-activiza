@@ -76,9 +76,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Notificacion de entrenamiento diaria">
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="le digo que si no hay rutinas no mande actualizacion diara de la rutina">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/TokenResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/TokenResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/UsuarioData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/UsuarioData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/APIListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/APIListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,16 +160,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Users/nesto/Desktop&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "D:/Users/nesto/Desktop"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Activiza.app.main" />
@@ -315,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714933864730</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="le digo que si no hay rutinas no mande actualizacion diara de la rutina">
+      <option name="closed" value="true" />
+      <created>1714933948454</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1714933948454</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -327,6 +340,7 @@
     <MESSAGE value="Acabado implementación de Login y register y integrado en la aplicacion a falta de validacion en el servidor" />
     <MESSAGE value="Arreglo de bugs como el del color del calendario y la navegacion de fragmentos" />
     <MESSAGE value="Notificacion de entrenamiento diaria" />
-    <option name="LAST_COMMIT_MESSAGE" value="Notificacion de entrenamiento diaria" />
+    <MESSAGE value="le digo que si no hay rutinas no mande actualizacion diara de la rutina" />
+    <option name="LAST_COMMIT_MESSAGE" value="le digo que si no hay rutinas no mande actualizacion diara de la rutina" />
   </component>
 </project>

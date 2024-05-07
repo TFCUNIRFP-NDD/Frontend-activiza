@@ -51,6 +51,7 @@ class ActivizaDataBaseHelper(context:Context) :
             private const val TABLE_NAME_USUARIOS = "usuarios"
             //private const val COLUMN_NAME = "nombre"
             private const val COLUMN_TOKEN = "token"
+            //private const val COLUMN_ENTRENADOR = "entrenador"
             private const val COLUMN_PASSWORD = "password"
 
             //create Detalles
@@ -101,7 +102,8 @@ class ActivizaDataBaseHelper(context:Context) :
         val CREATE_TABLE_USUARIOS = ("CREATE TABLE " + TABLE_NAME_USUARIOS + "("
                 + COLUMN_TOKEN + " TEXT NOT NULL,"
                 + COLUMN_NAME + " TEXT NOT NULL,"
-                + COLUMN_PASSWORD + " TEXT NOT NULL"
+                + COLUMN_PASSWORD + " TEXT NOT NULL,"
+                + COLUMN_ENTRENADOR + " BOOLEAN NOT NULL"
                 + ")")
         db?.execSQL(CREATE_TABLE_USUARIOS)
 
@@ -175,6 +177,7 @@ class ActivizaDataBaseHelper(context:Context) :
         val values = ContentValues().apply {
             put(COLUMN_NAME, usuario.nombre)
             put(COLUMN_TOKEN, usuario.token)
+            put(COLUMN_ENTRENADOR, usuario.entrenador)
             put(COLUMN_PASSWORD, usuario.password)
             // Aquí podrías incluir más columnas si deseas
         }
@@ -199,7 +202,7 @@ class ActivizaDataBaseHelper(context:Context) :
         val db = readableDatabase
         val cursor = db.query(
             TABLE_NAME_USUARIOS,
-            arrayOf(COLUMN_TOKEN, COLUMN_NAME, COLUMN_PASSWORD),
+            arrayOf(COLUMN_TOKEN, COLUMN_NAME, COLUMN_PASSWORD, COLUMN_ENTRENADOR),
             null,
             null,
             null,
@@ -213,7 +216,9 @@ class ActivizaDataBaseHelper(context:Context) :
             val token = cursor.getString(cursor.getColumnIndex(COLUMN_TOKEN))
             val nombre = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
             val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
-            usuario = UsuarioData(token, nombre, password)
+            val valorEntero = cursor.getInt(cursor.getColumnIndex(COLUMN_ENTRENADOR))
+            val entrenador = valorEntero == 1
+            usuario = UsuarioData(token, nombre, password, entrenador)
         }
 
         cursor.close()
@@ -417,6 +422,7 @@ class ActivizaDataBaseHelper(context:Context) :
             put(COLUMN_TOKEN, usuario.token)
             put(COLUMN_NAME, usuario.nombre)
             put(COLUMN_PASSWORD, usuario.password)
+            put(COLUMN_ENTRENADOR, usuario.entrenador)
         }
 
         val rowsAffected = db.update(
@@ -428,5 +434,19 @@ class ActivizaDataBaseHelper(context:Context) :
 
         db.close()
         return rowsAffected > 0
+    }
+    fun obtenerToken(): String {
+        val db = this.readableDatabase
+        val query = "SELECT $COLUMN_TOKEN FROM $TABLE_NAME_USUARIOS"
+        val cursor = db.rawQuery(query, null)
+        var count:String = ""
+        cursor.use {
+            if (it.moveToFirst()) {
+                count = it.getString(0)
+            }
+        }
+        cursor.close()
+        db.close()
+        return count
     }
 }

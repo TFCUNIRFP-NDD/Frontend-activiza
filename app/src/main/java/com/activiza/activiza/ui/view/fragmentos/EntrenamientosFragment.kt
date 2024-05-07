@@ -82,10 +82,12 @@ class EntrenamientosFragment : Fragment() {
         // Utilizar el scope del ciclo de vida del fragmento para manejar las corrutinas
         viewLifecycleOwner.lifecycleScope.launch {
             try {
+                //Recoger token de sql lite
+                val token = db.obtenerToken()
                 // Realizar la solicitud HTTP en el hilo de fondo
                 val call = withContext(Dispatchers.IO) {
                     getRetrofit().create(APIListener::class.java)
-                        .getTodasRutinas()
+                        .getTodasRutinas("Token $token")
                         .execute()
                 }
 

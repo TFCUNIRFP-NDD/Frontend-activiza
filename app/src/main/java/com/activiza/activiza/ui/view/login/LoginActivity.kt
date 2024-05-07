@@ -81,12 +81,13 @@ class LoginActivity : AppCompatActivity() {
                     // Si la autenticación es exitosa, podemos manejar la respuesta aquí
                     val tokenResponse = response.body()
                     // Por ejemplo, podemos guardar el token en SharedPreferences y navegar a la siguiente actividad
-                    tokenResponse?.token?.let { token ->
+                    tokenResponse?.let { TokenResponse ->
                         // Guardamos el token (aquí implementamos lógica de la bbdd sustituir usuario)
                         var usuarioData = UsuarioData(
-                            token,
+                            TokenResponse.token,
                             authData.username,
-                            authData.password
+                            authData.password,
+                            TokenResponse.entrenador
                         )
                         var usuarioDataComprobacion = db.getUsuario()
 
@@ -99,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                         //recogemos el token de la base de datos
                         val editor = sharedPreferences.edit()
-                        editor.putString("token", intent.getStringExtra(token))
+                        editor.putString("token", intent.getStringExtra(TokenResponse.token))
                         // Luego, navegamos a la siguiente actividad
                         val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
