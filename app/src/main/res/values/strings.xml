@@ -58,4 +58,6 @@
     <string name="descanso">Descanso</string>
     <string name="minutos">Minutos</string>
     <string name="completar">Completar</string>
+    <string name="cual_es_tu_genero">¿Cual es tu genero?</string>
+    <string name="cual_es_tu_altura">¿Cual es tu altura?</string>
 </resources>

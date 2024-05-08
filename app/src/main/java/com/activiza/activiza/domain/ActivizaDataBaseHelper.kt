@@ -197,6 +197,28 @@ class ActivizaDataBaseHelper(context:Context) :
         db.insert(TABLE_NAME_DETALLE_USUARIOS, null, values)
         db.close()
     }
+    fun getDetallesUsuario(): DetallesUsuarioData? {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_DETALLE_USUARIOS"
+        val cursor = db.rawQuery(query, null)
+
+        var detallesUsuario: DetallesUsuarioData? = null
+
+        if (cursor.moveToFirst()) {
+            val altura = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_ALTURA))
+            val peso = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PESO))
+            val genero = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENERO))
+            val objetivo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OBJETIVO))
+
+            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo)
+        }
+
+        cursor.close()
+        db.close()
+
+        return detallesUsuario
+    }
+
     @SuppressLint("Range")
     fun getUsuario(): UsuarioData? {
         val db = readableDatabase

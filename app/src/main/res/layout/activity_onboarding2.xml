@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginHorizontal="20dp"
-        android:text="¿Cual es tu genero?"
+        android:text="@string/cual_es_tu_genero"
         />
 
     <RadioGroup
@@ -96,6 +96,23 @@
             android:text="@string/mujer" />
 
     </RadioGroup>
+    <TextView
+        android:id="@+id/tvAltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/cual_es_tu_altura"
+        />
+
+    <EditText
+        android:id="@+id/etAltura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="20dp"
+        android:hint="160cm"
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

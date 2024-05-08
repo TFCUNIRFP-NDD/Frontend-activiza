@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import com.activiza.activiza.R
+import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.databinding.ActivityOnboardingBinding
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.viewmodel.OnboardingFunctions
 
 class OnboardingActivity : AppCompatActivity() {
@@ -17,6 +19,7 @@ class OnboardingActivity : AppCompatActivity() {
     private var diccionarioErrors = mutableMapOf<String, Boolean>()
     private lateinit var peso:String
     private lateinit var name:String
+    private lateinit var db:ActivizaDataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +46,10 @@ class OnboardingActivity : AppCompatActivity() {
         inicializarDiccionario()
     }
     private fun sesionesCompletas(): Boolean {
-        val sharedPreferences = getSharedPreferences("datos_sesion", Context.MODE_PRIVATE)
-
-        val genero = sharedPreferences.getString("genero", "")
-        val nombre = sharedPreferences.getString("nombre", "")
-        val peso = sharedPreferences.getString("peso", "")
-        val objetivo = sharedPreferences.getString("objetivo", "")
-
+        db = ActivizaDataBaseHelper(this)
+        val detallesUsuario:DetallesUsuarioData? = db.getDetallesUsuario()
         // Verifica si alguna sesión falta
-        if (genero.isNullOrEmpty() || nombre.isNullOrEmpty() || peso.isNullOrEmpty() || objetivo.isNullOrEmpty()) {
+        if (detallesUsuario == null) {
             return false // Faltan una o más sesiones
         }
 

@@ -66,9 +66,8 @@ class EntrenamientosFragment : Fragment() {
     }
 
     private fun inicializarVariables() {
-        val sharedPreferences = requireContext().getSharedPreferences("datos_sesion", Context.MODE_PRIVATE)
-        genero = sharedPreferences.getString("genero", "").toString()
-        binding.tvRutinaName.text = "Rutinas $genero".uppercase()
+        val detallesUsuario = db.getDetallesUsuario()
+        binding.tvRutinaName.text = "Rutinas ${detallesUsuario!!.genero}".uppercase()
         anadirDatosRetrofit()
 
     }

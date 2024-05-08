@@ -48,6 +48,7 @@ class Onboarding2Activity : AppCompatActivity() {
             putExtra("peso", intent.getStringExtra("peso").toString())
             putExtra("objetivo", objetivoButton)
             putExtra("genero", generoButton)
+            putExtra("altura", binding.etAltura.text.toString())
         }
         startActivity(intent)
     }
