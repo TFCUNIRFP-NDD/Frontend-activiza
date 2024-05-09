@@ -3,6 +3,8 @@ package com.activiza.activiza.ui.view
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.navigation.NavController
@@ -11,12 +13,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.activiza.activiza.R
+import com.activiza.activiza.data.DetallesUsuarioData
+import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.ActivityHomeBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.view.fragmentos.EntrenamientosFragment
 import com.activiza.activiza.ui.view.fragmentos.FeelsFragment
 import com.activiza.activiza.ui.view.fragmentos.PanelDeControlFragment
 import com.activiza.activiza.ui.view.fragmentos.SettingsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -77,23 +82,26 @@ class HomeActivity : AppCompatActivity() {
 
     private fun inicializarVariables() {
         db = ActivizaDataBaseHelper(this)
+        inicializarBottomMenu()
+    }
+
+    private fun inicializarBottomMenu() {
+        val usuarioData: UsuarioData? = db.getUsuario()
+        if (usuarioData != null) {
+            val bottomNavigationMenu: BottomNavigationView = binding.bottomNavigationView
+            if (usuarioData.entrenador) {
+                bottomNavigationMenu.inflateMenu(R.menu.bottom_menu_entrenador)
+            } else {
+                bottomNavigationMenu.inflateMenu(R.menu.bottom_menu)
+            }
+        } else {
+            // Manejo de caso donde no se obtiene el usuario
+            // Por ejemplo, mostrar un mensaje de error o tomar una acción alternativa
+            Log.d("Error", "No se han encontrado entrenadores")
+        }
     }
 
     private fun addEvents() {
-        /** Activar el boton para borrar las cookies
-        binding.btnBorrarCookies.setOnClickListener {
-        destruirSesiones()
-        }
-         **/
-    }
-
-    private fun destruirSesiones() {
-        val sharedPreferences = getSharedPreferences("datos_sesion", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        // Eliminar todas las sesiones del usuario
-        editor.clear()
-
-        editor.apply()
     }
 
     override fun onBackPressed() {

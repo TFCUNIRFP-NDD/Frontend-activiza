@@ -60,4 +60,5 @@
     <string name="completar">Completar</string>
     <string name="cual_es_tu_genero">¿Cual es tu genero?</string>
     <string name="cual_es_tu_altura">¿Cual es tu altura?</string>
+    <string name="anadir_rutina">Añadir Rutina</string>
 </resources>
