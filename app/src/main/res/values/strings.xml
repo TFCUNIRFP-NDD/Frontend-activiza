@@ -61,4 +61,8 @@
     <string name="cual_es_tu_genero">¿Cual es tu genero?</string>
     <string name="cual_es_tu_altura">¿Cual es tu altura?</string>
     <string name="anadir_rutina">Añadir Rutina</string>
+    <string name="genero">Genero</string>
+    <string name="objetivo">Objetivo</string>
+    <string name="instrucciones_rutina">*Genero (H para hombre, M para mujer)\n*Objetivo (GRASA para perder grasa, MUSCULO para ganar músculo)\n*lugar de entrenamiento (C para casa, G para gimnasio)</string>
+    <string name="rutina">Rutina</string>
 </resources>

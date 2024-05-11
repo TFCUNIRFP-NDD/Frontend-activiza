@@ -97,4 +97,29 @@ app:startDestination="@id/entrenamientosFragment">
         android:label="activity_register"
         tools:layout="@layout/activity_register" >
     </activity>
+    <fragment
+        android:id="@+id/anadirRutinaFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.AnadirRutinaFragment"
+        android:label="AnadirRutinaFragment" >
+        <action
+            android:id="@+id/action_anadirRutinaFragment_to_seleccionarImagenFragment"
+            app:destination="@id/seleccionarImagenFragment" />
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/seleccionarImagenFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.SeleccionarImagenFragment"
+        android:label="fragment_seleccionar_imagen"
+        tools:layout="@layout/fragment_seleccionar_imagen" >
+        <action
+            android:id="@+id/action_seleccionarImagenFragment_to_anadirRutinaFragment"
+            app:destination="@id/anadirRutinaFragment" />
+        <argument
+            android:name="query"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

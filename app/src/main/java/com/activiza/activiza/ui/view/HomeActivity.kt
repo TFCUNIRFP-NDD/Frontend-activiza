@@ -31,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
     private var elementosPermitidos = setOf(
         R.id.entrenamientosFragment,
         R.id.panelDeControlFragment,
+        R.id.anadirRutinaFragment,
         R.id.feelsFragment,
         R.id.settingsFragment
     )

@@ -44,6 +44,9 @@ dependencies {
     val picasso_version = "2.71828"
     val navVersion = "2.7.0"
 
+    //galeria para seleccionar imagen
+    implementation("androidx.activity:activity:1.9.0")
+
     //Picasso
     implementation ("com.squareup.picasso:picasso:$picasso_version")
 
