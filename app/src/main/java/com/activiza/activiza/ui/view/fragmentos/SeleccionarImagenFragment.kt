@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.activiza.activiza.R
 import com.activiza.activiza.databinding.FragmentSeleccionarImagenBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.ui.viewmodel.ImagenesAdapter
@@ -72,9 +74,15 @@ class SeleccionarImagenFragment : Fragment() {
                         ))
                     }
                     binding.rvImagenes.layoutManager = LinearLayoutManager(requireContext())
+                    if(photos.size==0){
+                        Toast.makeText(binding.rvImagenes.context, "No se han encontrado imagenes", Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    }
                 } else {
                     // Handle the case where the response is null
                     Log.e("Error", "The Retrofit call response is null")
+                    Toast.makeText(binding.rvImagenes.context, "No se han encontrado imagenes", Toast.LENGTH_LONG).show()
+                    findNavController().popBackStack()
                 }
             } catch (e: IOException) {
                 // Handle the error while making the HTTP request

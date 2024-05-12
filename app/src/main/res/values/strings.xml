@@ -65,4 +65,11 @@
     <string name="objetivo">Objetivo</string>
     <string name="instrucciones_rutina">*Genero (H para hombre, M para mujer)\n*Objetivo (GRASA para perder grasa, MUSCULO para ganar músculo)\n*lugar de entrenamiento (C para casa, G para gimnasio)</string>
     <string name="rutina">Rutina</string>
+    <string name="descripcion">Descripción:</string>
+    <string name="ejercicios">Ejercicios:</string>
+    <string name="subir_imagen_rutina">Subir Imagen Rutina:</string>
+    <string name="nombre_de_lo_que_quieres_la_imagen">nombre de lo que quieres la imagen</string>
+    <string name="_10">10</string>
+    <string name="lugar">lugar</string>
+    <string name="selecciona_una_imagen">Selecciona una Imágen</string>
 </resources>
