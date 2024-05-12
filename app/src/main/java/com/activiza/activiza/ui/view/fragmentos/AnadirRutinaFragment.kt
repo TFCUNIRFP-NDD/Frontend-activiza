@@ -46,7 +46,12 @@ class AnadirRutinaFragment : Fragment() {
     private fun initEvents() {
         binding.btnSiguiente.setOnClickListener {
             //Logica del siguiente fragmento
-            comprobarCampos()
+            if(comprobarCampos()){
+                var numeroEjercicios = binding.etNumeroEjercicios.text.toString()
+                findNavController().navigate(AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToAnadirEjerciciosFragment(
+                    numEjercicios = numeroEjercicios.toInt()
+                ))
+            }
         }
     }
 

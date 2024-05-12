@@ -25,17 +25,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityHomeBinding
-    lateinit var db: ActivizaDataBaseHelper
-    lateinit var navHostFragment: NavHostFragment
-    private var elementosPermitidos = setOf(
+    private lateinit var binding: ActivityHomeBinding
+    private lateinit var db: ActivizaDataBaseHelper
+    private lateinit var navHostFragment: NavHostFragment
+    private val elementosPermitidos = setOf(
         R.id.entrenamientosFragment,
         R.id.panelDeControlFragment,
         R.id.anadirRutinaFragment,
         R.id.feelsFragment,
         R.id.settingsFragment
     )
-    private var ultimoFragmentoVisitado: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +53,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         initUI()
-
     }
-
 
     private fun initUI() {
         inicializarVariables()
@@ -72,9 +69,6 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Elemento no permitido", Toast.LENGTH_SHORT).show()
             return false
         }
-
-        // Guardar el ID del último fragmento visitado
-        ultimoFragmentoVisitado = destinationId
 
         // Si el elemento es permitido, continuar con la navegación
         navController.navigate(destinationId)
@@ -106,11 +100,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // Si hay un fragmento anterior, navegar a él
-        if (ultimoFragmentoVisitado != null) {
+        // Obtener el fragmento actual y su ID de destino
+        val currentDestination = navHostFragment.navController.currentDestination?.id
+
+        // Verificar si el fragmento actual está en los elementos permitidos del menú inferior
+        if (currentDestination != null && currentDestination in elementosPermitidos) {
+            // Si el fragmento actual está en los elementos permitidos, cerrar la aplicación
             finish()
         } else {
-            // Si no hay un fragmento anterior, ejecutar el comportamiento predeterminado
+            // Si el fragmento actual no está en los elementos permitidos, ejecutar el comportamiento predeterminado
             super.onBackPressed()
         }
     }

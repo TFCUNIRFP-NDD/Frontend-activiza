@@ -126,15 +126,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Se verifica que los campos tienen el contenido deseado y sino dara un error de campo el cual explica porque no es posible la validación">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirEjerciciosFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_anadir_ejercicios.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_ejercicio_anadir.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.main.iml" afterDir="false" />
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Diseño de Añadir ejercicio incorporado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirEjerciciosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirEjerciciosFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirRutinaFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirRutinaFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_anadir_ejercicios.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_anadir_ejercicios.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -424,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715496121863</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Diseño de Añadir ejercicio incorporado">
+      <option name="closed" value="true" />
+      <created>1715507842862</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1715507842862</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -442,6 +447,7 @@
     <MESSAGE value="Añadido la division entre el menu del entrenador y el cliente" />
     <MESSAGE value="Añadido la galeria de imagenes en añadir imagenes" />
     <MESSAGE value="Se verifica que los campos tienen el contenido deseado y sino dara un error de campo el cual explica porque no es posible la validación" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se verifica que los campos tienen el contenido deseado y sino dara un error de campo el cual explica porque no es posible la validación" />
+    <MESSAGE value="Diseño de Añadir ejercicio incorporado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Diseño de Añadir ejercicio incorporado" />
   </component>
 </project>
