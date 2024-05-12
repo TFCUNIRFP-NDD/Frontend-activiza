@@ -20,7 +20,7 @@ interface APIListener {
     fun getEjercicio(@Path("ejercicio") ejercicio:String): Call<EjerciciosData>
 
     @GET("ejercicio")
-    fun getTodosEjercicios(): Call<List<EjerciciosData>>
+    fun getTodosEjercicios(@Header("Authorization") token: String): Call<List<EjerciciosData>>
 
     @GET("rutina")
     fun getTodasRutinas(@Header("Authorization") token: String): Call<List<RutinaData>>

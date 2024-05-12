@@ -10,4 +10,5 @@
     <color name="gray_dark">#666363</color>
     <color name="image_color">#163643</color>
     <color name="green">#65FF44</color>
+    <color name="transparent">#0065FF44</color>
 </resources>
