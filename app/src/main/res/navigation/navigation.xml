@@ -108,6 +108,9 @@ app:startDestination="@id/entrenamientosFragment">
             android:name="url"
             app:argType="string"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_anadirRutinaFragment_to_anadirEjerciciosFragment"
+            app:destination="@id/anadirEjerciciosFragment" />
     </fragment>
     <fragment
         android:id="@+id/seleccionarImagenFragment"
@@ -121,5 +124,15 @@ app:startDestination="@id/entrenamientosFragment">
             android:name="query"
             app:argType="string"
             android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/anadirEjerciciosFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.AnadirEjerciciosFragment"
+        android:label="fragment_anadir_ejercicios"
+        tools:layout="@layout/fragment_anadir_ejercicios" >
+        <argument
+            android:name="num_ejercicios"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>
