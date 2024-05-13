@@ -2,11 +2,13 @@ package com.activiza.activiza.data
 
 import com.google.gson.annotations.SerializedName
 
-data class RutinaData(
+data class RutinaPostData (
     @SerializedName("id") var id:Int,
     @SerializedName("nombre") var nombre:String,
     @SerializedName("descripcion") var descripcion:String,
-    @SerializedName("entrenador") var entrenador:String,
-    @SerializedName("ejercicios") var ejercicios:List<EjerciciosData>,
+    @SerializedName("ejercicios") var ejercicios:List<Int>,
+    @SerializedName("genero") var genero:String,
+    @SerializedName("objetivo") var objetivo:String,
+    @SerializedName("lugar_entrenamiento") var lugar_entrenamiento:String,
     @SerializedName("media") var media:String
 )

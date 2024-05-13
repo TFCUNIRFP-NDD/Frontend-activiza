@@ -72,7 +72,6 @@ class ActivizaDataBaseHelper(context:Context) :
                     "$COLUMN_ID integer PRIMARY KEY," +
                     "$COLUMN_NAME varchar(255), " +
                     "$COLUMN_ENTRENADOR varchar(255), " +
-                    "$COLUMN_TIPO varchar(255), " +
                     "$COLUMN_DESCRIPCION TEXT, " +
                     "$COLUMN_MEDIA varchar(255))"
         db?.execSQL(createTableRutinas)
@@ -138,7 +137,6 @@ class ActivizaDataBaseHelper(context:Context) :
             put(COLUMN_ID, rutinas.id)
             put(COLUMN_NAME, rutinas.nombre)
             put(COLUMN_ENTRENADOR, rutinas.entrenador)
-            put(COLUMN_TIPO, rutinas.tipo)
             put(COLUMN_DESCRIPCION, rutinas.descripcion)
             put(COLUMN_MEDIA, rutinas.media)
         }
@@ -283,7 +281,7 @@ class ActivizaDataBaseHelper(context:Context) :
 
                 // Aquí debes manejar la lista de ejercicios, dependiendo de cómo estén almacenados en la base de datos
 
-                rutina = RutinaData(id, nombre, tipo, descripcion, entrenador, listOf(), media)
+                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media)
             }else{
                 null //si no se encuentra ningún dato, devuelve null
             }

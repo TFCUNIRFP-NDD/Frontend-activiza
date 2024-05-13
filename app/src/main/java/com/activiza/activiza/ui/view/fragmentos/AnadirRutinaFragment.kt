@@ -49,7 +49,13 @@ class AnadirRutinaFragment : Fragment() {
             if(comprobarCampos()){
                 var numeroEjercicios = binding.etNumeroEjercicios.text.toString()
                 findNavController().navigate(AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToAnadirEjerciciosFragment(
-                    numEjercicios = numeroEjercicios.toInt()
+                    numEjercicios = numeroEjercicios.toInt(),
+                    nombre = binding.etNombreAnadirRutina.text.toString(),
+                    descripcion = binding.etDescripcionAnadirRutina.text.toString(),
+                    genero = binding.etGeneroAnadirRutina.text.toString(),
+                    objetivo = binding.etObjetivoAnadirRutina.toString(),
+                    lugar = binding.etLugarAnadirRutina.toString(),
+                    imagenUrl = args.url
                 ))
             }
         }

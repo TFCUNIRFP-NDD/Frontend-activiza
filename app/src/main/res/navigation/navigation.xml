@@ -134,5 +134,25 @@ app:startDestination="@id/entrenamientosFragment">
             android:name="num_ejercicios"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="nombre"
+            app:argType="string" />
+        <argument android:name="descripcion"
+            app:argType="string" />
+        <argument
+            android:name="genero"
+            app:argType="string" />
+        <argument
+            android:name="objetivo"
+            app:argType="string" />
+        <argument
+            android:name="lugar"
+            app:argType="string" />
+        <argument
+            android:name="imagen_url"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_anadirEjerciciosFragment_to_entrenamientosFragment"
+            app:destination="@id/entrenamientosFragment" />
     </fragment>
 </navigation>

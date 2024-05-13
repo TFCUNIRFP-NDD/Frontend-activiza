@@ -5,6 +5,7 @@ import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.PexelsResponse
 import com.activiza.activiza.data.Photo
 import com.activiza.activiza.data.RutinaData
+import com.activiza.activiza.data.RutinaPostData
 import com.activiza.activiza.data.TokenResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -30,6 +31,9 @@ interface APIListener {
 
     @POST("api-token-auth/")
     fun authenticate(@Body authData: AuthData): Call<TokenResponse>
+
+    @POST("rutina/")
+    fun postRutina(@Header("Authorization") token: String, @Body rutinaPostData: RutinaPostData): Call<RutinaData>
 
     @GET("search")
     fun getTodasImagenes(@Header("Authorization") token : String, @Query("query") query: String): Call<PexelsResponse>

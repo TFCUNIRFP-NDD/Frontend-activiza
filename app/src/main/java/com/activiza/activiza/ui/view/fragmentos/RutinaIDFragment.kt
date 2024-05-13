@@ -95,7 +95,6 @@ class RutinaIDFragment : Fragment() {
 
     private fun remplazarDatosRutina() {
         binding.tvNameRutina.text = rutina.nombre
-        binding.tvCategorias.text = rutina.tipo
         binding.tvDetalles.text = rutina.descripcion
         deUrlAImageView(rutina.media,binding.ivRutinaItem)
     }

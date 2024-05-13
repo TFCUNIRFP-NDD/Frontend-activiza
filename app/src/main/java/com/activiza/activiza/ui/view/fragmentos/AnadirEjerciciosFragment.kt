@@ -7,9 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.activiza.activiza.R
+import com.activiza.activiza.data.RutinaPostData
 import com.activiza.activiza.databinding.FragmentAnadirEjerciciosBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
@@ -100,8 +104,29 @@ class AnadirEjerciciosFragment : Fragment() {
     }
 
     private fun initEvents() {
-        binding.btnComenzarRutina.setOnClickListener {
-
+        binding.btnAnadirRutina.setOnClickListener {
+            if(args.numEjercicios == list.size){
+                var rutinaPostData: RutinaPostData = RutinaPostData(1,args.nombre,args.descripcion,list,args.genero,args.objetivo,args.lugar,args.imagenUrl)
+                //Recoger token de sql lite
+                val token = db.obtenerToken()
+                // Realizar la solicitud HTTP en el hilo de fondo
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val call = withContext(Dispatchers.IO) {
+                        getRetrofit().create(APIListener::class.java)
+                            .postRutina("Token $token",rutinaPostData)
+                            .execute()
+                    }
+                    // Verificar si la respuesta no es nula
+                    val ejercicio = call.body()
+                    if (ejercicio != null) {
+                        Log.d("ejercicioSubido",ejercicio.toString())
+                        Toast.makeText(binding.btnAnadirRutina.context,"Rutina añadida con exito",Toast.LENGTH_LONG).show()
+                        findNavController().navigate(R.id.action_anadirEjerciciosFragment_to_entrenamientosFragment)
+                    }else{
+                        Toast.makeText(binding.btnAnadirRutina.context,"La Rutina no a podido subirse",Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
         }
     }
     private fun getRetrofit(): Retrofit {
