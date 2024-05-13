@@ -275,7 +275,6 @@ class ActivizaDataBaseHelper(context:Context) :
                 val id = it.getInt(it.getColumnIndexOrThrow(COLUMN_ID))
                 val nombre = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
                 val entrenador = it.getString(it.getColumnIndexOrThrow(COLUMN_ENTRENADOR))
-                val tipo = it.getString(it.getColumnIndexOrThrow(COLUMN_TIPO))
                 val descripcion = it.getString(it.getColumnIndexOrThrow(COLUMN_DESCRIPCION))
                 val media = it.getString(it.getColumnIndexOrThrow(COLUMN_MEDIA))
 
