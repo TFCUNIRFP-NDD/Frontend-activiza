@@ -41,7 +41,9 @@
     <string name="content_description">a</string>
     <string name="username">Username</string>
     <string name="btn_continue">Continue</string>
-
+    <string name="signin_sub"><u>Sign In</u></string>
+    <string name="signup_sub"><u>Sign Up</u></string>
+    <string name="btn_register">Sign Up</string>
 
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="agregar">Agregar</string>
@@ -73,4 +75,18 @@
     <string name="lugar">lugar</string>
     <string name="selecciona_una_imagen">Selecciona una Imágen</string>
     <string name="ejercicios_title">Ejercicios</string>
+
+    <!-- Settings-->
+    <string name="titulo_settings">Ajustes</string>
+    <string name="cuenta">Mi cuenta</string>
+    <string name="modo_oscuro">Modo oscuro</string>
+    <string name="notificaciones">Activar notificaciones</string>
+    <string name="volumen">Ajustar volumen</string>
+    <string name="vibracion">Activar vibración</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="descripcion_modo_oscuro">Activa o desactiva el modo oscuro para cambio visual</string>
+
+
+    <string name="channel_description">This is my notification channel.</string>
 </resources>
