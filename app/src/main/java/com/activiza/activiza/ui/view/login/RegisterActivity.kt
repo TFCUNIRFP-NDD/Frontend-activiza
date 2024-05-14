@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-        ////Funcionalidad al clickar en las cajas de email, password y nombre
+        //Funcionalidad al clickar en las cajas de email, password y nombre
         binding.etEmailSignup.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 validateEmailFormat()
@@ -48,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        //Funcionalidad boton Login
+        //Funcionalidad boton Register
         binding.btnRegister.setOnClickListener {
             val nameNotEmpty = binding.etNameSignup.text.toString().isNotEmpty()
             val emailNotEmpty = binding.etEmailSignup.text.toString().isNotEmpty()

@@ -3,9 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Activiza.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Activiza.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Activiza.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Activiza.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Activiza.app.unitTest.iml" />
     </modules>
   </component>
 </project>
