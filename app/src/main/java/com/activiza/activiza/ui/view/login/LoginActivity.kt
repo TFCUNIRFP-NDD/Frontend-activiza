@@ -1,6 +1,6 @@
 package com.activiza.activiza.ui.view.login
 
-import android.annotation.SuppressLint
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.activiza.activiza.data.AuthData
 import com.activiza.activiza.data.TokenResponse
@@ -29,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var apiService: APIListener // Asegúrate de tener la interfaz APIService definida en tu código
     private lateinit var sharedPreferences:SharedPreferences
     lateinit var db: ActivizaDataBaseHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
                         binding.etPassword.text.toString()
                     )
                     authenticateUser(authData)
+
                 }
                 else -> {
                     // Si falta algún campo o el formato de correo electrónico no es válido, mostramos un mensaje de error

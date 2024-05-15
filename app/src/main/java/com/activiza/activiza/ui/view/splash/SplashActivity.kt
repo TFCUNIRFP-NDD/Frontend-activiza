@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.activiza.activiza.R
 import com.activiza.activiza.data.AuthData
 import com.activiza.activiza.data.TokenResponse
+import com.activiza.activiza.data.UserPreferences
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentSettingsBinding
 import com.activiza.activiza.domain.APIListener
@@ -36,6 +37,7 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var apiService: APIListener
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var permissionManager: PermissionManager
+    private lateinit var userPreferences: UserPreferences
     companion object{
         const val HOUR_OF_DAY = 9
         const val MINUTE = 30
@@ -51,16 +53,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         db = ActivizaDataBaseHelper(this)
-//        permissionManager = PermissionManager(this)
-//
-//        // Verificar y solicitar permiso de escritura externa si es necesario
-//        if (permissionManager.isStoragePermissionGranted()) {
-//            // Si el permiso no está concedido, solicítalo
-//            permissionManager.requestStoragePermission()
-//        } else {
-//            // Si el permiso ya está concedido, continúa con la configuración de la actividad
-//            configureActivity()
-//        }
+        userPreferences = UserPreferences(this, db.obtenerToken())
 
         // Configuración de Retrofit
         val retrofit = Retrofit.Builder()
@@ -69,15 +62,11 @@ class SplashActivity : AppCompatActivity() {
             .build()
         apiService = retrofit.create(APIListener::class.java)
 
-        // Configuracion del switch de vibración
-//        binding.switchVibration.setOnCheckedChangeListener { _, isChecked ->
-//            // Guardar la preferencia de vibración en SharedPreferences
-//            saveVibrationPreference(isChecked)
-//        }
+
 
         comprobarDatos()
         // Programar la notificación diaria si aún no se ha enviado hoy
-        if (!isNotificationAlreadySentToday() && db.obtenerPrimeraRutina() != null) {
+        if (userPreferences.notificationsEnabled && !isNotificationAlreadySentToday() && db.obtenerPrimeraRutina() != null) {
             programarNotificacionDiaria()
         }
     }
@@ -100,57 +89,6 @@ class SplashActivity : AppCompatActivity() {
         // Guardar la fecha de la última notificación enviada
         saveLastNotificationDate()
     }
-
-//    fun programarNotificacionDiaria() {
-//        // Programar la notificación diaria
-//        val calendar = Calendar.getInstance().apply {
-//            set(Calendar.HOUR_OF_DAY, HOUR_OF_DAY)
-//            set(Calendar.MINUTE, MINUTE)
-//            set(Calendar.SECOND, 0)
-//        }
-//
-//        val intent = Intent(applicationContext, NotificationReceiver::class.java)
-//        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//
-//        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//
-//        // Configuración de vibración
-//        val vibrationPattern = if (isVibrationEnabled()) {
-//            // Si el switch está activado, se activa la vibración
-//            longArrayOf(0, 100, 200, 300) // Patrón de vibración (por ejemplo)
-//        } else {
-//            // Si el switch está desactivado, no hay vibración
-//            null
-//        }
-//
-//        // Configurar la notificación con el patrón de vibración correspondiente
-//        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setSmallIcon(R.drawable.ic_notifications) // Icono de la notificación
-//            .setContentTitle("Rutina diario") // Título de la notificación
-//            .setContentText("TRecuerda realizar tu rutina diaria") // Texto de la notificación
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT) // Prioridad de la notificación
-//            .setContentIntent(pendingIntent) // Intent que se ejecutará al tocar la notificación
-//
-//        if (vibrationPattern != null) {
-//            notificationBuilder.setVibrate(vibrationPattern)
-//        }
-//
-//        // Construir y emitir la notificación
-//        with(NotificationManagerCompat.from(this)) {
-//            notify(NOTIFICATION_ID, notificationBuilder.build())
-//        }
-//
-//        // Programar la alarma
-//        alarmManager.setRepeating(
-//            AlarmManager.RTC_WAKEUP,
-//            calendar.timeInMillis,
-//            AlarmManager.INTERVAL_DAY,
-//            pendingIntent
-//        )
-//
-//        // Guardar la fecha de la última notificación enviada
-//        saveLastNotificationDate()
-//    }
 
 
     private fun isNotificationAlreadySentToday(): Boolean {

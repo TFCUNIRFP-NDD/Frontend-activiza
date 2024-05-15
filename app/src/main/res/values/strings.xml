@@ -44,6 +44,7 @@
     <string name="signin_sub"><u>Sign In</u></string>
     <string name="signup_sub"><u>Sign Up</u></string>
     <string name="btn_register">Sign Up</string>
+    <string name="descripcion_notificacion">Activa las notificaciones para que te avisemos de tus entrenamientos</string>
 
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="agregar">Agregar</string>
@@ -77,7 +78,7 @@
     <string name="ejercicios_title">Ejercicios</string>
 
     <!-- Settings-->
-    <string name="titulo_settings">Ajustes</string>
+    <string name="titulo_settings">Ajustes de la cuenta</string>
     <string name="cuenta">Mi cuenta</string>
     <string name="modo_oscuro">Modo oscuro</string>
     <string name="notificaciones">Activar notificaciones</string>
