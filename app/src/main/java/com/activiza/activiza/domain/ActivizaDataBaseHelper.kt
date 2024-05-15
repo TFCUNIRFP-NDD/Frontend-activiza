@@ -487,72 +487,13 @@ class ActivizaDataBaseHelper(context:Context) :
         return count
     }
 
-    @SuppressLint("Range")
-    fun getSettings(token: String): UserSettings? {
-        val db = readableDatabase
-        var userSettings: UserSettings? = null
-        val cursor = db.query(
-            TABLE_USER_SETTINGS,
-            arrayOf(COLUMN_VOLUME, COLUMN_NOTIFICATIONS, COLUMN_VIBRATION, COLUMN_DARK_MODE),
-            "$COLUMN_TOKEN = ?",
-            arrayOf(token),
-            null,
-            null,
-            null
-        )
 
-        cursor.use {
-            if (it.moveToFirst()) {
-                val volumeIndex = it.getColumnIndex(COLUMN_VOLUME)
-                val notificationsIndex = it.getColumnIndex(COLUMN_NOTIFICATIONS)
-                val vibrationIndex = it.getColumnIndex(COLUMN_VIBRATION)
-                val darkModeIndex = it.getColumnIndex(COLUMN_DARK_MODE)
-
-                val volume = it.getInt(volumeIndex)
-                val notifications = it.getInt(notificationsIndex) == 1
-                val vibration = it.getInt(vibrationIndex) == 1
-                val darkMode = it.getInt(darkModeIndex) == 1
-                userSettings = UserSettings(volume, notifications, vibration, darkMode)
-            }
-        }
-        db.close()
-        return userSettings
-    }
-
-    fun actualizarSettings(token: String, userSettings: UserSettings): Boolean {
-        val db = writableDatabase
-        val contentValues = ContentValues().apply {
-            put(COLUMN_VOLUME, userSettings.volume)
-            put(COLUMN_NOTIFICATIONS, if (userSettings.notifications) 1 else 0)
-            put(COLUMN_VIBRATION, if (userSettings.vibration) 1 else 0)
-            put(COLUMN_DARK_MODE, if (userSettings.darkMode) 1 else 0)
-        }
-        val affectedRows = db.update(TABLE_USER_SETTINGS, contentValues, "$COLUMN_TOKEN = ?", arrayOf(token))
-        db.close()
-        return affectedRows > 0
-    }
-
-
-    fun eliminarUsuario(token: String) {
+    fun borrarUsuario(token: String) {
         val db = writableDatabase
         db.delete(TABLE_NAME_USUARIOS, "$COLUMN_TOKEN = ?", arrayOf(token))
-        db.close()
-    }
-
-    fun eliminarConfiguracionUsuario(token: String) {
-        val db = writableDatabase
-        db.delete(TABLE_USER_SETTINGS, "$COLUMN_TOKEN = ?", arrayOf(token))
+        db.delete(TABLE_NAME_DETALLE_USUARIOS, "$COLUMN_ID_USUARIO = (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)", arrayOf(token))
         db.close()
     }
 
 
-    fun actualizarVolumenUsuario(token: String, nuevoVolumen: Int): Boolean {
-        val db = writableDatabase
-        val contentValues = ContentValues().apply {
-            put(COLUMN_VOLUME, nuevoVolumen)
-        }
-        val affectedRows = db.update(TABLE_USER_SETTINGS, contentValues, "$COLUMN_TOKEN = ?", arrayOf(token))
-        db.close()
-        return affectedRows > 0
-    }
 }

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.data.DetallesUsuarioData
+import com.activiza.activiza.data.UserPreferences
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.ActivityHomeBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
@@ -27,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var db: ActivizaDataBaseHelper
+    lateinit var userPreferences: UserPreferences
     private lateinit var navHostFragment: NavHostFragment
     private val elementosPermitidos = setOf(
         R.id.entrenamientosFragment,
@@ -82,6 +84,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun inicializarBottomMenu() {
         val usuarioData: UsuarioData? = db.getUsuario()
+        val token = usuarioData?.token
+        userPreferences = UserPreferences(this, token?:"")
+
         if (usuarioData != null) {
             val bottomNavigationMenu: BottomNavigationView = binding.bottomNavigationView
             if (usuarioData.entrenador) {

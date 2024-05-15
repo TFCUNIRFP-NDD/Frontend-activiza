@@ -59,15 +59,14 @@
 
         </LinearLayout>
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchDarkMode"
             android:layout_width="wrap_content"
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:contentDescription="Interruptor para activar o desactivar el modo oscuro"
-            android:enabled="false"/>
+            android:contentDescription="Interruptor para activar o desactivar el modo oscuro" />
 
     </LinearLayout>
 
@@ -108,15 +107,14 @@
 
         </LinearLayout>
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchNotification"
             android:layout_width="wrap_content"
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:contentDescription="Interruptor para activar o desactivar el modo oscuro"
-            android:enabled="true"/>
+            android:contentDescription="Interruptor para activar o desactivar el modo oscuro" />
 
     </LinearLayout>
 
@@ -189,15 +187,14 @@
 
 
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchVibration"
             android:layout_width="wrap_content"
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:contentDescription="Interruptor para activar o desactivar el modo oscuro"
-            android:enabled="true"/>
+            android:contentDescription="Interruptor para activar o desactivar el modo oscuro" />
 
     </LinearLayout>
 

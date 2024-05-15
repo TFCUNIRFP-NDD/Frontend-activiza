@@ -3,16 +3,25 @@ package com.activiza.activiza.ui.view.fragmentos
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.media.AudioManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.activiza.activiza.R
+import com.activiza.activiza.data.UserPreferences
+import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentSettingsBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
+import com.activiza.activiza.ui.view.HomeActivity
+import com.activiza.activiza.ui.view.login.LoginActivity
 import com.activiza.activiza.ui.view.splash.SplashActivity
 import com.activiza.activiza.ui.viewmodel.NotificationReceiver
 import kotlinx.coroutines.CoroutineScope
@@ -26,113 +35,130 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var db: ActivizaDataBaseHelper
     lateinit var notificationReceiver: SplashActivity
+    private lateinit var userPreferences: UserPreferences
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        db = ActivizaDataBaseHelper(context)
+        userPreferences = (context as HomeActivity).userPreferences
+
+    }
 
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val rootView = binding.root
+
+
+//        val token = db.obtenerToken()
+        val usuarioData: UsuarioData? = db.getUsuario()
+        val token = usuarioData?.token
+        userPreferences = UserPreferences(requireContext(),token?:"")
+
         initUI()
-        return  rootView
+        return rootView
     }
 
     private fun initUI() {
-        db = ActivizaDataBaseHelper(requireContext())
-        val token = db.obtenerToken()
+        binding.switchDarkMode.isChecked = userPreferences.darkModeEnabled
+        binding.switchNotification.isChecked = userPreferences.notificationsEnabled
+        binding.switchVibration.isChecked = userPreferences.vibrationEnabled
+        binding.rsVolumen.setValues(userPreferences.volume.toFloat())
+
+        // Configurar listeners para los cambios en la configuración
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            userPreferences.darkModeEnabled = isChecked
+
+        }
+
+        binding.switchNotification.setOnCheckedChangeListener { _, isChecked ->
+            userPreferences.notificationsEnabled = isChecked
+
+        }
+
+        binding.switchVibration.setOnCheckedChangeListener { _, isChecked ->
+            userPreferences.vibrationEnabled = isChecked
+
+        }
 
         binding.rsVolumen.addOnChangeListener { _, value, _ ->
-            ajustarVolumen(requireContext(), value.toInt())
 
-            val resultado = db.actualizarVolumenUsuario(token, value.toInt())
-            if (resultado) {
-                // El volumen se actualizó correctamente en la base de datos y el sistema
-            } else {
-                // Hubo un error al actualizar el volumen
-            }
+            // Obtiene el valor del volumen como un porcentaje (entre 0 y 100)
+            val volumePercentage = value.toInt()
+            // Calcula el valor del volumen basado en el porcentaje
+            val maxVolume = (requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager).getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+            val volume = (maxVolume * volumePercentage) / 100
+            // Establece el volumen del sistema
+            val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
+
         }
+
 
         binding.tvEliminarCuenta.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                eliminarCuenta(token)
-            }
-        }
+            val usuarioData: UsuarioData? = db.getUsuario()
+
+            if (usuarioData != null) {
+                val token = usuarioData.token
+                db.borrarUsuario(token)
+                clearPreferences(requireContext(), token)
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            } else {
+
+            }}
 
         binding.tvCerrarSesion.setOnClickListener {
-            cerrarSesion(token)
-        }
-
-        binding.switchDarkMode.setOnClickListener {
-            saveOptions("darkMode", binding.switchDarkMode.isChecked)
-        }
-
-        binding.switchNotification.setOnClickListener {
-            if(binding.switchNotification.isChecked) {
-                saveOptions("notifications", binding.switchNotification.isChecked)
-                cancelarProgramacionNotificacion()
-            }else{
-                saveOptions("notifications", !binding.switchNotification.isChecked)
-                val splashActivity = activity as? SplashActivity
-                splashActivity?.programarNotificacionDiaria()
-
-            }
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
 
         }
 
-        binding.switchVibration.setOnClickListener {
-            saveOptions("vibration", binding.switchVibration.isChecked)
-        }
+        val usuarioActual = obtenerUsuarioActual()
+        iniciarSesion(usuarioActual!!)
     }
 
-    private fun saveOptions(optionName: String, isChecked: Boolean) {
-        val token = db.obtenerToken()
-        if (token.isNotEmpty()) {
-            val userSettings = db.getSettings(token)
-            if (userSettings != null) {
-                // Actualizar la configuración según el nombre de la opción
-                val updatedSettings = when (optionName) {
-                    "darkMode" -> userSettings.copy(darkMode = !isChecked)
-                    "notifications" -> userSettings.copy(notifications = isChecked)
-                    "vibration" -> userSettings.copy(vibration = isChecked)
-                    else -> userSettings // No se realiza ninguna actualización
-                }
-                // Guardar la configuración actualizada en la base de datos
-                db.actualizarSettings(token, updatedSettings)
 
 
-            }
-        }
+
+
+    private fun obtenerUsuarioActual(): UsuarioData? {
+        return db.getUsuario()
     }
 
-    fun ajustarVolumen(context: Context, nuevoVolumen: Int) {
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-        val volumenCalculado = (nuevoVolumen / 100.0 * maxVolume).toInt()
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumenCalculado, 0)
+    fun iniciarSesion(usuario: UsuarioData) {
+        binding.tvCuenta.text = usuario.nombre
     }
 
-    private  fun eliminarCuenta(token: String) {
-        val token = db.obtenerToken()
-        CoroutineScope(Dispatchers.IO).launch {
-            db.eliminarConfiguracionUsuario(token)
-            db.eliminarUsuario(token)
-        }
+
+    fun clearPreferences(context: Context, token: String) {
+        val sharedPreferences =
+            context.getSharedPreferences("user_preferences_$token", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.putString("token", token)
+        editor.apply()
     }
 
-    private fun cerrarSesion(token: String){
-
-    }
-
-    private fun cancelarProgramacionNotificacion() {
-        val intent = Intent(activity, NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(activity, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT?:0)
-        val alarmManager = activity?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        alarmManager?.cancel(pendingIntent)
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
+//    fun ajustarVolumen(context: Context, nuevoVolumen: Int) {
+//        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+//        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+//        val volumenCalculado = (nuevoVolumen / 100.0 * maxVolume).toInt()
+//        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumenCalculado, 0)
+//    }
+
+
+
+
