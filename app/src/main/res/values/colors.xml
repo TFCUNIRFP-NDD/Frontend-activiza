@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="splash_background">#FF5722</color>
+    <color name="orange_light">#EC6C44</color>
+    <color name="orange_dark">#CA3B0E</color>
     <color name="gray_line">#9A9694</color>
     <color name="error">#FF0000</color>
     <color name="primary_color">#f85f6a</color>
@@ -11,4 +13,9 @@
     <color name="image_color">#163643</color>
     <color name="green">#65FF44</color>
     <color name="transparent">#0065FF44</color>
+    <color name="blue">#5585CD</color>
+    <color name="blue_background">#5763DE</color>
+    <color name="blue_light">#709EE3</color>
+    <color name="blue_light2">#8AB2EF</color>
+
 </resources>
