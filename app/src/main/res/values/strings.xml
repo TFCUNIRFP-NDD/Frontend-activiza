@@ -86,7 +86,15 @@
     <string name="vibracion">Activar vibración</string>
     <string name="eliminar_cuenta">Eliminar cuenta</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="perfil">Perfil</string>
     <string name="descripcion_modo_oscuro">Activa o desactiva el modo oscuro para cambio visual</string>
+
+    <!--Perfil-->
+    <string name="reset_values"><u>Resetear peso/altura</u></string>
+    <string name="btn_imc">Imc</string>
+    <string name="peso">Peso:</string>
+    <string name="altura">Altura:</string>
+    <string name="saludo">Hola</string>
 
 
     <string name="channel_description">This is my notification channel.</string>

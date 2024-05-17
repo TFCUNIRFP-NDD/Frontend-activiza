@@ -63,13 +63,6 @@ class ActivizaDataBaseHelper(context:Context) :
             private const val COLUMN_OBJETIVO = "objetivo"
             private const val COLUMN_ID_USUARIO = "id_usuario"
 
-            //create user settings
-            private const val TABLE_USER_SETTINGS = "user_settings"
-            private const val COLUMN_VOLUME = "volume"
-            private const val COLUMN_NOTIFICATIONS = "notifications"
-            private const val COLUMN_VIBRATION = "vibration"
-            private const val COLUMN_DARK_MODE = "dark_mode"
-
 
         }
 
@@ -125,15 +118,6 @@ class ActivizaDataBaseHelper(context:Context) :
                 + ")")
         db?.execSQL(CREATE_TABLE_DETALLES_USUARIOS)
 
-        //create user settings
-        val createTableUserSettings = ("CREATE TABLE $TABLE_USER_SETTINGS (" +
-                "$COLUMN_TOKEN TEXT NOT NULL," +
-                "$COLUMN_VOLUME INTEGER," +
-                "$COLUMN_NOTIFICATIONS BOOLEAN," +
-                "$COLUMN_VIBRATION BOOLEAN," +
-                "$COLUMN_DARK_MODE BOOLEAN)")
-
-        db?.execSQL(createTableUserSettings)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -495,5 +479,81 @@ class ActivizaDataBaseHelper(context:Context) :
         db.close()
     }
 
+    fun getDetallesUsuarioPorId(idUsuario: Int): DetallesUsuarioData? {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_DETALLE_USUARIOS WHERE $COLUMN_ID_USUARIO = ?"
+        val cursor = db.rawQuery(query, arrayOf(idUsuario.toString()))
+
+        var detallesUsuario: DetallesUsuarioData? = null
+
+        if (cursor.moveToFirst()) {
+            val altura = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_ALTURA))
+            val peso = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PESO))
+            val genero = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENERO))
+            val objetivo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OBJETIVO))
+
+            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo)
+        }
+
+        cursor.close()
+        db.close()
+
+        return detallesUsuario
+    }
+
+    fun updateDetallesUsuarioPorId(id: Int, peso: Double, altura: Double) {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_ALTURA, altura)
+            put(COLUMN_PESO, peso)
+        }
+        val rowsAffected = db.update(
+            TABLE_NAME_DETALLE_USUARIOS,
+            values,
+            "$COLUMN_ID_USUARIO = ?",
+            arrayOf(id.toString())
+        )
+        db.close()
+
+        if (rowsAffected > 0) {
+
+        } else {
+
+        }
+
+    }
+
+    fun getDetallesUsuarioPorToken(token: String): DetallesUsuarioData? {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME_DETALLE_USUARIOS WHERE $COLUMN_ID_USUARIO = (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)"
+        val cursor = db.rawQuery(query, arrayOf(token))
+
+        var detallesUsuario: DetallesUsuarioData? = null
+
+        if (cursor.moveToFirst()) {
+            val altura = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_ALTURA))
+            val peso = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PESO))
+            val genero = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENERO))
+            val objetivo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OBJETIVO))
+
+            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo)
+        }
+
+        cursor.close()
+        db.close()
+
+        return detallesUsuario
+    }
+
+    fun updateDetallesUsuarioPorToken(token: String, peso: Double, altura: Double): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_PESO, peso)
+            put(COLUMN_ALTURA, altura)
+        }
+        val updatedRows = db.update(TABLE_NAME_DETALLE_USUARIOS, values, "$COLUMN_ID_USUARIO = (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)", arrayOf(token))
+        db.close()
+        return updatedRows > 0
+    }
 
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.data.UserPreferences
 import com.activiza.activiza.data.UsuarioData
@@ -119,21 +120,12 @@ class SettingsFragment : Fragment() {
 
         }
 
-        val usuarioActual = obtenerUsuarioActual()
-        iniciarSesion(usuarioActual!!)
+        binding.tvPerfil.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_perfilFragment)
+        }
+
     }
 
-
-
-
-
-    private fun obtenerUsuarioActual(): UsuarioData? {
-        return db.getUsuario()
-    }
-
-    fun iniciarSesion(usuario: UsuarioData) {
-        binding.tvCuenta.text = usuario.nombre
-    }
 
 
     fun clearPreferences(context: Context, token: String) {
@@ -152,12 +144,6 @@ class SettingsFragment : Fragment() {
     }
 
 }
-//    fun ajustarVolumen(context: Context, nuevoVolumen: Int) {
-//        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-//        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-//        val volumenCalculado = (nuevoVolumen / 100.0 * maxVolume).toInt()
-//        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumenCalculado, 0)
-//    }
 
 
 

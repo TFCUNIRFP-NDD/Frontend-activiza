@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue_light"
+    tools:context=".ui.view.fragmentos.PerfilFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPerfil"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_user2"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="@string/saludo"/>
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:text="nombre"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="64dp">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/img_run_svg"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/splash_background"
+            app:cardCornerRadius="16dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_steps" />
+
+            <TextView
+                android:id="@+id/tvCountSteps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="44dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/ic_calories" />
+
+            <TextView
+                android:id="@+id/tvCalorias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="115dp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginTop="48dp">-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/pbPeso"-->
+<!--            style="@style/Widget.ProgressBar.Vertical"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_marginStart="134dp"-->
+<!--            android:progressDrawable="@drawable/vertical_progress_bar"-->
+<!--            android:progress="50"-->
+<!--            android:max="100">-->
+<!--        </ProgressBar>-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/pbAltura"-->
+<!--            style="@style/Widget.ProgressBar.Vertical"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_marginStart="56dp"-->
+<!--            android:progressDrawable="@drawable/vertical_progress_bar"-->
+<!--            android:progress="50"-->
+<!--            android:max="100">-->
+<!--        </ProgressBar>-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/pbImc"-->
+<!--            style="@style/Widget.ProgressBar.Vertical"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_marginStart="56dp"-->
+<!--            android:progressDrawable="@drawable/vertical_progress_bar"-->
+<!--            android:progress="50"-->
+<!--            android:max="100">-->
+<!--        </ProgressBar>-->
+
+<!--    </LinearLayout>-->
+
+
+    <!-- mitad inferior -->
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="32dp"
+        android:backgroundTint="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/peso"
+                                android:layout_marginStart="32dp"
+                                android:textSize="20sp"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tv_peso"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:layout_marginStart="4dp"
+                                android:textSize="20sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/pbPeso"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="8dp"
+                            app:trackThickness="16dp"
+                            app:indicatorColor="@color/blue_light2"
+                            app:trackCornerRadius="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/altura"
+                    android:layout_marginStart="32dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_altura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginStart="4dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/pbAltura"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                app:trackThickness="16dp"
+                app:trackCornerRadius="5dp"
+                app:indicatorColor="@color/blue_light2"/>
+
+
+                <TextView
+                    android:id="@+id/tvReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/reset_values"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="end"
+                    android:textStyle="bold"/>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnImc"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/splash_background"
+                android:layout_gravity="center"
+                app:cardCornerRadius="24dp"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_imc"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+            </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvImc"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="16dp"
+            android:backgroundTint="@color/blue_light">
+
+            <ImageView
+                android:id="@+id/btnCLose"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:contentDescription="a"
+                android:background="@drawable/ic_close"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_imc"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/calculo_imc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+
+
+        </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+
+

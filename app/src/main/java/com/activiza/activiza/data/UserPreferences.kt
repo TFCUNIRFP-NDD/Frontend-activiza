@@ -14,8 +14,7 @@ class UserPreferences(context: Context, token:String) {
         get() = sharedPreferences.getBoolean("dark_mode", false)
         set(value) = sharedPreferences.edit().putBoolean("dark_mode", value).apply()
 
-    var vibrationEnabled: Boolean
-        get() = sharedPreferences.getBoolean("vibration", true)
+    var vibrationEnabled: Boolean        get() = sharedPreferences.getBoolean("vibration", true)
         set(value) = sharedPreferences.edit().putBoolean("vibration", value).apply()
 
     var volume: Int

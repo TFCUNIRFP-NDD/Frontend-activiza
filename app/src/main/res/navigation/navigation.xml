@@ -41,7 +41,11 @@ app:startDestination="@id/entrenamientosFragment">
     android:id="@+id/settingsFragment"
     android:name="com.activiza.activiza.ui.view.fragmentos.SettingsFragment"
     android:label="fragment_settings"
-    tools:layout="@layout/fragment_settings" />
+    tools:layout="@layout/fragment_settings" >
+    <action
+        android:id="@+id/action_settingsFragment_to_perfilFragment"
+        app:destination="@id/perfilFragment" />
+</fragment>
     <fragment
         android:id="@+id/panelDeControlFragment"
         android:name="com.activiza.activiza.ui.view.fragmentos.PanelDeControlFragment"
@@ -154,5 +158,12 @@ app:startDestination="@id/entrenamientosFragment">
         <action
             android:id="@+id/action_anadirEjerciciosFragment_to_entrenamientosFragment"
             app:destination="@id/entrenamientosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.PerfilFragment"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" >
+
     </fragment>
 </navigation>
