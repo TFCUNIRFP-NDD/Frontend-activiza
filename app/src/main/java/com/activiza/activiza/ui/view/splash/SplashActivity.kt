@@ -21,7 +21,6 @@ import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentSettingsBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
-import com.activiza.activiza.ui.permissions.PermissionManager
 import com.activiza.activiza.ui.view.OnboardingActivity
 import com.activiza.activiza.ui.view.login.LoginActivity
 import com.activiza.activiza.ui.viewmodel.NotificationReceiver
@@ -36,7 +35,6 @@ class SplashActivity : AppCompatActivity() {
     lateinit var db: ActivizaDataBaseHelper
     private lateinit var apiService: APIListener
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var permissionManager: PermissionManager
     private lateinit var userPreferences: UserPreferences
     companion object{
         const val HOUR_OF_DAY = 9
@@ -155,58 +153,4 @@ class SplashActivity : AppCompatActivity() {
             }
         })
     }
-
-//    //Funciones para la vibracion
-//    private fun saveVibrationPreference(isVibrationEnabled: Boolean) {
-//        // Guardar la preferencia de vibración en SharedPreferences
-//        val sharedPreferences = getSharedPreferences("notification_settings", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.putBoolean("vibration_enabled", isVibrationEnabled)
-//        editor.apply()
-//    }
-//
-//    private fun isVibrationEnabled(): Boolean {
-//        // Obtener la preferencia de vibración desde SharedPreferences
-//        val sharedPreferences = getSharedPreferences("notification_settings", Context.MODE_PRIVATE)
-//        return sharedPreferences.getBoolean("vibration_enabled", true) // Valor predeterminado: true
-//    }
-//
-//    private fun configureActivity() {
-//        // Configuración de Retrofit y otros aspectos de la actividad
-//
-//        // Configuracion del switch de vibración
-//        binding.switchVibration.setOnCheckedChangeListener { _, isChecked ->
-//            // Guardar la preferencia de vibración en SharedPreferences
-//            saveVibrationPreference(isChecked)
-//        }
-//
-//        comprobarDatos()
-//        // Programar la notificación diaria si aún no se ha enviado hoy
-//        if (!isNotificationAlreadySentToday() && db.obtenerPrimeraRutina() != null) {
-//            programarNotificacionDiaria()
-//        }
-//    }
-//
-//    // Llama a este método cuando se hayan concedido todos los permisos necesarios
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        // Pasar los resultados de los permisos al PermissionManager para su manejo
-//        permissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        // Verificar si el permiso de escritura externa se concedió
-//        if (requestCode == permissionManager.PERMISSION_REQUEST_CODE &&
-//            permissionManager.isStoragePermissionGranted()
-//        ) {
-//            // Configurar la actividad después de que se concedan los permisos
-//            configureActivity()
-//        } else {
-//            // Manejar el caso en que el permiso es rechazado por el usuario
-//            // Puedes mostrar un mensaje al usuario indicando que la operación no se puede realizar sin permisos
-//        }
-//    }
-
-    // ...
 }

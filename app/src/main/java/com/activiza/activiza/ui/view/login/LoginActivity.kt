@@ -6,10 +6,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import com.activiza.activiza.data.AuthData
+import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.TokenResponse
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.ActivityLoginBinding
@@ -26,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var apiService: APIListener // Asegúrate de tener la interfaz APIService definida en tu código
-    private lateinit var sharedPreferences:SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     lateinit var db: ActivizaDataBaseHelper
 
 
@@ -36,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
-
         db = ActivizaDataBaseHelper(binding.layoutRegister.context)
 
         //Cambio de vista de layout LOGIN/REGISTER
@@ -48,12 +49,14 @@ class LoginActivity : AppCompatActivity() {
             showRegisterLayout()
         }
 
+
         // Configuración de Retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("http://34.163.215.184/activiza/") // Reemplaza con la URL base de tu API
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         apiService = retrofit.create(APIListener::class.java)
+
 
         // Funcionalidad al hacer clic en el botón Login
         binding.btnLogin.setOnClickListener {
@@ -70,14 +73,16 @@ class LoginActivity : AppCompatActivity() {
                     authenticateUser(authData)
 
                 }
+
                 else -> {
                     // Si falta algún campo o el formato de correo electrónico no es válido, mostramos un mensaje de error
-                    Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
 
-        // Funcionalidad del registro
+
         //Funcionalidad al clickar en las cajas de email, password y nombre
         binding.etEmailSignup.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
@@ -97,31 +102,32 @@ class LoginActivity : AppCompatActivity() {
                 binding.tiPasswordSignup.setHelperTextEnabled(false)
 
                 validatePasswordFormat()
-            }else{
+            } else {
                 binding.tiPasswordSignup.setHelperTextEnabled(true)
                 binding.tiPasswordSignup.helperText = "La contraseña debe tener al menos: " +
                         "8 caracteres de longitud, una letra mayúscula,una letra minúscula,un número y un carácter especial como @, #,$,/ etc."
             }
         }
 
-        //Funcionalidad boton Register
+        //Funcionalidad boton SignUp
         binding.btnRegister.setOnClickListener {
             val nameNotEmpty = binding.etNameSignup.text.toString().isNotEmpty()
             val emailNotEmpty = binding.etEmailSignup.text.toString().isNotEmpty()
             val passwordNotEmpty = binding.etPasswordSignup.text.toString().isNotEmpty()
             val validEmailFormat =
                 Patterns.EMAIL_ADDRESS.matcher(binding.etEmailSignup.text.toString()).matches()
-            val validPasswordFormat = "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!.?]).*$".toRegex()
-
-
+            val validPasswordFormat =
+                "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!.?]).*$".toRegex()
 
             when {
                 nameNotEmpty && emailNotEmpty && passwordNotEmpty -> {
                     if (validEmailFormat && validPasswordFormat.matches(binding.etPasswordSignup.text.toString())) {
-                        val intent = Intent(this, OnboardingActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        finish()
+                        val authData = AuthData(
+                            binding.etEmailSignup.text.toString(),
+                            binding.etPasswordSignup.text.toString()
+                            // Suponemos que el usuario no es entrenador por defecto
+                        )
+                        registerUser(authData)
                     } else {
                         if (!validEmailFormat) {
                             Toast.makeText(
@@ -146,9 +152,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
+
+    // ----- FUNCIÓN DE LOGIN ------
 
     fun authenticateUser(authData: AuthData) {
         // Realizamos la llamada a la API para autenticar al usuario
@@ -168,48 +174,92 @@ class LoginActivity : AppCompatActivity() {
                         )
                         var usuarioDataComprobacion = db.getUsuario()
 
-                        if(usuarioDataComprobacion?.nombre != null) {
+                        if (usuarioDataComprobacion?.nombre != null) {
                             if (usuarioDataComprobacion?.password != usuarioData.password && usuarioData.nombre != usuarioDataComprobacion?.nombre) {
                                 db.updateUsuario(usuarioData)
                             }
-                        }else{
+                        } else {
                             db.insertUsuario(usuarioData)
                         }
                         //recogemos el token de la base de datos
                         val editor = sharedPreferences.edit()
                         editor.putString("token", intent.getStringExtra(TokenResponse.token))
+                        editor.apply()
+
                         // Luego, navegamos a la siguiente actividad
                         val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     }
                 } else {
                     // Si la autenticación falla, mostramos un mensaje de error
-                    Toast.makeText(this@LoginActivity, "Error de autenticación", Toast.LENGTH_SHORT).show()
+                    Log.e("david", "Error: ${response.code()} - ${response.errorBody()?.string()}")
+                    Toast.makeText(this@LoginActivity, "Error de autenticación", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
             override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
                 // Si ocurre un error en la llamada a la API, mostramos un mensaje de error
-                Toast.makeText(this@LoginActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
     }
 
-    private fun showLoginLayout(){
-        binding.layoutLogin.visibility = View.VISIBLE
-        binding.layoutRegister.visibility = View.GONE
 
+    //----- FUNCIONES DE REGISTRO -------
+
+    fun registerUser(authData: AuthData) {
+        // Realizamos la llamada a la API para registrar al usuario
+        apiService.registerUser(authData).enqueue(object : Callback<TokenResponse> {
+            override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
+                if (response.isSuccessful) {
+                    // Si el registro es exitoso, manejamos la respuesta aquí
+                    val tokenResponse = response.body()
+                    tokenResponse?.let { tokenResp ->
+                        // Creamos un objeto UsuarioData con el token y los datos de autenticación
+                        val usuarioData = UsuarioData(
+                            tokenResp.token,
+                            authData.username,
+                            authData.password,
+                            tokenResp.entrenador
+                        )
+                        // Insertamos o actualizamos el usuario en la base de datos
+                        db.insertUsuario(usuarioData)
+
+                        // Guardamos el token en SharedPreferences
+                        val editor = sharedPreferences.edit()
+                        editor.putString("token", intent.getStringExtra(tokenResp.token))
+                        //editor.putString("token", tokenResp.token)
+                        editor.apply()
+
+
+                        // Navegamos a la siguiente actividad
+                        val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    // Si el registro falla, mostramos un mensaje de error
+                    Log.e("david", "Error: ${response.code()} - ${response.errorBody()?.string()}")
+                    Toast.makeText(this@LoginActivity, "Error en el registro", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                // Si ocurre un error en la llamada a la API, mostramos un mensaje de error
+                Toast.makeText(this@LoginActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
     }
 
-    private fun showRegisterLayout() {
-
-        binding.layoutLogin.visibility = View.GONE
-        binding.layoutRegister.visibility = View.VISIBLE
-    }
-
-    //Métodos de validacion de registro
     //Valida si el formato de email es correcto
     private fun validateEmailFormat(): Boolean {
         val validEmailFormat =
@@ -225,7 +275,8 @@ class LoginActivity : AppCompatActivity() {
 
     //Valida si el formato de la password es correcto
     private fun validatePasswordFormat(): Boolean {
-        val validPasswordFormat = "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!]).*$".toRegex()
+        val validPasswordFormat =
+            "^.*(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=,!]).*$".toRegex()
         val validPassword = validPasswordFormat.matches(binding.etPasswordSignup.text.toString())
         //val validPassword = validPasswordFormat.find(binding.etPasswordSignup.text.toString()) != null
 
@@ -244,7 +295,7 @@ class LoginActivity : AppCompatActivity() {
     //Comprueba si el campo de nombre está vacío
     private fun usernameEmpty(): Boolean {
         var usernameEmpty = true
-        if (binding.etNameSignup.text.toString().isNotEmpty()){
+        if (binding.etNameSignup.text.toString().isNotEmpty()) {
             binding.tiName.error = null
             usernameEmpty = false
         } else {
@@ -255,4 +306,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    //-----FUNCIONES DE CAMBIO DE LAYOUT-----
+    private fun showLoginLayout() {
+        binding.layoutLogin.visibility = View.VISIBLE
+        binding.layoutRegister.visibility = View.GONE
+
+    }
+
+    private fun showRegisterLayout() {
+
+        binding.layoutLogin.visibility = View.GONE
+        binding.layoutRegister.visibility = View.VISIBLE
+    }
 }

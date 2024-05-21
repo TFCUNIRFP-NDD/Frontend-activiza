@@ -54,11 +54,12 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    //Para seleccionar imagen de perfil
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){uri ->
         if(uri!= null){
             binding.ivPerfil.setImageURI(uri)
         }else{
-            //No imagen
+
         }
     }
 
@@ -114,9 +115,9 @@ class PerfilFragment : Fragment() {
         return rootView
     }
 
+
+// -----FUNCIONES----
     private fun initUI() {
-
-
 
         binding.ivPerfil.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -149,7 +150,7 @@ class PerfilFragment : Fragment() {
     }
 
 
-
+    // Maneja el sensor de contador de pasos
     private val stepCounterListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent?) {
             // Verifica si el evento no es nulo y es del tipo correcto (contador de pasos)
@@ -171,6 +172,7 @@ class PerfilFragment : Fragment() {
     }
 
 
+    //Calcula las calorias quemadas
     private fun calculateCaloriesBurned(steps: Int): Double {
         // Estimación promedio de la distancia por paso (en kilómetros)
         val distancePerStep = 0.762 // Puedes ajustar este valor según tu contexto
@@ -180,17 +182,22 @@ class PerfilFragment : Fragment() {
         return caloriesPorKm * distanceWalked
     }
 
+
+    //Actualiza las calorias
     private fun updateCaloriesBurned(caloriesBurned: Double) {
         // Actualiza la interfaz de usuario con las calorías quemadas
         binding.tvCalorias.text = "Calorías quemadas: $caloriesBurned"
     }
 
+
+    //Actualiza los pasos
     private fun updateStepCount(steps: Int) {
         // Actualiza la interfaz de usuario con el nuevo recuento de pasos
         // Por ejemplo, actualiza un TextView con el recuento de pasos
         binding.tvCountSteps.text = "Pasos: $steps"
     }
 
+    //Carga los pasos
     private fun loadSteps() {
         val savedResetTime = getSavedResetTime()
         val currentTime = Calendar.getInstance().time
@@ -201,6 +208,7 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    //Guarda la hora de reinicio de los pasos
     private fun saveStepsResetTime(currentTime: Date) {
         // Guardar la hora de reinicio de los pasos en la base de datos
         // Aquí deberías implementar la lógica para guardar la hora de reinicio de los pasos
@@ -209,6 +217,7 @@ class PerfilFragment : Fragment() {
         println("Se reiniciaron los pasos a las: $currentTime")
     }
 
+    //Carga la hora de reinicio de los pasos
     private fun getSavedResetTime(): Date? {
         // Obtener la hora de reinicio de los pasos guardada en la base de datos
         // Aquí deberías implementar la lógica para obtener la hora de reinicio de los pasos
@@ -216,6 +225,7 @@ class PerfilFragment : Fragment() {
         return null
     }
 
+    // Verifica si han pasado más de 24 horas desde el previousTime hasta el currentTime
     private fun checkStepsReset() {
         val savedResetTime = getSavedResetTime()
         val currentTime = Calendar.getInstance().time
@@ -230,6 +240,7 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    // Verifica si han pasado más de 24 horas desde el previousTime hasta el currentTime
     private fun isMoreThan24HoursAgo(previousTime: Date, currentTime: Date): Boolean {
         // Verificar si ha pasado más de 24 horas desde el previousTime hasta el currentTime
         val diff = currentTime.time - previousTime.time
@@ -245,6 +256,7 @@ class PerfilFragment : Fragment() {
         _binding = null
     }
 
+    // Carga los detalles del usuario y actualiza las barras de progreso
     private fun loadUserDetailsAndUpdateUI() {
         // Carga los detalles del usuario desde la base de datos
         detallesUsuarioData = db.getDetallesUsuario()
@@ -255,6 +267,7 @@ class PerfilFragment : Fragment() {
         updateProgressBars(peso,altura)
     }
 
+    // Actualiza las barras de progreso con los valores del usuario
     private fun updateProgressBars(peso: Double, altura: Double) {
         // Calcula el progreso para las barras de progreso de peso y altura
         val progresoPeso = ((peso - 40) / (200 - 40) * 100).toInt()
@@ -265,6 +278,7 @@ class PerfilFragment : Fragment() {
         binding.pbAltura.progress = progresoAltura.coerceIn(0, 100)
     }
 
+    // Muestra el diálogo para introducir el peso y la altura
     fun mostrarDialogoPesoAltura() {
         val usuarioData: UsuarioData? = db.getUsuario()
         val token = usuarioData?.token
@@ -327,6 +341,8 @@ class PerfilFragment : Fragment() {
         }
     }
 
+
+    //Calcula el Imc
     private fun calcularIMC(peso: Double, altura: Double): Double {
         // Fórmula para calcular el IMC: peso (kg) / (altura (m) * altura (m))
         if (altura == 0.0) {
@@ -336,6 +352,7 @@ class PerfilFragment : Fragment() {
         return peso / (alturaMetros * alturaMetros)
     }
 
+    //Muestra el Imc
     private fun mostrarIMC(imc: Double) {
         // Muestra el IMC en el CardView y lo hace visible
         binding.cvImc.visibility = View.VISIBLE

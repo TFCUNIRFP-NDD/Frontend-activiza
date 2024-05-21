@@ -57,7 +57,7 @@ class SettingsFragment : Fragment() {
 //        val token = db.obtenerToken()
         val usuarioData: UsuarioData? = db.getUsuario()
         val token = usuarioData?.token
-        userPreferences = UserPreferences(requireContext(),token?:"")
+        userPreferences = UserPreferences(requireContext(), token ?: "")
 
         initUI()
         return rootView
@@ -90,10 +90,14 @@ class SettingsFragment : Fragment() {
             // Obtiene el valor del volumen como un porcentaje (entre 0 y 100)
             val volumePercentage = value.toInt()
             // Calcula el valor del volumen basado en el porcentaje
-            val maxVolume = (requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager).getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+            val maxVolume =
+                (requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager).getStreamMaxVolume(
+                    AudioManager.STREAM_MUSIC
+                )
             val volume = (maxVolume * volumePercentage) / 100
             // Establece el volumen del sistema
-            val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            val audioManager =
+                requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
 
         }
@@ -111,12 +115,16 @@ class SettingsFragment : Fragment() {
                 requireActivity().finish()
             } else {
 
-            }}
+            }
+        }
 
         binding.tvCerrarSesion.setOnClickListener {
-                val intent = Intent(requireContext(), LoginActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+            val usuarioData: UsuarioData? = db.getUsuario()
+            val token = usuarioData?.token
+            clearPreferences(requireContext(), token.orEmpty())
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
 
         }
 
@@ -125,7 +133,6 @@ class SettingsFragment : Fragment() {
         }
 
     }
-
 
 
     fun clearPreferences(context: Context, token: String) {
