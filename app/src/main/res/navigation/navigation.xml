@@ -99,7 +99,7 @@ app:startDestination="@id/entrenamientosFragment">
         android:id="@+id/loginActivity"
         android:name="com.activiza.activiza.ui.view.login.LoginActivity"
         android:label="activity_register"
-        tools:layout="@layout/activity_register" >
+        tools:layout="@layout/layoutRegister" >
     </activity>
     <fragment
         android:id="@+id/anadirRutinaFragment"

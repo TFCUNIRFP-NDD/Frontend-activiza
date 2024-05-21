@@ -479,49 +479,6 @@ class ActivizaDataBaseHelper(context:Context) :
         db.close()
     }
 
-    fun getDetallesUsuarioPorId(idUsuario: Int): DetallesUsuarioData? {
-        val db = readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME_DETALLE_USUARIOS WHERE $COLUMN_ID_USUARIO = ?"
-        val cursor = db.rawQuery(query, arrayOf(idUsuario.toString()))
-
-        var detallesUsuario: DetallesUsuarioData? = null
-
-        if (cursor.moveToFirst()) {
-            val altura = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_ALTURA))
-            val peso = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PESO))
-            val genero = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENERO))
-            val objetivo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OBJETIVO))
-
-            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo)
-        }
-
-        cursor.close()
-        db.close()
-
-        return detallesUsuario
-    }
-
-    fun updateDetallesUsuarioPorId(id: Int, peso: Double, altura: Double) {
-        val db = this.writableDatabase
-        val values = ContentValues().apply {
-            put(COLUMN_ALTURA, altura)
-            put(COLUMN_PESO, peso)
-        }
-        val rowsAffected = db.update(
-            TABLE_NAME_DETALLE_USUARIOS,
-            values,
-            "$COLUMN_ID_USUARIO = ?",
-            arrayOf(id.toString())
-        )
-        db.close()
-
-        if (rowsAffected > 0) {
-
-        } else {
-
-        }
-
-    }
 
     fun getDetallesUsuarioPorToken(token: String): DetallesUsuarioData? {
         val db = readableDatabase
