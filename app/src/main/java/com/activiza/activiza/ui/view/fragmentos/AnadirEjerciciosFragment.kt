@@ -106,7 +106,7 @@ class AnadirEjerciciosFragment : Fragment() {
     private fun initEvents() {
         binding.btnAnadirRutina.setOnClickListener {
             if(args.numEjercicios == list.size){
-                var rutinaPostData: RutinaPostData = RutinaPostData(1,args.nombre,args.descripcion,list,args.genero,args.objetivo,args.lugar,args.imagenUrl)
+                var rutinaPostData: RutinaPostData = RutinaPostData(1,args.nombre,args.descripcion,list,args.genero,args.objetivo,args.lugar,args.imagenUrl,args.duracion.toInt())
                 //Recoger token de sql lite
                 val token = db.obtenerToken()
                 // Realizar la solicitud HTTP en el hilo de fondo

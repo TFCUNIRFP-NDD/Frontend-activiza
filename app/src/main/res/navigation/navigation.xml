@@ -155,6 +155,9 @@ app:startDestination="@id/entrenamientosFragment">
         <argument
             android:name="imagen_url"
             app:argType="string" />
+        <argument
+            android:name="duracion"
+            app:argType="string" />
         <action
             android:id="@+id/action_anadirEjerciciosFragment_to_entrenamientosFragment"
             app:destination="@id/entrenamientosFragment" />

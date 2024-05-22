@@ -11,11 +11,12 @@
     <color name="primary_color">#f85f6a</color>
     <color name="gray_dark">#666363</color>
     <color name="image_color">#163643</color>
-    <color name="green">#65FF44</color>
+    <color name="green">#CCFF00</color>
     <color name="transparent">#0065FF44</color>
     <color name="blue">#5585CD</color>
     <color name="blue_background">#5763DE</color>
     <color name="blue_light">#709EE3</color>
     <color name="blue_light2">#8AB2EF</color>
+    <color name="secondary_color">#F85F6A</color>
 
 </resources>

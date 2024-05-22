@@ -46,17 +46,20 @@ class AnadirRutinaFragment : Fragment() {
     private fun initEvents() {
         binding.btnSiguiente.setOnClickListener {
             //Logica del siguiente fragmento
-            if(comprobarCampos()){
+            if (comprobarCampos()) {
                 var numeroEjercicios = binding.etNumeroEjercicios.text.toString()
-                findNavController().navigate(AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToAnadirEjerciciosFragment(
-                    numEjercicios = numeroEjercicios.toInt(),
-                    nombre = binding.etNombreAnadirRutina.text.toString(),
-                    descripcion = binding.etDescripcionAnadirRutina.text.toString(),
-                    genero = binding.etGeneroAnadirRutina.text.toString(),
-                    objetivo = binding.etObjetivoAnadirRutina.toString(),
-                    lugar = binding.etLugarAnadirRutina.toString(),
-                    imagenUrl = args.url
-                ))
+                findNavController().navigate(
+                    AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToAnadirEjerciciosFragment(
+                        numEjercicios = numeroEjercicios.toInt(),
+                        nombre = binding.etNombreAnadirRutina.text.toString(),
+                        descripcion = binding.etDescripcionAnadirRutina.text.toString(),
+                        genero = binding.etGeneroAnadirRutina.text.toString(),
+                        objetivo = binding.etObjetivoAnadirRutina.text.toString(),
+                        lugar = binding.etLugarAnadirRutina.text.toString(),
+                        imagenUrl = args.url,
+                        duracion = binding.etDuracionAnadirRutina.text.toString()
+                    )
+                )
             }
         }
     }
@@ -69,6 +72,7 @@ class AnadirRutinaFragment : Fragment() {
         var genero = binding.etGeneroAnadirRutina.text.toString()
         var objetivo = binding.etObjetivoAnadirRutina.text.toString()
         var lugar = binding.etLugarAnadirRutina.text.toString()
+        var duracion = binding.etDuracionAnadirRutina.text.toString()
         val errores = mutableListOf<String>()
 
         // Verificación de que query no sea igual a miString
@@ -85,6 +89,27 @@ class AnadirRutinaFragment : Fragment() {
         }
         if (ejercicios.isEmpty()) {
             errores.add("El campo ejercicios no puede estar vacío")
+        } else {
+            try {
+                val ejerciciosInt = ejercicios.toInt()
+                if (ejerciciosInt !in 1..99) {
+                    errores.add("El campo ejercicios debe ser un número entre 1 y 99")
+                }
+            } catch (e: NumberFormatException) {
+                errores.add("El campo ejercicios no es un número válido")
+            }
+        }
+        if (duracion.isEmpty()) {
+            errores.add("El campo duración no puede estar vacío")
+        } else {
+            try {
+                val duracionInt = duracion.toInt()
+                if (duracionInt !in 1..99) {
+                    errores.add("El campo duración debe ser un número entre 1 y 99")
+                }
+            } catch (e: NumberFormatException) {
+                errores.add("El campo duración no es un número válido")
+            }
         }
         if (genero.isEmpty() || (genero != "M" && genero != "H")) {
             errores.add("El campo género solo puede ser M o H")
@@ -95,11 +120,7 @@ class AnadirRutinaFragment : Fragment() {
         if (lugar.isEmpty() || (lugar != "C" && lugar != "G")) {
             errores.add("El campo lugar solo puede ser C o G")
         }
-        if (ejercicios.toIntOrNull() ?: 0 > 99) {
-            errores.add("El campo ejercicios no puede ser mayor a 99")
-        }
-
-        Log.d("erroresListaVer",errores.toString())
+        Log.d("erroresListaVer", errores.toString())
 
         // Si hay errores
         if (errores.isNotEmpty()) {
@@ -108,23 +129,33 @@ class AnadirRutinaFragment : Fragment() {
                     error.contains("query") -> {
                         binding.etQuery.error = error
                     }
+
                     error.contains("nombre") -> {
                         binding.etNombreAnadirRutina.error = error
                     }
+
                     error.contains("descripción") -> {
                         binding.etDescripcionAnadirRutina.error = error
                     }
+
                     error.contains("ejercicios") -> {
                         binding.etNumeroEjercicios.error = error
                     }
+
                     error.contains("género") -> {
                         binding.etGeneroAnadirRutina.error = error
                     }
+
                     error.contains("objetivo") -> {
                         binding.etObjetivoAnadirRutina.error = error
                     }
+
                     error.contains("lugar") -> {
                         binding.etLugarAnadirRutina.error = error
+                    }
+
+                    error.contains("duración") -> {
+                        binding.etDuracionAnadirRutina.error = error
                     }
                     // Añade más casos según necesites para otros campos
                 }

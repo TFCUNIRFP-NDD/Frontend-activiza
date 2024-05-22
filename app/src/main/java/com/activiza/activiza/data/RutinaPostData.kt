@@ -10,5 +10,6 @@ data class RutinaPostData (
     @SerializedName("genero") var genero:String,
     @SerializedName("objetivo") var objetivo:String,
     @SerializedName("lugar_entrenamiento") var lugar_entrenamiento:String,
-    @SerializedName("media") var media:String
+    @SerializedName("media") var media:String,
+    @SerializedName("duracion") var duracion:Int
 )

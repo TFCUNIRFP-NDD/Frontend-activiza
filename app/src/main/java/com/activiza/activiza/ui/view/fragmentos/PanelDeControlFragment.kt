@@ -83,9 +83,10 @@ class PanelDeControlFragment : Fragment() {
         val firstDayOfWeek = currentMonth.atDay(1).dayOfWeek.value
 
         val daysArray = arrayOfNulls<String>(42)
+        val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val currentDayIndex = firstDayOfWeek + today.dayOfMonth - 2
 
         var currentDay = 1
-
         for (i in 0 until daysArray.size) {
             if (i < firstDayOfWeek - 1 || i >= daysInMonth + firstDayOfWeek - 1) {
                 daysArray[i] = ""
@@ -94,9 +95,11 @@ class PanelDeControlFragment : Fragment() {
                 currentDay++
             }
         }
-        // Marca el día actual
-        val currentDayIndex = firstDayOfWeek + today.dayOfMonth - 2
 
+        // Obtener el calendario de entrenamiento desde la base de datos
+        val calendarioEntrenamiento = db.obtenerCalendarioEntrenamiento(rutina.id)
+
+        // Define un ArrayAdapter personalizado para cambiar el color de fondo de los días
         val adapter = object : ArrayAdapter<String>(
             binding.tvDescripcionPanelDeControl.context,
             R.layout.grid_item_day,
@@ -104,46 +107,48 @@ class PanelDeControlFragment : Fragment() {
         ) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
+                val dayString = getItem(position)
 
-                // Cambia el color de fondo de los días anteriores al día actual
-                if (position < currentDayIndex) {
-                    view.setBackgroundColor(Color.GRAY) // Cambia el color a tu elección
-                } else if (position == currentDayIndex) {
-                    if(!db.obtenerEstadoDeRutina(rutina.id,obtenerFechaActual())){
-                        view.setBackgroundResource(R.color.splash_background)
-                    }else {
-                        view.setBackgroundResource(R.color.green)
+                // Restablece el color de fondo predeterminado
+                view.setBackgroundColor(Color.TRANSPARENT)
+
+                if (!dayString.isNullOrEmpty()) {
+                    val day = dayString.toInt()
+                    val date = currentMonth.atDay(day).format(dateFormatter)
+
+                    val entrenamiento = calendarioEntrenamiento.find { it.fecha == date }
+
+                    if (entrenamiento != null) {
+                        when {
+                            entrenamiento.completado -> {
+                                view.setBackgroundResource(R.color.green)
+                                //Compruebo que la fecha coincide con la actual
+                                if(LocalDate.parse(date).isEqual(today)){
+                                    //Deshabilito el boton y le digo que este en color gris
+                                    binding.btnComenzarEntrenamiento.setBackgroundColor(ContextCompat.getColor(binding.btnComenzarEntrenamiento.context, R.color.green))
+                                    binding.btnComenzarEntrenamiento.isClickable = false
+                                }
+                            }
+                            entrenamiento.tocaEntrenar -> view.setBackgroundResource(R.color.splash_background)
+                            else -> {
+                                view.setBackgroundColor(Color.TRANSPARENT)
+                                //Compruebo que la fecha coincide con la actual
+                                if(LocalDate.parse(date).isEqual(today)){
+                                    //Deshabilito el boton y le digo que este en color gris
+                                    binding.btnComenzarEntrenamiento.setBackgroundColor(ContextCompat.getColor(binding.btnComenzarEntrenamiento.context, R.color.gray_dark))
+                                    binding.btnComenzarEntrenamiento.isClickable = false
+                                }
+                            }
+                        }
+                    } else if (LocalDate.parse(date).isBefore(today)) {
+                        view.setBackgroundColor(Color.GRAY)
                     }
-                }else {
-                        // Restablece el color de fondo para los días posteriores o iguales al día actual
-                        view.setBackgroundColor(Color.TRANSPARENT) // Cambia el color a tu elección
-                    }
-
-
+                }
                 return view
             }
         }
 
         gridViewCalendar.adapter = adapter
-
-
-        // Define un selector para el fondo del día actual
-        val selector = ContextCompat.getDrawable(
-            requireContext(),
-            R.drawable.selector_current_day_background
-        )
-
-        // Asigna el selector como el fondo del elemento del grid para el día actual
-        gridViewCalendar.getChildAt(currentDayIndex)?.background = selector
-
-        gridViewCalendar.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, position, _ ->
-                val selectedDay = daysArray[position]
-                if (!selectedDay.isNullOrEmpty()) {
-                    // Puedes hacer algo cuando el usuario seleccione un día aquí
-
-                }
-            }
     }
 
 

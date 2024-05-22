@@ -5,12 +5,17 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.activiza.activiza.data.CalendarioData
 import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.RutinaData
 import com.activiza.activiza.data.UserSettings
 import com.activiza.activiza.data.UsuarioData
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -19,16 +24,18 @@ class ActivizaDataBaseHelper(context:Context) :
         companion object{
 
             private const val DATABASENAME = "activiza.db"
-            private const val DATABASE_VERSION = 1
+            private const val DATABASE_VERSION = 4
 
             //Create all Rutinas
             private const val TABLE_NAME_RUTINAS = "rutinas"
             private const val COLUMN_ID = "id"
             private const val COLUMN_NAME = "name"
             private const val COLUMN_ENTRENADOR = "entrenador"
-            private const val COLUMN_TIPO = "tipo"
+            //private const val COLUMN_DURACION = "duracion"
             private const val COLUMN_DESCRIPCION = "descripcion"
             private const val COLUMN_MEDIA = "media"
+            private const val COLUMN_FECHA_INICIO = "fecha_inicio"
+            private const val COLUMN_FECHA_FINAL = "fecha_final"
 
             //create all ejercicios
             private const val TABLE_NAME_EJERCICIOS = "ejercicios"
@@ -46,6 +53,14 @@ class ActivizaDataBaseHelper(context:Context) :
             private const val COLUMN_ID_EJERCICIO = "id_ejercicio"
             private const val COLUMN_FECHA = "fecha"
             private const val COLUMN_COMPLETADO = "completado"
+            private const val COLUMN_ID_CALENDARIO = "id_calendario"
+
+            //create calendario
+            //private const val COLUMN_ID = "id"
+            private const val TABLE_NAME_CALENDARIO_ENTRENAMIENTO  = "calendario"
+            //private const val COLUMN_FECHA = "fecha"
+            //private const val COLUMN_COMPLETADO = "completado"
+            private const val COLUMN_TOCA_ENTRENAR = "toca_entrenar"
 
             //create usuario
             //private const val COLUMN_ID = "id"
@@ -70,11 +85,14 @@ class ActivizaDataBaseHelper(context:Context) :
         //Tabla con todas las Rutinas
         val createTableRutinas =
             "CREATE TABLE $TABLE_NAME_RUTINAS (" +
-                    "$COLUMN_ID integer PRIMARY KEY," +
-                    "$COLUMN_NAME varchar(255), " +
-                    "$COLUMN_ENTRENADOR varchar(255), " +
+                    "$COLUMN_ID INTEGER PRIMARY KEY," +
+                    "$COLUMN_NAME VARCHAR(255), " +
+                    "$COLUMN_ENTRENADOR VARCHAR(255), " +
                     "$COLUMN_DESCRIPCION TEXT, " +
-                    "$COLUMN_MEDIA varchar(255))"
+                    "$COLUMN_MEDIA VARCHAR(255), " +
+                    "$COLUMN_DURACION INTEGER," +
+                    "$COLUMN_FECHA_INICIO DATE, " +
+                    "$COLUMN_FECHA_FINAL DATE)"
         db?.execSQL(createTableRutinas)
 
         // Crear la tabla para los Ejercicios
@@ -87,16 +105,17 @@ class ActivizaDataBaseHelper(context:Context) :
                 "$COLUMN_DURACION INTEGER," +
                 "$COLUMN_DESCANSO INTEGER," +
                 "$COLUMN_MEDIA VARCHAR(255)," +
-                "FOREIGN KEY($COLUMN_NAME) REFERENCES $TABLE_NAME_RUTINAS($COLUMN_NAME) ON DELETE CASCADE)"
+                "FOREIGN KEY($COLUMN_ID_RUTINA) REFERENCES $TABLE_NAME_RUTINAS($COLUMN_ID) ON DELETE CASCADE)"  // Correct foreign key reference
         db?.execSQL(createEjercicios)
 
-        //Crear la tabla para los entrenamientos
-        val createEntrenamientosTable = ("CREATE TABLE $TABLE_NAME_ENTRENAMIENTOS (" +
+        // Crear la tabla para los entrenamientos
+        val createEntrenamientosTable = "CREATE TABLE $TABLE_NAME_ENTRENAMIENTOS (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY," +
                 "$COLUMN_ID_EJERCICIO INTEGER," +
                 "$COLUMN_FECHA DATE," +
                 "$COLUMN_COMPLETADO INTEGER," +
-                "FOREIGN KEY($COLUMN_ID_EJERCICIO) REFERENCES $TABLE_NAME_EJERCICIOS($COLUMN_ID) ON DELETE CASCADE)")
+                "$COLUMN_ID_CALENDARIO INTEGER," +
+                "FOREIGN KEY($COLUMN_ID_EJERCICIO) REFERENCES $TABLE_NAME_EJERCICIOS($COLUMN_ID) ON DELETE CASCADE)"
         db?.execSQL(createEntrenamientosTable)
 
         val CREATE_TABLE_USUARIOS = ("CREATE TABLE " + TABLE_NAME_USUARIOS + "("
@@ -118,6 +137,17 @@ class ActivizaDataBaseHelper(context:Context) :
                 + ")")
         db?.execSQL(CREATE_TABLE_DETALLES_USUARIOS)
 
+        // Crear la tabla para el calendario de entrenamiento
+        val createCalendarioEntrenamientoTable =
+            "CREATE TABLE $TABLE_NAME_CALENDARIO_ENTRENAMIENTO (" +
+                    "$COLUMN_ID INTEGER PRIMARY KEY," +
+                    "$COLUMN_FECHA DATE," +
+                    "$COLUMN_COMPLETADO BOOLEAN," +
+                    "$COLUMN_TOCA_ENTRENAR BOOLEAN," +
+                    "$COLUMN_ID_RUTINA INTEGER, " +
+                    "FOREIGN KEY($COLUMN_ID_RUTINA) REFERENCES $TABLE_NAME_RUTINAS($COLUMN_ID) ON DELETE CASCADE)"
+        db?.execSQL(createCalendarioEntrenamientoTable)
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -131,25 +161,56 @@ class ActivizaDataBaseHelper(context:Context) :
         db?.execSQL(dropTableQueryUsuarios)
         val dropTableQueryDetalleUsuarios = "DROP TABLE IF EXISTS $TABLE_NAME_DETALLE_USUARIOS"
         db?.execSQL(dropTableQueryDetalleUsuarios)
+        val dropTableQueryCalendario = "DROP TABLE IF EXISTS $TABLE_NAME_CALENDARIO_ENTRENAMIENTO"
+        db?.execSQL(dropTableQueryCalendario)
         onCreate(db)
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     fun insertRutina(rutinas: RutinaData) {
+        // Usando LocalDate (API 26+)
+        val fechaActualLocalDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val fechaFinal = calcularFechaLocalDate(fechaActualLocalDate, rutinas.duracion)
         val db = writableDatabase
+
+        // Insertar la rutina en la base de datos
         val values = ContentValues().apply {
             put(COLUMN_ID, rutinas.id)
             put(COLUMN_NAME, rutinas.nombre)
             put(COLUMN_ENTRENADOR, rutinas.entrenador)
             put(COLUMN_DESCRIPCION, rutinas.descripcion)
             put(COLUMN_MEDIA, rutinas.media)
+            put(COLUMN_DURACION, rutinas.duracion)
+            put(COLUMN_FECHA_INICIO, fechaActualLocalDate)
+            put(COLUMN_FECHA_FINAL, fechaFinal)
         }
         db.insert(TABLE_NAME_RUTINAS, null, values)
+
+        // Generar e insertar las fechas del calendario de entrenamiento
+        val fechaInicio = LocalDate.parse(fechaActualLocalDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val fechaFin = LocalDate.parse(fechaFinal, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+        var fecha = fechaInicio
+        while (!fecha.isAfter(fechaFin)) {
+            val esFinDeSemana = fecha.dayOfWeek == java.time.DayOfWeek.SATURDAY || fecha.dayOfWeek == java.time.DayOfWeek.SUNDAY
+            val tocaEntrenar = if (esFinDeSemana) 0 else 1
+
+            val calendarValues = ContentValues().apply {
+                put(COLUMN_FECHA, fecha.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                put(COLUMN_COMPLETADO, 0) // Inicialmente, ningún entrenamiento está completado
+                put(COLUMN_TOCA_ENTRENAR, tocaEntrenar)
+                put(COLUMN_ID_RUTINA, rutinas.id)
+            }
+            db.insert(TABLE_NAME_CALENDARIO_ENTRENAMIENTO, null, calendarValues)
+            fecha = fecha.plusDays(1)
+        }
+
         db.close()
     }
     fun insertEjercicio(ejercicio: EjerciciosData, id_rutina:Int) {
         val db = writableDatabase
         if (ejercicio.duracion == null) {
-               ejercicio.duracion = 0
-            }
+            ejercicio.duracion = 0
+        }
         val values = ContentValues().apply {
             put(COLUMN_ID, ejercicio.id)
             put(COLUMN_ID_RUTINA, id_rutina)
@@ -279,10 +340,11 @@ class ActivizaDataBaseHelper(context:Context) :
                 val entrenador = it.getString(it.getColumnIndexOrThrow(COLUMN_ENTRENADOR))
                 val descripcion = it.getString(it.getColumnIndexOrThrow(COLUMN_DESCRIPCION))
                 val media = it.getString(it.getColumnIndexOrThrow(COLUMN_MEDIA))
+                val duracion = it.getInt(it.getColumnIndexOrThrow(COLUMN_DURACION))
 
                 // Aquí debes manejar la lista de ejercicios, dependiendo de cómo estén almacenados en la base de datos
 
-                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media)
+                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media,duracion)
             }else{
                 null //si no se encuentra ningún dato, devuelve null
             }
@@ -471,6 +533,55 @@ class ActivizaDataBaseHelper(context:Context) :
         return count
     }
 
+    fun getEntrenador(): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT $COLUMN_ENTRENADOR FROM $TABLE_NAME_USUARIOS"
+        val cursor = db.rawQuery(query, null)
+        var count = false
+        cursor.use {
+            if (it.moveToFirst()) {
+                // Si hay al menos una fila, count será true
+                count = true
+            }
+        }
+        cursor.close()
+        db.close()
+        return count
+    }
+    fun obtenerCalendarioEntrenamiento(rutinaId: Int): List<CalendarioData> {
+        val db = this.readableDatabase
+        val calendarioEntrenamiento = mutableListOf<CalendarioData>()
+
+        val query = "SELECT $COLUMN_FECHA, $COLUMN_COMPLETADO, $COLUMN_TOCA_ENTRENAR FROM $TABLE_NAME_CALENDARIO_ENTRENAMIENTO WHERE $COLUMN_ID_RUTINA = ?"
+        val cursor = db.rawQuery(query, arrayOf(rutinaId.toString()))
+
+        while (cursor.moveToNext()) {
+            val fecha = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FECHA))
+            val completado = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_COMPLETADO)) == 1
+            val tocaEntrenar = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TOCA_ENTRENAR)) == 1
+            calendarioEntrenamiento.add(CalendarioData(fecha, completado, tocaEntrenar))
+        }
+
+        cursor.close()
+        db.close()
+
+        return calendarioEntrenamiento
+    }
+    fun marcarComoCompletadoCalendario(rutinaId: Int, fecha: String) {
+        val db = this.writableDatabase
+        val updateQuery = "UPDATE $TABLE_NAME_CALENDARIO_ENTRENAMIENTO " +
+                "SET $COLUMN_COMPLETADO = 1 " +
+                "WHERE $COLUMN_ID_RUTINA = ? AND $COLUMN_FECHA = ?"
+        db.execSQL(updateQuery, arrayOf(rutinaId.toString(), fecha))
+        db.close()
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun calcularFechaLocalDate(diaInicio: String, diasAdicionales: Int): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val date = LocalDate.parse(diaInicio, formatter)
+        val nuevaFecha = date.plusDays(diasAdicionales.toLong())
+        return nuevaFecha.format(formatter)
+    }
 
     fun borrarUsuario(token: String) {
         val db = writableDatabase

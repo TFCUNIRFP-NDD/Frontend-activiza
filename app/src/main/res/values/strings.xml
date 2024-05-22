@@ -46,6 +46,7 @@
     <string name="btn_register">Sign Up</string>
     <string name="descripcion_notificacion">Activa las notificaciones para que te avisemos de tus entrenamientos</string>
 
+    <!-- Campos anadir rutina -->
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="agregar">Agregar</string>
     <string name="panel_de_control">Panel de control</string>
@@ -76,6 +77,8 @@
     <string name="lugar">lugar</string>
     <string name="selecciona_una_imagen">Selecciona una Imágen</string>
     <string name="ejercicios_title">Ejercicios</string>
+    <string name="duracion">Duracion</string>
+    <string name="modificar_rutina">modificar rutina</string>
 
     <!-- Settings-->
     <string name="titulo_settings">Ajustes de la cuenta</string>
@@ -95,6 +98,12 @@
     <string name="peso">Peso:</string>
     <string name="altura">Altura:</string>
     <string name="saludo">Hola</string>
+
+    <!-- Feels -->
+    <string name="user_image">User Image</string>
+    <string name="type_message">Type a message</string>
+    <string name="send_message">Send Message</string>
+    <string name="nombre_usuario">nombre_usuario</string>
 
 
     <string name="channel_description">This is my notification channel.</string>

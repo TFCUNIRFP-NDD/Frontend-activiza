@@ -1,5 +1,6 @@
 package com.activiza.activiza.ui.view.fragmentos
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -33,7 +35,7 @@ class RutinaIDFragment : Fragment() {
     lateinit var rutina:RutinaData
     lateinit var db:ActivizaDataBaseHelper
     private val binding get() = _binding!!
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,13 +76,14 @@ class RutinaIDFragment : Fragment() {
             }
         }
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initUI() {
         // Inicializar la interfaz de usuario del fragmento si es necesario
         anadirDatosRetrofit()
         anadirEventos()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun anadirEventos() {
         binding.btnAgregar.setOnClickListener {
             db.borrarEjerciciosYRutinas()
@@ -91,12 +94,49 @@ class RutinaIDFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_rutinaIDFragment_to_panelDeControlFragment)
         }
+        binding.btnEliminar.setOnClickListener {
+            deleteDatosRetrofit()
+        }
+        binding.btnModificarRutina.setOnClickListener {
+
+        }
+    }
+    private fun deleteDatosRetrofit() {
+        // Utilizar el scope del ciclo de vida del fragmento para manejar las corrutinas
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                // Realizar la solicitud HTTP en el hilo de fondo
+                val call = withContext(Dispatchers.IO) {
+                    getRetrofit().create(APIListener::class.java)
+                        .deleteRutina(args.id)
+                        .execute()
+                }
+
+                // Verificar si la respuesta no es nula
+                val rutinas = call.body()
+                if (rutinas != null) {
+                    Log.d("deleteEjercicio",rutinas.toString())
+                    findNavController().popBackStack()
+                } else {
+                    // Manejar el caso donde la respuesta es nula
+                    Log.e("Error", "La respuesta de la llamada Retrofit es nula")
+                }
+            } catch (e: IOException) {
+                // Manejar el error al realizar la solicitud HTTP
+                Log.e("Error", "Error al realizar la solicitud HTTP: ${e.message}")
+                anadirDatosRetrofit()
+            }
+        }
     }
 
     private fun remplazarDatosRutina() {
         binding.tvNameRutina.text = rutina.nombre
         binding.tvDetalles.text = rutina.descripcion
         deUrlAImageView(rutina.media,binding.ivRutinaItem)
+        if(db.getEntrenador()){
+            binding.btnEliminar.visibility = View.VISIBLE
+            binding.btnModificarRutina.visibility = View.VISIBLE
+        }
     }
 
     fun deUrlAImageView(url:String, imageView: ImageView){
