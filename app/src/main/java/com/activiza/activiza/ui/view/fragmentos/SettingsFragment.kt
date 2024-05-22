@@ -121,6 +121,7 @@ class SettingsFragment : Fragment() {
         binding.tvCerrarSesion.setOnClickListener {
             val usuarioData: UsuarioData? = db.getUsuario()
             val token = usuarioData?.token
+            db.borrarUsuario(token!!)
             clearPreferences(requireContext(), token.orEmpty())
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
@@ -130,6 +131,9 @@ class SettingsFragment : Fragment() {
 
         binding.tvPerfil.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_perfilFragment)
+        }
+        binding.tvMostrarQR.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_qrFragment)
         }
 
     }

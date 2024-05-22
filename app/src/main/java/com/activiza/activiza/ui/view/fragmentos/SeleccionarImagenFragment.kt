@@ -26,9 +26,6 @@ class SeleccionarImagenFragment : Fragment() {
     private var _binding: FragmentSeleccionarImagenBinding? = null
     private val binding get() = _binding!!
     val args:SeleccionarImagenFragmentArgs by navArgs()
-    companion object {
-        const val TOKEN_API_PEXELS = "tkGjeRqPu7jbvTV1X9TMchp1URNxJ0JiIsqxbqBqduu42YO2qM6HqSc2"
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +50,7 @@ class SeleccionarImagenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 // Retrieve token from SQLite
-                val token = TOKEN_API_PEXELS
+                val token = APIListener.TOKEN_API_PEXELS
                 Log.d("infoQueryImagen",args.query)
                 // Make the HTTP request on the background thread
                 val call = withContext(Dispatchers.IO) {

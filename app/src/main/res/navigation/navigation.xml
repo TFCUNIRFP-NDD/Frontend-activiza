@@ -45,6 +45,9 @@ app:startDestination="@id/entrenamientosFragment">
     <action
         android:id="@+id/action_settingsFragment_to_perfilFragment"
         app:destination="@id/perfilFragment" />
+    <action
+        android:id="@+id/action_settingsFragment_to_qrFragment"
+        app:destination="@id/qrFragment" />
 </fragment>
     <fragment
         android:id="@+id/panelDeControlFragment"
@@ -169,4 +172,9 @@ app:startDestination="@id/entrenamientosFragment">
         tools:layout="@layout/fragment_perfil" >
 
     </fragment>
+    <fragment
+        android:id="@+id/qrFragment"
+        android:name="com.activiza.activiza.ui.view.fragmentos.QrFragment"
+        android:label="fragment_qr"
+        tools:layout="@layout/fragment_qr" />
 </navigation>

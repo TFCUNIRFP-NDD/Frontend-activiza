@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.navigation.fragment.findNavController
@@ -25,7 +26,7 @@ class AnadirRutinaFragment : Fragment() {
 
     private var _binding: FragmentAnadirRutinaBinding? = null
     private val binding get() = _binding!!
-    val args:AnadirRutinaFragmentArgs by navArgs()
+    val args: AnadirRutinaFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,42 +46,48 @@ class AnadirRutinaFragment : Fragment() {
 
     private fun initEvents() {
         binding.btnSiguiente.setOnClickListener {
-            //Logica del siguiente fragmento
             if (comprobarCampos()) {
-                var numeroEjercicios = binding.etNumeroEjercicios.text.toString()
-                findNavController().navigate(
-                    AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToAnadirEjerciciosFragment(
-                        numEjercicios = numeroEjercicios.toInt(),
-                        nombre = binding.etNombreAnadirRutina.text.toString(),
-                        descripcion = binding.etDescripcionAnadirRutina.text.toString(),
-                        genero = binding.etGeneroAnadirRutina.text.toString(),
-                        objetivo = binding.etObjetivoAnadirRutina.text.toString(),
-                        lugar = binding.etLugarAnadirRutina.text.toString(),
-                        imagenUrl = args.url,
-                        duracion = binding.etDuracionAnadirRutina.text.toString()
+                val numeroEjerciciosText = binding.etNumeroEjercicios.text.toString()
+                val duracionText = binding.etDuracionAnadirRutina.text.toString()
+                try {
+                    val numeroEjercicios = numeroEjerciciosText.toInt()
+                    val duracion = duracionText.toInt()
+
+                    findNavController().navigate(
+                        AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToAnadirEjerciciosFragment(
+                            numEjercicios = numeroEjercicios,
+                            nombre = binding.etNombreAnadirRutina.text.toString(),
+                            descripcion = binding.etDescripcionAnadirRutina.text.toString(),
+                            genero = binding.etGeneroAnadirRutina.text.toString(),
+                            objetivo = binding.etObjetivoAnadirRutina.text.toString(),
+                            lugar = binding.etLugarAnadirRutina.text.toString(),
+                            imagenUrl = args.url,
+                            duracion = duracion.toString()
+                        )
                     )
-                )
+                } catch (e: NumberFormatException) {
+                    // Handle the exception (e.g., show an error message)
+                    Toast.makeText(context, "Please enter valid numbers for exercises and duration", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     private fun comprobarCampos(): Boolean {
         val miString = "\"\""
-        var nombre = binding.etNombreAnadirRutina.text.toString()
-        var descripcion = binding.etDescripcionAnadirRutina.text.toString()
-        var ejercicios = binding.etNumeroEjercicios.text.toString()
-        var genero = binding.etGeneroAnadirRutina.text.toString()
-        var objetivo = binding.etObjetivoAnadirRutina.text.toString()
-        var lugar = binding.etLugarAnadirRutina.text.toString()
-        var duracion = binding.etDuracionAnadirRutina.text.toString()
+        val nombre = binding.etNombreAnadirRutina.text.toString()
+        val descripcion = binding.etDescripcionAnadirRutina.text.toString()
+        val ejercicios = binding.etNumeroEjercicios.text.toString()
+        val genero = binding.etGeneroAnadirRutina.text.toString()
+        val objetivo = binding.etObjetivoAnadirRutina.text.toString()
+        val lugar = binding.etLugarAnadirRutina.text.toString()
+        val duracion = binding.etDuracionAnadirRutina.text.toString()
         val errores = mutableListOf<String>()
 
-        // Verificación de que query no sea igual a miString
-        if (args.url.equals(miString)) {
+        if (args.url == miString) {
             errores.add("El campo query no puede ser igual a $miString")
         }
 
-        // Verificación de que los demás campos no estén vacíos
         if (nombre.isEmpty()) {
             errores.add("El campo nombre no puede estar vacío")
         }
@@ -122,73 +129,64 @@ class AnadirRutinaFragment : Fragment() {
         }
         Log.d("erroresListaVer", errores.toString())
 
-        // Si hay errores
         if (errores.isNotEmpty()) {
             for (error in errores) {
                 when {
                     error.contains("query") -> {
                         binding.etQuery.error = error
                     }
-
                     error.contains("nombre") -> {
                         binding.etNombreAnadirRutina.error = error
                     }
-
                     error.contains("descripción") -> {
                         binding.etDescripcionAnadirRutina.error = error
                     }
-
                     error.contains("ejercicios") -> {
                         binding.etNumeroEjercicios.error = error
                     }
-
                     error.contains("género") -> {
                         binding.etGeneroAnadirRutina.error = error
                     }
-
                     error.contains("objetivo") -> {
                         binding.etObjetivoAnadirRutina.error = error
                     }
-
                     error.contains("lugar") -> {
                         binding.etLugarAnadirRutina.error = error
                     }
-
                     error.contains("duración") -> {
                         binding.etDuracionAnadirRutina.error = error
                     }
-                    // Añade más casos según necesites para otros campos
                 }
             }
             return false
         }
-
         return true
     }
 
     private fun comprobarImagen() {
-        //Como por defecto nos saca "" si no devuelve nada pero a un string no le puedes meter "" se le mete \" y comprobamos si tiene una imagen
         val miString = "\"\""
         Log.d("InfoImagen", args.url)
-        if(!args.url.equals(miString)){
-            deUrlAImageView(args.url,binding.ivImageSelected)
+        if (args.url != miString) {
+            deUrlAImageView(args.url, binding.ivImageSelected)
             binding.ivImageSelected.visibility = View.VISIBLE
         }
     }
-    fun deUrlAImageView(url:String, imageView: ImageView){
-        Picasso.get().load(url).into(imageView)
-    }
+
     private fun recogerImagen() {
         binding.btnImageSubir.setOnClickListener {
-            var query = ""
-        if(!binding.etQuery.text.toString().isEmpty()){
-            query = binding.etQuery.text.toString()
-        }
-            findNavController().navigate(AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToSeleccionarImagenFragment(
-                query = query
-            ))
+            val query = binding.etQuery.text.toString()
+            findNavController().navigate(
+                AnadirRutinaFragmentDirections.actionAnadirRutinaFragmentToSeleccionarImagenFragment(
+                    query = query
+                )
+            )
         }
     }
+
+    fun deUrlAImageView(url: String, imageView: ImageView) {
+        Picasso.get().load(url).into(imageView)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
