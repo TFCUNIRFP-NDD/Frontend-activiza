@@ -19,6 +19,7 @@ class OnboardingActivity : AppCompatActivity() {
     private var diccionarioErrors = mutableMapOf<String, Boolean>()
     private lateinit var peso:String
     private lateinit var name:String
+    private lateinit var altura:String
     private lateinit var db:ActivizaDataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,7 @@ class OnboardingActivity : AppCompatActivity() {
         functions.pintarBarraNaranja(binding.viewOrangeLine, 20)
         name = "errorNombre"
         peso = "ErrorPeso"
+        altura = "ErrorAltura"
         inicializarDiccionario()
     }
     private fun sesionesCompletas(): Boolean {
@@ -60,6 +62,7 @@ class OnboardingActivity : AppCompatActivity() {
     private fun inicializarDiccionario() {
         diccionarioErrors[name] = false
         diccionarioErrors[peso] = false
+        diccionarioErrors[altura] =  false
     }
 
     private fun inicializarEventos() {
@@ -74,12 +77,17 @@ class OnboardingActivity : AppCompatActivity() {
         binding.etPeso.setOnClickListener {
                 comunPeso()
         }
+
+        binding.etAltura.setOnClickListener {
+                comunAltura()
+        }
     }
 
     private fun navegarSiguienteIntent() {
         val intent = Intent(this, Onboarding2Activity::class.java).apply {
             putExtra("nombre", binding.etName.text.toString())
             putExtra("peso", binding.etPeso.text.toString())
+            putExtra("altura", binding.etAltura.text.toString())
         }
         startActivity(intent)
     }
@@ -87,7 +95,9 @@ class OnboardingActivity : AppCompatActivity() {
     private fun ventanaSiguienteComprobacion():Boolean {
         val pesoText = binding.etPeso.text.toString()
         val nameText = binding.etName.text.toString()
+        val alturaText = binding.etAltura.text.toString()
         val peso = pesoText.toFloatOrNull()
+        val altura = alturaText.toFloatOrNull()
         var comprobacion = true
         when{
             pesoText.isNullOrEmpty() -> {
@@ -98,8 +108,16 @@ class OnboardingActivity : AppCompatActivity() {
                 errorName("El nombre no puede estar vacio")
                 comprobacion = false
             }
-            peso == null || peso<0 || peso>300 ->{
-                errorPeso("El peso tiene que ser un número entre 0 y 300")
+            alturaText.isNullOrEmpty() -> {
+                errorAltura("La altura no puede estar vacia")
+                comprobacion = false
+            }
+            peso == null || peso<30 || peso>250 ->{
+                errorPeso("El peso tiene que ser un número entre 30 y 250")
+                comprobacion = false
+            }
+            altura == null || altura<100 || altura>230 ->{
+                errorAltura("La altura tiene que ser un número entre 100 y 230")
                 comprobacion = false
             }
         }
@@ -118,14 +136,25 @@ class OnboardingActivity : AppCompatActivity() {
         binding.etName.clearFocus()
         diccionarioErrors[name] = true
     }
+    private fun errorAltura(mensaje:String){
+        binding.etAltura.setTextColor(getColor(R.color.error))
+        binding.etAltura.setText(mensaje)
+        binding.etAltura.clearFocus()
+        diccionarioErrors[altura] = true
+    }
     private fun comunPeso(){
-        binding.etPeso.setTextColor(getColor(R.color.black))
+        binding.etPeso.setTextColor(getColor(R.color.white))
         binding.etPeso.setText("")
         diccionarioErrors[peso] = false
     }
     private fun comunName(){
-        binding.etName.setTextColor(getColor(R.color.black))
+        binding.etName.setTextColor(getColor(R.color.white))
         binding.etName.setText("")
+        diccionarioErrors[name] = false
+    }
+    private fun comunAltura(){
+        binding.etAltura.setTextColor(getColor(R.color.white))
+        binding.etAltura.setText("")
         diccionarioErrors[name] = false
     }
 

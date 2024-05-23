@@ -62,11 +62,11 @@ class Onboarding3Activity : AppCompatActivity() {
         var objetivo = intent.getStringExtra("objetivo").toString()
         var altura = intent.getStringExtra("altura").toString()
         Log.i("info", genero)
-        if (genero == this.genero) {
-            binding.ivActivizaGenero.setImageResource(R.drawable.ic_male_man)
-        }else{
-            binding.ivActivizaGenero.setImageResource(R.drawable.ic_female_woman)
-        }
-        binding.tvPresentacionOnboarding.text = "Entonces $nombre eres de genero $genero pesas $peso, tu altura es $altura y tu objetivo es $objetivo"
+//        if (genero == this.genero) {
+//            binding.ivActivizaGenero.setImageResource(R.drawable.ic_male_man)
+//        }else{
+//            binding.ivActivizaGenero.setImageResource(R.drawable.ic_female_woman)
+//        }
+        binding.tvPresentacionOnboarding.text = "Entonces $nombre eres $genero, pesas $peso, tu altura es de $altura y tu objetivo es $objetivo. Bienvenid@"
     }
 }

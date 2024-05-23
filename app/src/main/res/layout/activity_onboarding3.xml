@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/ob3"
     tools:context=".ui.view.Onboarding3Activity">
 
     <LinearLayout
@@ -14,7 +15,7 @@
         <View
             android:id="@+id/viewOrangeLine"
             android:layout_width="0dp"
-            android:background="@color/splash_background"
+            android:background="@color/blue_light"
             android:layout_height="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
@@ -35,9 +36,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:layout_marginVertical="20dp"
         android:text="@string/activiza"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         />
 
     <TextView
@@ -46,15 +49,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:layout_marginHorizontal="20dp"
         tools:text="Entonces Nestor eres de genero masculino pesas 80kg y tu objetivo es ganar mas muscular"
         />
-    <ImageView
-        android:id="@+id/ivActivizaGenero"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        tools:src="@drawable/ic_male_man"
-        />
+<!--    <ImageView-->
+<!--        android:id="@+id/ivActivizaGenero"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="250dp"-->
+<!--        tools:src="@drawable/ic_male_man"-->
+<!--        />-->
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,19 +66,32 @@
         android:layout_height="match_parent"
         >
 
-        <Button
+        <androidx.cardview.widget.CardView
             android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="20dp"
-            android:text="@string/comenzar"
+            android:backgroundTint="@color/blue_light"
+            app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.22">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/comenzar"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

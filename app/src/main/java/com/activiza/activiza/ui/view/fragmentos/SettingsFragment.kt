@@ -4,8 +4,10 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import com.google.android.material.slider.RangeSlider
 import android.content.Intent
 import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -25,6 +27,7 @@ import com.activiza.activiza.ui.view.HomeActivity
 import com.activiza.activiza.ui.view.login.LoginActivity
 import com.activiza.activiza.ui.view.splash.SplashActivity
 import com.activiza.activiza.ui.viewmodel.NotificationReceiver
+import com.google.android.material.slider.Slider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +40,8 @@ class SettingsFragment : Fragment() {
     lateinit var db: ActivizaDataBaseHelper
     lateinit var notificationReceiver: SplashActivity
     private lateinit var userPreferences: UserPreferences
+    //private lateinit var mediaPlayer: MediaPlayer
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -86,21 +91,32 @@ class SettingsFragment : Fragment() {
         }
 
         binding.rsVolumen.addOnChangeListener { _, value, _ ->
-
-            // Obtiene el valor del volumen como un porcentaje (entre 0 y 100)
-            val volumePercentage = value.toInt()
-            // Calcula el valor del volumen basado en el porcentaje
-            val maxVolume =
-                (requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager).getStreamMaxVolume(
-                    AudioManager.STREAM_MUSIC
-                )
-            val volume = (maxVolume * volumePercentage) / 100
-            // Establece el volumen del sistema
-            val audioManager =
-                requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
-
+            setSystemVolume(value.toInt())
+//            // Obtiene el valor del volumen como un porcentaje (entre 0 y 100)
+//            val volumePercentage = value.toInt()
+//            // Calcula el valor del volumen basado en el porcentaje
+//            val maxVolume =
+//                (requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager).getStreamMaxVolume(
+//                    AudioManager.STREAM_MUSIC
+//                )
+//            val volume = (maxVolume * volumePercentage) / 100
+//            // Establece el volumen del sistema
+//            val audioManager =
+//                requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+//            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
         }
+
+        binding.rsVolumen.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+                // No hace nada
+            }
+
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                // Reproduce un sonido de prueba cuando se suelta el slider
+                playTestSound()
+            }
+        })
+
 
 
         binding.tvEliminarCuenta.setOnClickListener {
@@ -137,6 +153,38 @@ class SettingsFragment : Fragment() {
         }
 
     }
+
+    private fun setSystemVolume(volumePercentage: Int) {
+        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        val volume = (1 + (Math.log(volumePercentage.toDouble()) / Math.log(100.0)) * (maxVolume - 1)).toInt()
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
+    }
+
+//    private fun playTestSound() {
+//        if (this::mediaPlayer.isInitialized) {
+//            mediaPlayer.release()
+//        }
+//        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.test_sound) // Asegúrate de tener un archivo de sonido llamado test_sound en la carpeta res/raw
+//        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+//        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+//        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+//        val volume = currentVolume / maxVolume.toFloat()
+//        mediaPlayer.setVolume(volume, volume)
+//        mediaPlayer.start()
+//    }
+
+    private fun playTestSound() {
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.test_sound)
+        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        val volume = currentVolume / maxVolume.toFloat()
+        mediaPlayer?.setVolume(volume, volume)
+        mediaPlayer?.start()
+    }
+
 
 
     fun clearPreferences(context: Context, token: String) {

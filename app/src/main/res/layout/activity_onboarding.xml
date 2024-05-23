@@ -5,92 +5,145 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/ob3"
     tools:context=".ui.view.OnboardingActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-    <View
-        android:id="@+id/viewOrangeLine"
-        android:layout_width="0dp"
-        android:background="@color/splash_background"
-        android:layout_height="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        />
-    <View
-        android:id="@+id/viewGrayLine"
-        android:layout_width="0dp"
-        android:layout_height="8dp"
-        android:background="@color/gray_line"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_weight="1"
-        />
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/viewOrangeLine"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="50dp"
+            android:background="@color/blue_light" />
+
+        <View
+            android:id="@+id/viewGrayLine"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:background="@color/gray_line" />
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="40sp"
         android:layout_marginVertical="20dp"
+        android:gravity="center"
         android:text="@string/activiza"
-        />
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="¿Veamos un poco como eres?"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="40dp"
-        android:layout_marginHorizontal="20dp"
-        />
+        android:text="¿Veamos un poco como eres?"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="¿Como te llamamos?"
         android:layout_marginHorizontal="20dp"
-        />
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="¿Como te llamamos?"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Escribe tu nombre"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
-        />
+        android:gravity="center"
+        android:hint="@string/nombre"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/blue_light" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="¿Cuanto pesas?"
         android:layout_marginHorizontal="20dp"
-        />
+        android:gravity="center"
+        android:text="¿Cuanto pesas?"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/etPeso"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:hint="kg"
+        android:inputType="number"
+        android:textColorHint="@color/blue_light" />
+
+    <TextView
+        android:id="@+id/tvAltura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="kg"
         android:layout_marginHorizontal="20dp"
-        />
+        android:gravity="center"
+        android:text="¿Cuanto mides?"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/etAltura"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:hint="cm"
+        android:inputType="number"
+        android:textColorHint="@color/blue_light" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <Button
+        <androidx.cardview.widget.CardView
             android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="20dp"
-            android:text="@string/siguiente"
+            android:backgroundTint="@color/blue_light"
+            app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.22">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/siguiente"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
