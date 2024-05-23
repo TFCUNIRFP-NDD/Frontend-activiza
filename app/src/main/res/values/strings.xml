@@ -64,6 +64,7 @@
     <string name="completar">Completar</string>
     <string name="cual_es_tu_genero">¿Cual es tu genero?</string>
     <string name="cual_es_tu_altura">¿Cual es tu altura?</string>
+    <string name="nombre">Nombre</string>
     <string name="anadir_rutina">Añadir Rutina</string>
     <string name="genero">Genero</string>
     <string name="objetivo">Objetivo</string>
@@ -98,6 +99,7 @@
     <string name="btn_imc">Imc</string>
     <string name="peso">Peso:</string>
     <string name="altura">Altura:</string>
+    <string name="imc">Imc:</string>
     <string name="saludo">Hola</string>
 
     <!-- Feels -->

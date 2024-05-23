@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +16,11 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.fragment.findNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentPerfilBinding
-import com.activiza.activiza.databinding.FragmentSettingsBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
-import java.text.DecimalFormat
 import java.util.Calendar
 import java.util.Date
 
@@ -43,22 +41,23 @@ class PerfilFragment : Fragment() {
     private var caloriesPorKm: Double = 0.0
     private var stepsToday: Int = 0
 
-    private val handler = android.os.Handler()
+    private val handler = android.os.Handler(Looper.getMainLooper())
     private val resetStepsTask = object : Runnable {
         override fun run() {
             // Reiniciar los pasos y guardar la nueva hora de reinicio
             stepsToday = 0
             saveStepsResetTime(Calendar.getInstance().time)
-            // Programar la próxima ejecución del reinicio de pasos en 24 horas
+            // Programa la próxima ejecución del reinicio de pasos en 24 horas
             handler.postDelayed(this, 24 * 60 * 60 * 1000) // 24 horas en milisegundos
         }
     }
 
     //Para seleccionar imagen de perfil
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){uri ->
-        if(uri!= null){
+    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) {
             binding.ivPerfil.setImageURI(uri)
-        }else{
+            //saveImageUri(uri.toString())
+        } else {
 
         }
     }
@@ -67,7 +66,7 @@ class PerfilFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding  = FragmentPerfilBinding.inflate(inflater, container, false)
+        _binding = FragmentPerfilBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -79,12 +78,12 @@ class PerfilFragment : Fragment() {
         detallesUsuarioData = db.getDetallesUsuario()
         peso = detallesUsuarioData?.peso ?: 0.0
         altura = detallesUsuarioData?.altura ?: 0.0// Asigna 0.0 si el peso es nulo
-        caloriesPorKm = 0.05 * peso // Calcula las calorías por kilómetro basadas en el peso del usuario
+        caloriesPorKm =
+            0.05 * peso // Calcula las calorías por kilómetro basadas en el peso del usuario
 
         // Actualiza los TextView con los valores del usuario
-        binding.tvPeso.text = peso.toString() +" kg"
+        binding.tvPeso.text = peso.toString() + " kg"
         binding.tvAltura.text = altura.toInt().toString() + " cm"
-
 
 
         // Obtiene y muestra el nombre del usuario
@@ -95,7 +94,8 @@ class PerfilFragment : Fragment() {
             binding.tvNombre.text = nombreUsuario
         }
 
-
+        // Carga la imagen guardada, si existe
+        //loadImageUri()
 
         //carga los pasos y verifica si necesita reiniciarlos
         loadUserDetailsAndUpdateUI()
@@ -107,16 +107,26 @@ class PerfilFragment : Fragment() {
 
 
         if (stepSensor != null) {
-            sensorManager.registerListener(stepCounterListener, stepSensor, SensorManager.SENSOR_DELAY_UI)
+            stepSensor?.let {
+                sensorManager.registerListener(
+                    stepCounterListener,
+                    it,
+                    SensorManager.SENSOR_DELAY_UI
+                )
+            }
         } else {
-            // Maneja la situación cuando el dispositivo no tiene el sensor de contador de pasos
+            Toast.makeText(
+                requireContext(),
+                "Este dispositivo no tiene sensor de pasos",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         return rootView
     }
 
 
-// -----FUNCIONES----
+    // -----FUNCIONES----
     private fun initUI() {
 
         binding.ivPerfil.setOnClickListener {
@@ -126,29 +136,45 @@ class PerfilFragment : Fragment() {
         binding.tvReset.setOnClickListener {
             mostrarDialogoPesoAltura()
         }
-        binding.cvImc.visibility = View.GONE
+        binding.llImc.visibility = View.GONE
+        binding.pbImc.visibility = View.GONE
 
-        binding.btnCLose.setOnClickListener {
-            binding.cvImc.visibility = View.GONE
-            binding.tvReset.visibility = View.VISIBLE
-            binding.btnImc.visibility = View.VISIBLE
-        }
+
 
         binding.btnImc.setOnClickListener {
             detallesUsuarioData = db.getDetallesUsuario()
             peso = detallesUsuarioData?.peso ?: 0.0
             altura = detallesUsuarioData?.altura ?: 0.0
             val imc = calcularIMC(peso, altura)
-            if(imc != null){
+            if (imc != null) {
                 mostrarIMC(imc)
-            }else{
-                binding.cvImc.visibility = View.GONE
-                Toast.makeText(requireContext(), "error al calcular el imc", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.llImc.visibility = View.GONE
+                Toast.makeText(requireContext(), "error al calcular el imc", Toast.LENGTH_SHORT)
+                    .show()
             }
 
         }
     }
 
+    //Funciones para guardar y cargar la URI de la imagen
+//    private fun saveImageUri(uri: String) {
+//        val sharedPreferences = requireContext().getSharedPreferences("perfil_prefs", Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.putString("profile_image_uri", uri)
+//        editor.apply()
+//    }
+//
+//    private fun loadImageUri() {
+//        val sharedPreferences = requireContext().getSharedPreferences("perfil_prefs", Context.MODE_PRIVATE)
+//        val uriString = sharedPreferences.getString("profile_image_uri", null)
+//        if (uriString != null) {
+//            val uri = Uri.parse(uriString)
+//            binding.ivPerfil.setImageURI(uri)
+//        }
+//    }
+
+    // Funciones para el sensor de contador de pasos y Calorias
 
     // Maneja el sensor de contador de pasos
     private val stepCounterListener = object : SensorEventListener {
@@ -175,7 +201,7 @@ class PerfilFragment : Fragment() {
     //Calcula las calorias quemadas
     private fun calculateCaloriesBurned(steps: Int): Double {
         // Estimación promedio de la distancia por paso (en kilómetros)
-        val distancePerStep = 0.762 // Puedes ajustar este valor según tu contexto
+        val distancePerStep = 0.762
         // Convertir pasos en distancia (en kilómetros)
         val distanceWalked = steps * distancePerStep
         // Calcular las calorías quemadas
@@ -193,7 +219,6 @@ class PerfilFragment : Fragment() {
     //Actualiza los pasos
     private fun updateStepCount(steps: Int) {
         // Actualiza la interfaz de usuario con el nuevo recuento de pasos
-        // Por ejemplo, actualiza un TextView con el recuento de pasos
         binding.tvCountSteps.text = "Pasos: $steps"
     }
 
@@ -211,17 +236,12 @@ class PerfilFragment : Fragment() {
     //Guarda la hora de reinicio de los pasos
     private fun saveStepsResetTime(currentTime: Date) {
         // Guardar la hora de reinicio de los pasos en la base de datos
-        // Aquí deberías implementar la lógica para guardar la hora de reinicio de los pasos
-        // Por ahora, simplemente imprimimos la hora de reinicio en el registro
         val currentTime = Calendar.getInstance().time
-        println("Se reiniciaron los pasos a las: $currentTime")
+
     }
 
     //Carga la hora de reinicio de los pasos
     private fun getSavedResetTime(): Date? {
-        // Obtener la hora de reinicio de los pasos guardada en la base de datos
-        // Aquí deberías implementar la lógica para obtener la hora de reinicio de los pasos
-        // Por ahora, simplemente devolvemos null
         return null
     }
 
@@ -264,14 +284,15 @@ class PerfilFragment : Fragment() {
         altura = detallesUsuarioData?.altura ?: 0.0
 
         // Actualiza las barras de progreso con los valores del usuario
-        updateProgressBars(peso,altura)
+        updateProgressBars(peso, altura)
     }
+
 
     // Actualiza las barras de progreso con los valores del usuario
     private fun updateProgressBars(peso: Double, altura: Double) {
         // Calcula el progreso para las barras de progreso de peso y altura
-        val progresoPeso = ((peso - 40) / (200 - 40) * 100).toInt()
-        val progresoAltura = ((altura - 120) / (230 - 120) * 100).toInt()
+        val progresoPeso = ((peso - 30) / (250 - 40) * 100).toInt()
+        val progresoAltura = ((altura - 100) / (230 - 120) * 100).toInt()
 
         // Establece el progreso en las barras de progreso
         binding.pbPeso.progress = progresoPeso.coerceIn(0, 100)
@@ -290,7 +311,7 @@ class PerfilFragment : Fragment() {
 
             // Configura el diseño del AlertDialog
             val inflater = requireActivity().layoutInflater
-            val dialogView = inflater.inflate(R.layout.dialoo_personalizado_peso_altura, null)
+            val dialogView = inflater.inflate(R.layout.dialogo_personalizado_peso_altura, null)
             builder.setView(dialogView)
 
             // Configura los EditTexts para que el usuario introduzca el peso y la altura
@@ -306,6 +327,12 @@ class PerfilFragment : Fragment() {
                 // Obtiene los valores ingresados por el usuario y los asigna a las variables
                 val nuevoPeso = etPeso.text.toString().toDoubleOrNull() ?: 0.0
                 val nuevaAltura = etAltura.text.toString().toDoubleOrNull() ?: 0.0
+
+                //Mostramos y ocultamos los elementos correspondientes
+                binding.btnImc.visibility = View.VISIBLE
+                binding.llImc.visibility = View.GONE
+                binding.pbImc.visibility = View.GONE
+                binding.tvCalculoImc.visibility = View.GONE
 
                 // Validaciones de peso y altura
                 if (peso in 40.0..200.0 && altura in 120.0..230.0) {
@@ -325,8 +352,8 @@ class PerfilFragment : Fragment() {
                 } else {
                     // Muestra un mensaje de error si los valores están fuera del rango permitido
                     val errorMsg = StringBuilder().apply {
-                        if (nuevoPeso !in 40.0..200.0) append("Peso debe estar entre 40 y 200. ")
-                        if (nuevaAltura !in 120.0..230.0) append("Altura debe estar entre 120 y 230.")
+                        if (nuevoPeso !in 30.0..250.0) append("Peso debe estar entre 30 y 250. ")
+                        if (nuevaAltura !in 100.0..230.0) append("Altura debe estar entre 120 y 230.")
                     }.toString()
 
                     Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
@@ -337,7 +364,11 @@ class PerfilFragment : Fragment() {
             builder.show()
         } else {
             // Maneja el caso en el que no se encuentren detalles de usuario para el token dado
-            Toast.makeText(requireContext(), "No se encontraron detalles de usuario", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "No se encontraron detalles de usuario",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -355,20 +386,42 @@ class PerfilFragment : Fragment() {
     //Muestra el Imc
     private fun mostrarIMC(imc: Double) {
         // Muestra el IMC en el CardView y lo hace visible
-        binding.cvImc.visibility = View.VISIBLE
-        binding.tvReset.visibility = View.GONE
+        binding.llImc.visibility = View.VISIBLE
         binding.btnImc.visibility = View.GONE
+        binding.pbImc.visibility = View.VISIBLE
 
-        when(imc){
-            in 0.00..18.50 -> binding.calculoImc.text = "Tu IMC es de %.2f".format(imc) +", tienes un peso bajo"
+        // Definir el rango de IMC mínimo y máximo
+        val minImc = 0.0
+        val maxImc = 40.0
 
-            in 18.51..24.99 -> binding.calculoImc.text = "Tu IMC es de %.2f".format(imc) +", tienes un peso normal"
+        // Convierte el IMC actual al rango de 0 a 100 (porcentaje)
+        val progress = ((imc - minImc) / (maxImc - minImc) * 100).toInt()
 
-            in 25.00..29.99 -> binding.calculoImc.text = "Tu IMC es de %.2f".format(imc) +", tienes sobrepeso"
+        // Establece el progreso del ProgressBar
+        binding.pbImc.progress = progress
 
-            in 30.00..39.99 -> binding.calculoImc.text = "Tu IMC es de %.2f".format(imc) +", tienes obesidad"
+        when (imc) {
+            in 0.00..18.50 -> {
+                binding.tvCalculoImc.text = "Tienes un peso bajo"
+                binding.tvImc.text = "%.2f".format(imc)
+            }
 
-            else -> binding.calculoImc.text = "Error al calcular tu IMC"
+            in 18.51..24.99 -> {
+                binding.tvCalculoImc.text = "Tienes un peso normal"
+                binding.tvImc.text = "%.2f".format(imc)
+            }
+
+            in 25.00..29.99 -> {
+                binding.tvCalculoImc.text = "Tienes sobrepeso"
+                binding.tvImc.text = "%.2f".format(imc)
+            }
+
+            in 30.00..39.99 -> {
+                binding.tvCalculoImc.text = "Tienes obesidad"
+                binding.tvImc.text = "%.2f".format(imc)
+            }
+
+            else -> binding.tvCalculoImc.text = "Error al calcular tu IMC"
         }
     }
 }

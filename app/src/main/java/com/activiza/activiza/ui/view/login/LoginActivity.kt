@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
         db = ActivizaDataBaseHelper(binding.layoutRegister.context)
 
         //Cambio de vista de layout LOGIN/REGISTER
+        binding.tvTitleSignup.visibility = View.GONE
         binding.tvSignIn.setOnClickListener {
             showLoginLayout()
         }
@@ -309,13 +310,17 @@ class LoginActivity : AppCompatActivity() {
     //-----FUNCIONES DE CAMBIO DE LAYOUT-----
     private fun showLoginLayout() {
         binding.layoutLogin.visibility = View.VISIBLE
+        binding.tvTitleSignin.visibility = View.VISIBLE
         binding.layoutRegister.visibility = View.GONE
+        binding.tvTitleSignup.visibility = View.GONE
 
     }
 
     private fun showRegisterLayout() {
 
         binding.layoutLogin.visibility = View.GONE
+        binding.tvTitleSignup.visibility = View.VISIBLE
         binding.layoutRegister.visibility = View.VISIBLE
+        binding.tvTitleSignin.visibility = View.GONE
     }
 }
