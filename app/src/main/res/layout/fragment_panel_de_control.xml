@@ -34,11 +34,13 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             >
+
             <Button
                 android:id="@+id/btnPanelDeControl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/panel_de_control"
+                android:background="@drawable/button_custom"
                 android:layout_marginEnd="10dp"
                 />
             <Button
@@ -46,12 +48,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/entrenamientos"
+                android:background="@drawable/button_custom"
                 android:layout_marginStart="10dp"
                 />
             <Button
                 android:id="@+id/btnEliminarRutina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_custom"
                 android:text="@string/eliminar_rutina"
                 android:layout_marginStart="10dp"
                 />
@@ -135,6 +139,7 @@
             android:id="@+id/btnComenzarEntrenamiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_custom"
             android:layout_marginHorizontal="20dp"
             android:text="@string/comenzar_entrenamiento"
             />

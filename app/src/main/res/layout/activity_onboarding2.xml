@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/ob3"
+    android:background="@drawable/ob1"
     tools:context=".ui.view.Onboarding2Activity">
 
     <LinearLayout
@@ -38,13 +38,14 @@
         android:layout_marginVertical="20dp"
         android:text="@string/activiza"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/splash_background"
         />
     <TextView
         android:id="@+id/tvPresentacionOnboarding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_marginTop="24dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:textColor="@color/white"
@@ -84,7 +85,6 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="20dp"
         android:text="@string/cual_es_tu_genero"
         android:textColor="@color/white"
         />
@@ -92,7 +92,7 @@
     <RadioGroup
         android:id="@+id/rgPersona"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         >
@@ -101,10 +101,10 @@
             android:id="@+id/rbHombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:checked="true"
+            android:text="@string/hombre"
             android:textColor="@drawable/texto_rb"
-            android:text="@string/hombre" />
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/rbMujer"

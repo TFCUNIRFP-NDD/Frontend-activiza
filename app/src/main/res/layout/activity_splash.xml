@@ -4,14 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_background"
+    android:background="@color/blue_light"
     tools:context=".ui.view.splash.SplashActivity">
 
+
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/ic_weight"
-        android:layout_centerInParent="true"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_run_svg" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="233dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="307dp"
+        android:layout_marginEnd="97dp"
+        android:text="@string/app_name"
+        android:textColor="@color/splash_background"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="324dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="-2dp"
+        android:gravity="center"
+        android:text="Tu app de entrenamiento"
+        android:textColor="@color/splash_background"
+        android:textSize="30sp" />
+
 
 </RelativeLayout>
