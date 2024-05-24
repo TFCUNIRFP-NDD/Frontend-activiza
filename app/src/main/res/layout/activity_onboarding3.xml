@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/ob3"
+    android:background="@drawable/ob1"
     tools:context=".ui.view.Onboarding3Activity">
 
     <LinearLayout
@@ -40,7 +40,7 @@
         android:layout_marginVertical="20dp"
         android:text="@string/activiza"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/splash_background"
         />
 
     <TextView
@@ -51,6 +51,7 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="24dp"
         tools:text="Entonces Nestor eres de genero masculino pesas 80kg y tu objetivo es ganar mas muscular"
         />
 <!--    <ImageView-->

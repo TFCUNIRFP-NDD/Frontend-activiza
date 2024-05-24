@@ -9,10 +9,10 @@
     <string name="error">Error en el campo</string>
     <string name="none"></string>
     <string name="ganar_masa_muscular">Ganar masa muscular</string>
-    <string name="perder_peso">perder peso</string>
+    <string name="perder_peso">Perder peso</string>
     <string name="mujer">Mujer</string>
     <string name="hombre">Hombre</string>
-    <string name="comenzar">comenzar</string>
+    <string name="comenzar">Comenzar</string>
     <string name="borrar_cookies">Borrar Cookies</string>
 
     <!-- Campos del menu de abajo -->

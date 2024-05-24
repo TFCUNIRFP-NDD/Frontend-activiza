@@ -7,6 +7,7 @@
     <color name="orange_light">#EC6C44</color>
     <color name="orange_dark">#CA3B0E</color>
     <color name="gray_line">#9A9694</color>
+    <color name="gray_light">#CAC5C3</color>
     <color name="error">#FF0000</color>
     <color name="primary_color">#f85f6a</color>
     <color name="gray_dark">#666363</color>
@@ -14,6 +15,7 @@
     <color name="green">#CCFF00</color>
     <color name="transparent">#0065FF44</color>
     <color name="blue">#22caff</color>
+    <color name="blue_dark">#1E3A8C</color>
     <color name="blue_background">#5763DE</color>
     <color name="blue_light">#6fb3ff</color>
     <color name="blue_light3">#709EE3</color>
