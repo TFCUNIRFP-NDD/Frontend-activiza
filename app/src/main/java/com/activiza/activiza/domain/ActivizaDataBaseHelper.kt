@@ -585,11 +585,24 @@ class ActivizaDataBaseHelper(context:Context) :
 
     fun borrarUsuario(token: String) {
         val db = writableDatabase
-        db.delete(TABLE_NAME_USUARIOS, "$COLUMN_TOKEN = ?", arrayOf(token))
-        db.delete(TABLE_NAME_DETALLE_USUARIOS, "$COLUMN_ID_USUARIO = (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)", arrayOf(token))
-        db.close()
-    }
+        db.beginTransaction()
+        try {
+            // Eliminar de la tabla de detalles de usuarios
+            db.delete(TABLE_NAME_DETALLE_USUARIOS,
+                "$COLUMN_ID_USUARIO IN (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)",
+                arrayOf(token))
 
+            // Eliminar de la tabla de usuarios
+            db.delete(TABLE_NAME_USUARIOS, "$COLUMN_TOKEN = ?", arrayOf(token))
+
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
+    }
 
     fun getDetallesUsuarioPorToken(token: String): DetallesUsuarioData? {
         val db = readableDatabase
