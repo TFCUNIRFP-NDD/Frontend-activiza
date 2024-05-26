@@ -34,7 +34,7 @@ class NotificationReceiver : BroadcastReceiver(){
         val usuarioData: UsuarioData? = db.getUsuario()
         val token = usuarioData?.token
         // Inicializa las preferencias del usuario con el token obtenido
-        val userPreferences = UserPreferences(context, token?:"")
+        val userPreferences = UserPreferences(context)
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

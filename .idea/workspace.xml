@@ -156,13 +156,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Arreglado el bug de que no se mostraba el onboarding problema era que habia que borrar de la bbdd la detalles de usuario antes que el usuario">
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Ya se envían mensajes de parte del entrenador y cambia de color a azul si envías los mensajes y a blanco si los te los han enviado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/Message.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/APIListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/APIListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/UserPreferences.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/data/UserPreferences.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/HomeActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/FeelsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/FeelsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/mensajes/MessageRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/mensajes/MessageRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/ChatAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/ChatAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,6 +214,10 @@
     <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/datos_sesion.xml" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/login.xml" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/notificacion_diaria.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/user_preferences.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/user_preferences_64f8042c63f3ca515fcee5463f8b464caee13c4d.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/user_preferences_aa6e50796e4cd12cf8e3e94de160b26972b7793f.xml" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.1/device-explorer/Xiaomi Mi 9T/_/data/data/com.activiza.activiza/shared_prefs/user_preferences_b7f0215a970694424a343802b80b23c37f3515ec.xml" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
@@ -707,7 +712,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716669972447</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Ya se envían mensajes de parte del entrenador y cambia de color a azul si envías los mensajes y a blanco si los te los han enviado">
+      <option name="closed" value="true" />
+      <created>1716739275954</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1716739275954</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -730,6 +743,14 @@
     <MESSAGE value="Seleccionado y vista de ejercicio hecha a falta de mejor diseño pero funcional" />
     <MESSAGE value="Añadido las rutinas y comprobado que van, arreglado el bug del tipo de rutina" />
     <MESSAGE value="Arreglado el bug de que no se mostraba el onboarding problema era que habia que borrar de la bbdd la detalles de usuario antes que el usuario" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado el bug de que no se mostraba el onboarding problema era que habia que borrar de la bbdd la detalles de usuario antes que el usuario" />
+    <MESSAGE value="Ya se envían mensajes de parte del entrenador y cambia de color a azul si envías los mensajes y a blanco si los te los han enviado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ya se envían mensajes de parte del entrenador y cambia de color a azul si envías los mensajes y a blanco si los te los han enviado" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="AndroidRunConfigurationType">
+        <watch expression="slider" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

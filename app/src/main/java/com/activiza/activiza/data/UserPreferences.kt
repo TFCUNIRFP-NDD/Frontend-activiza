@@ -3,8 +3,8 @@ package com.activiza.activiza.data
 import android.content.Context
 import android.content.SharedPreferences
 
-class UserPreferences(context: Context, token:String) {
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("user_preferences_$token", Context.MODE_PRIVATE)
+class UserPreferences(context: Context) {
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
 
     var notificationsEnabled: Boolean
         get() = sharedPreferences.getBoolean("notifications", true)

@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity() {
     private fun inicializarBottomMenu() {
         val usuarioData: UsuarioData? = db.getUsuario()
         val token = usuarioData?.token
-        userPreferences = UserPreferences(this, token?:"")
+        userPreferences = UserPreferences(this)
 
         if (usuarioData != null) {
             val bottomNavigationMenu: BottomNavigationView = binding.bottomNavigationView

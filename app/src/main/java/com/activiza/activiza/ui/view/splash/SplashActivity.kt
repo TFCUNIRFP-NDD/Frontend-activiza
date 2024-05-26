@@ -51,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         db = ActivizaDataBaseHelper(this)
-        userPreferences = UserPreferences(this, db.obtenerToken())
+        userPreferences = UserPreferences(this)
 
         // Configuración de Retrofit
         val retrofit = Retrofit.Builder()

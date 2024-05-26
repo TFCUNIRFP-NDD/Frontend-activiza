@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
 import com.activiza.activiza.data.Message
 import com.activiza.activiza.databinding.FragmentFeelsBinding
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.viewmodel.ChatAdapter
 import com.activiza.activiza.ui.viewmodel.ChatViewModel
 
@@ -21,6 +22,7 @@ class FeelsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var chatViewModel: ChatViewModel
     private lateinit var chatAdapter: ChatAdapter
+    lateinit var db: ActivizaDataBaseHelper
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +30,7 @@ class FeelsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentFeelsBinding.inflate(inflater, container, false)
         val rootView = binding.root
+        db = ActivizaDataBaseHelper(binding.sendButton.context)
         initUI()
         return rootView
     }
@@ -52,17 +55,22 @@ class FeelsFragment : Fragment() {
         })
 
         binding.sendButton.setOnClickListener {
-            val messageContent = binding.messageEditText.text.toString()
-            if (messageContent.isNotEmpty()) {
-                val message = Message(
-                    id = 0,
-                    autor = "default", // Change this as necessary
-                    titulo = null,
-                    mensaje = messageContent,
-                    media = null
-                )
-                chatViewModel.sendMessage(message)
+            if(!db.getEntrenador()) {
+                val messageContent = binding.messageEditText.text.toString()
+                if (messageContent.isNotEmpty()) {
+                    val message = Message(
+                        id = 0,
+                        autor = "default", // Change this as necessary
+                        titulo = null,
+                        mensaje = messageContent,
+                        media = null
+                    )
+                    chatViewModel.sendMessage(message)
+                    binding.messageEditText.text.clear()
+                }
+            }else{
                 binding.messageEditText.text.clear()
+                Toast.makeText(binding.sendButton.context, "Solo los entrenadores tienen permitido hablar",Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -31,6 +31,7 @@ import com.google.android.material.slider.Slider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.round
 
 
 class SettingsFragment : Fragment() {
@@ -58,11 +59,7 @@ class SettingsFragment : Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-
-//        val token = db.obtenerToken()
-        val usuarioData: UsuarioData? = db.getUsuario()
-        val token = usuarioData?.token
-        userPreferences = UserPreferences(requireContext(), token ?: "")
+        userPreferences = UserPreferences(requireContext())
 
         initUI()
         return rootView
@@ -108,7 +105,10 @@ class SettingsFragment : Fragment() {
 
         binding.rsVolumen.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
             override fun onStartTrackingTouch(slider: RangeSlider) {
-                // No hace nada
+                //Cuando empiece a mover el volumen cambiar valores
+                binding.rsVolumen.addOnChangeListener { slider, value, fromUser ->
+                    userPreferences.volume = value.toInt()
+                }
             }
 
             override fun onStopTrackingTouch(slider: RangeSlider) {
@@ -125,7 +125,7 @@ class SettingsFragment : Fragment() {
             if (usuarioData != null) {
                 val token = usuarioData.token
                 db.borrarUsuario(token)
-                clearPreferences(requireContext(), token)
+                clearPreferences(requireContext())
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
@@ -138,7 +138,7 @@ class SettingsFragment : Fragment() {
             val usuarioData: UsuarioData? = db.getUsuario()
             val token = usuarioData?.token
             db.borrarUsuario(token!!)
-            clearPreferences(requireContext(), token.orEmpty())
+            clearPreferences(requireContext())
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
@@ -187,12 +187,11 @@ class SettingsFragment : Fragment() {
 
 
 
-    fun clearPreferences(context: Context, token: String) {
+    fun clearPreferences(context: Context) {
         val sharedPreferences =
-            context.getSharedPreferences("user_preferences_$token", Context.MODE_PRIVATE)
+            context.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
-        editor.putString("token", token)
         editor.apply()
     }
 
