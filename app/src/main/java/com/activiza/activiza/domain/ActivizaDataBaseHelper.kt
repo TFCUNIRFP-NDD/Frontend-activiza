@@ -24,7 +24,7 @@ class ActivizaDataBaseHelper(context:Context) :
         companion object{
 
             private const val DATABASENAME = "activiza.db"
-            private const val DATABASE_VERSION = 4
+            private const val DATABASE_VERSION = 5
 
             //Create all Rutinas
             private const val TABLE_NAME_RUTINAS = "rutinas"
@@ -118,7 +118,9 @@ class ActivizaDataBaseHelper(context:Context) :
                 "FOREIGN KEY($COLUMN_ID_EJERCICIO) REFERENCES $TABLE_NAME_EJERCICIOS($COLUMN_ID) ON DELETE CASCADE)"
         db?.execSQL(createEntrenamientosTable)
 
+        // Tabla de usuarios
         val CREATE_TABLE_USUARIOS = ("CREATE TABLE " + TABLE_NAME_USUARIOS + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TOKEN + " TEXT NOT NULL,"
                 + COLUMN_NAME + " TEXT NOT NULL,"
                 + COLUMN_PASSWORD + " TEXT NOT NULL,"
@@ -126,6 +128,7 @@ class ActivizaDataBaseHelper(context:Context) :
                 + ")")
         db?.execSQL(CREATE_TABLE_USUARIOS)
 
+        // Tabla de detalles de usuarios con ON DELETE CASCADE
         val CREATE_TABLE_DETALLES_USUARIOS = ("CREATE TABLE " + TABLE_NAME_DETALLE_USUARIOS + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_ALTURA + " REAL,"
@@ -133,7 +136,7 @@ class ActivizaDataBaseHelper(context:Context) :
                 + COLUMN_GENERO + " TEXT,"
                 + COLUMN_OBJETIVO + " TEXT,"
                 + COLUMN_ID_USUARIO + " INTEGER,"
-                + " FOREIGN KEY (" + COLUMN_ID_USUARIO + ") REFERENCES " + TABLE_NAME_USUARIOS + "(" + COLUMN_ID + ")"
+                + " FOREIGN KEY (" + COLUMN_ID_USUARIO + ") REFERENCES " + TABLE_NAME_USUARIOS + "(" + COLUMN_ID + ") ON DELETE CASCADE"
                 + ")")
         db?.execSQL(CREATE_TABLE_DETALLES_USUARIOS)
 
@@ -245,7 +248,7 @@ class ActivizaDataBaseHelper(context:Context) :
         db.insert(TABLE_NAME_USUARIOS, null, values)
         db.close()
     }
-    fun insertDetallesUsuario(detalles: DetallesUsuarioData, id:Int) {
+    fun insertDetallesUsuario(detalles: DetallesUsuarioData, id:String) {
         val db = writableDatabase
         val values = ContentValues().apply {
             put(COLUMN_ALTURA, detalles.altura)
@@ -587,13 +590,11 @@ class ActivizaDataBaseHelper(context:Context) :
         val db = writableDatabase
         db.beginTransaction()
         try {
-            // Eliminar de la tabla de detalles de usuarios
-            db.delete(TABLE_NAME_DETALLE_USUARIOS,
-                "$COLUMN_ID_USUARIO IN (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)",
-                arrayOf(token))
+            // Eliminar todas las filas de la tabla de detalles de usuarios
+            db.delete(TABLE_NAME_DETALLE_USUARIOS, null, null)
 
-            // Eliminar de la tabla de usuarios
-            db.delete(TABLE_NAME_USUARIOS, "$COLUMN_TOKEN = ?", arrayOf(token))
+            // Eliminar todas las filas de la tabla de usuarios
+            db.delete(TABLE_NAME_USUARIOS, null, null)
 
             db.setTransactionSuccessful()
         } catch (e: Exception) {

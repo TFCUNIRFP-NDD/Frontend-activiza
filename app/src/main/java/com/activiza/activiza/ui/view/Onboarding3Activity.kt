@@ -51,7 +51,7 @@ class Onboarding3Activity : AppCompatActivity() {
         val genero:String? = intent.getStringExtra("genero")
         val objetivo:String? = intent.getStringExtra("objetivo")
         val usuariosDetalles:DetallesUsuarioData = DetallesUsuarioData(altura!!,peso!!,genero!!,objetivo!!)
-        db.insertDetallesUsuario(usuariosDetalles,1)
+        db.insertDetallesUsuario(usuariosDetalles,db.getUsuario()!!.token)
     }
 
     private fun inicializarVariables() {
