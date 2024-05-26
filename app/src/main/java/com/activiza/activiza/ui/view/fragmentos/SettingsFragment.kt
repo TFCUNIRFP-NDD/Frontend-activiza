@@ -135,9 +135,6 @@ class SettingsFragment : Fragment() {
         }
 
         binding.tvCerrarSesion.setOnClickListener {
-            val usuarioData: UsuarioData? = db.getUsuario()
-            val token = usuarioData?.token
-            db.borrarUsuario(token!!)
             clearPreferences(requireContext())
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)

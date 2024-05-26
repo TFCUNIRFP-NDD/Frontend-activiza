@@ -586,6 +586,7 @@ class ActivizaDataBaseHelper(context:Context) :
         return nuevaFecha.format(formatter)
     }
 
+    //Borra todos los usuarios y detalles usuarios
     fun borrarUsuario(token: String) {
         val db = writableDatabase
         db.beginTransaction()
@@ -607,7 +608,7 @@ class ActivizaDataBaseHelper(context:Context) :
 
     fun getDetallesUsuarioPorToken(token: String): DetallesUsuarioData? {
         val db = readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME_DETALLE_USUARIOS WHERE $COLUMN_ID_USUARIO = (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)"
+        val query = "SELECT * FROM $TABLE_NAME_DETALLE_USUARIOS WHERE $COLUMN_ID_USUARIO = (SELECT $COLUMN_TOKEN FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)"
         val cursor = db.rawQuery(query, arrayOf(token))
 
         var detallesUsuario: DetallesUsuarioData? = null
@@ -633,7 +634,7 @@ class ActivizaDataBaseHelper(context:Context) :
             put(COLUMN_PESO, peso)
             put(COLUMN_ALTURA, altura)
         }
-        val updatedRows = db.update(TABLE_NAME_DETALLE_USUARIOS, values, "$COLUMN_ID_USUARIO = (SELECT $COLUMN_ID FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)", arrayOf(token))
+        val updatedRows = db.update(TABLE_NAME_DETALLE_USUARIOS, values, "$COLUMN_ID_USUARIO = (SELECT $COLUMN_TOKEN FROM $TABLE_NAME_USUARIOS WHERE $COLUMN_TOKEN = ?)", arrayOf(token))
         db.close()
         return updatedRows > 0
     }

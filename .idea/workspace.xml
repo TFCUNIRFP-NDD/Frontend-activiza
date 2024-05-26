@@ -156,10 +156,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Arreglado bug del volumen y cambiado las preferencias para que solo hayan unas">
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Arreglado el bug de que no se borran los detalles del usuario, añadido una clausula que borra todas las filas de esos 2 campos cuando se le llama">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/domain/ActivizaDataBaseHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/Onboarding3Activity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/Onboarding3Activity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_perfil.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -724,7 +725,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716749090518</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Arreglado el bug de que no se borran los detalles del usuario, añadido una clausula que borra todas las filas de esos 2 campos cuando se le llama">
+      <option name="closed" value="true" />
+      <created>1716750705966</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1716750705966</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -749,6 +758,7 @@
     <MESSAGE value="Arreglado el bug de que no se mostraba el onboarding problema era que habia que borrar de la bbdd la detalles de usuario antes que el usuario" />
     <MESSAGE value="Ya se envían mensajes de parte del entrenador y cambia de color a azul si envías los mensajes y a blanco si los te los han enviado" />
     <MESSAGE value="Arreglado bug del volumen y cambiado las preferencias para que solo hayan unas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado bug del volumen y cambiado las preferencias para que solo hayan unas" />
+    <MESSAGE value="Arreglado el bug de que no se borran los detalles del usuario, añadido una clausula que borra todas las filas de esos 2 campos cuando se le llama" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado el bug de que no se borran los detalles del usuario, añadido una clausula que borra todas las filas de esos 2 campos cuando se le llama" />
   </component>
 </project>
