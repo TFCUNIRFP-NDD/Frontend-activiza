@@ -60,10 +60,10 @@ interface APIListener {
     @GET("search")
     fun getTodasImagenes(@Header("Authorization") token : String, @Query("query") query: String): Call<PexelsResponse>
 
-    @GET("api/publicaciones")
+    @GET("api/publicaciones/")
     suspend fun getMessages(@Header("Authorization") token : String): List<Message>
 
-    @POST("api/publicaciones")
+    @POST("api/publicaciones/")
     suspend fun sendMessage(@Header("Authorization") token: String,@Body message: Message): Response<Message>
 
     @GET("generate-qr-code/")

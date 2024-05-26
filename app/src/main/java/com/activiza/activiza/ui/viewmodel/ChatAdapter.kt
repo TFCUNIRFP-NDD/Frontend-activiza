@@ -43,7 +43,8 @@ class ChatAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val message = messages[position]
-        return if (message.autor == "current_user") {
+        val autor = db.getUsuario()!!.nombre
+        return if (message.autor == autor) {
             VIEW_TYPE_SENT
         } else {
             VIEW_TYPE_RECEIVED
@@ -62,6 +63,7 @@ class ChatAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = messages[position]
+        val autor = db.getUsuario()!!.nombre
 
         if (holder is SentMessageViewHolder) {
             holder.contentTextView.text = message.mensaje

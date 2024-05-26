@@ -56,7 +56,7 @@ class FeelsFragment : Fragment() {
             if (messageContent.isNotEmpty()) {
                 val message = Message(
                     id = 0,
-                    autor = "current_user", // Change this as necessary
+                    autor = "default", // Change this as necessary
                     titulo = null,
                     mensaje = messageContent,
                     media = null
