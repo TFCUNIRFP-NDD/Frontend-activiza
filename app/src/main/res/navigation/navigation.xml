@@ -12,10 +12,18 @@ app:startDestination="@id/entrenamientosFragment">
     tools:layout="@layout/fragment_entrenamientos" >
     <action
         android:id="@+id/action_entrenamientosFragment_to_rutinaIDFragment"
-        app:destination="@id/rutinaIDFragment" />
+        app:destination="@id/rutinaIDFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     <action
         android:id="@+id/action_entrenamientosFragment_to_panelDeControlFragment"
-        app:destination="@id/panelDeControlFragment" />
+        app:destination="@id/panelDeControlFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 </fragment>
 <fragment
     android:id="@+id/rutinaIDFragment"
@@ -29,6 +37,10 @@ app:startDestination="@id/entrenamientosFragment">
     <action
         android:id="@+id/action_rutinaIDFragment_to_panelDeControlFragment"
         app:destination="@id/panelDeControlFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@id/rutinaIDFragment"
         app:popUpToInclusive="true" />
 </fragment>
@@ -44,6 +56,10 @@ app:startDestination="@id/entrenamientosFragment">
     tools:layout="@layout/fragment_settings" >
     <action
         android:id="@+id/action_settingsFragment_to_perfilFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:destination="@id/perfilFragment" />
     <action
         android:id="@+id/action_settingsFragment_to_qrFragment"
@@ -56,9 +72,17 @@ app:startDestination="@id/entrenamientosFragment">
         tools:layout="@layout/fragment_panel_de_control" >
         <action
             android:id="@+id/action_panelDeControlFragment_to_entrenamientosFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/entrenamientosFragment" />
         <action
             android:id="@+id/action_panelDeControlFragment_to_comenzarEntrenamientoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/comenzarEntrenamientoFragment" />
     </fragment>
     <fragment
@@ -68,6 +92,10 @@ app:startDestination="@id/entrenamientosFragment">
         tools:layout="@layout/fragment_comenzar_entrenamiento" >
         <action
             android:id="@+id/action_comenzarEntrenamientoFragment_to_ejercicioDetalladoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/ejercicioDetalladoFragment" />
     </fragment>
     <fragment
@@ -110,6 +138,10 @@ app:startDestination="@id/entrenamientosFragment">
         android:label="AnadirRutinaFragment" >
         <action
             android:id="@+id/action_anadirRutinaFragment_to_seleccionarImagenFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/seleccionarImagenFragment" />
         <argument
             android:name="url"
@@ -117,6 +149,10 @@ app:startDestination="@id/entrenamientosFragment">
             android:defaultValue='""' />
         <action
             android:id="@+id/action_anadirRutinaFragment_to_anadirEjerciciosFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/anadirEjerciciosFragment" />
     </fragment>
     <fragment
@@ -126,6 +162,10 @@ app:startDestination="@id/entrenamientosFragment">
         tools:layout="@layout/fragment_seleccionar_imagen" >
         <action
             android:id="@+id/action_seleccionarImagenFragment_to_anadirRutinaFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/anadirRutinaFragment" />
         <argument
             android:name="query"
