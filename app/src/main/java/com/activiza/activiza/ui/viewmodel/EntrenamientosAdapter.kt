@@ -1,6 +1,7 @@
 package com.activiza.activiza.ui.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +27,12 @@ private val onItemClick: (Int) -> Unit,)
 
     override fun onBindViewHolder(holder: EjerciciosViewHolder, position: Int) {
         val ejercicio = ejercicios[position]
+        //var db: ActivizaDataBaseHelper
+        //db = ActivizaDataBaseHelper(holder.itemView.context)
+        //var entrenamientoId = db.obtenerIdEntrenamientoPorIdEjercicio(ejercicio.id)
         holder.bind(ejercicio)
         holder.itemView.setOnClickListener {
-            onItemClick(ejercicio.id) // Pasar el ID de la rutina al hacer clic en el elemento
+            onItemClick(ejercicio.id) // Pasar el ID del entrenamiento al hacer clic en el elemento
         }
     }
 

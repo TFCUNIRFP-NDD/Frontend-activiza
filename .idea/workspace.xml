@@ -156,9 +156,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="añadido las animaciones y corregido un error de tipografia">
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="arreglado problema de iniciación en las notificaciones">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/ComenzarEntrenamientoFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/EntrenamientosAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/EntrenamientosAdapter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +236,7 @@
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Users/nesto/Desktop/Activiza nestor-kotlin/nuevo clone/Frontend-activiza"
+    "last_opened_file_path": "D:/Users/nesto/Desktop"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -755,11 +756,18 @@
       <option name="project" value="LOCAL" />
       <updated>1716822946160</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="arreglado problema de iniciación en las notificaciones">
+      <option name="closed" value="true" />
+      <created>1716823259033</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1716823259033</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se a realizado cambios en la navegacion y se a añadido panel de control y logica que hace que si tienes una rutina aparezca un menu arriba en el cual podras acceder a tu panel de control" />
     <MESSAGE value="Se a creado un diseño de calendario personalizado que pinta los dias en gris hasta el dia actual que lo pinta de color rojo y los dias posteriores los pinta transparente" />
     <MESSAGE value="Arreglado diseño de login cambiada imagen de google de png a vector y navegacion hacia el recyclerView de entrenamientos" />
     <MESSAGE value="Se han agregado los ejercicios y su recyclerView y actividad detallada, también se a agregado la lógica del calendario a falta de pequeñas cosas" />
@@ -784,6 +792,7 @@
     <MESSAGE value="Arreglado bug del perfil, el perfil no recargaba los datos de detalles del usuario porque llamaba a su ID actualizado para solucionarlo ahora llama al token que es su clave unica" />
     <MESSAGE value="Asignadas las animaciones del navGraph por defecto a falta de los intents y los menus principales" />
     <MESSAGE value="añadido las animaciones y corregido un error de tipografia" />
-    <option name="LAST_COMMIT_MESSAGE" value="añadido las animaciones y corregido un error de tipografia" />
+    <MESSAGE value="arreglado problema de iniciación en las notificaciones" />
+    <option name="LAST_COMMIT_MESSAGE" value="arreglado problema de iniciación en las notificaciones" />
   </component>
 </project>

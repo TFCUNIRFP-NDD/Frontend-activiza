@@ -3,6 +3,7 @@ package com.activiza.activiza.ui.view.fragmentos
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -72,27 +73,30 @@ class ComenzarEntrenamientoFragment : Fragment() {
 
     private fun inicializarEventos() {
         binding.btnComenzarRutina.setOnClickListener {
-            if(binding.btnComenzarRutina.text.toString() == COMPLETAR.toString()){
+            if (binding.btnComenzarRutina.text.toString() == COMPLETAR.toString()) {
                 findNavController().popBackStack()
-            }else{
-                var rutinaId:Int = -1
-                ejercicios.forEach{
-                    if(!db.obtenerEstadoDeEntrenamiento(it.id,obtenerFechaActual())) {
-                        if(rutinaId==-1) {
-                            rutinaId = db.obtenerIdEntrenamientoPorIdEjercicio(it.id)
-                        }
+            } else {
+                for (ejercicio in ejercicios) {
+                    if (!db.todosEntrenamientosCompletadosParaEjercicio(ejercicio.id, obtenerFechaActual())) {
+                        findNavController().navigate(
+                            ComenzarEntrenamientoFragmentDirections.actionComenzarEntrenamientoFragmentToEjercicioDetalladoFragment(
+                                id = ejercicio.id
+                            )
+                        )
+                        break // Sale del bucle después de encontrar el primer ejercicio no completado
                     }
                 }
-                findNavController().navigate(ComenzarEntrenamientoFragmentDirections.actionComenzarEntrenamientoFragmentToEjercicioDetalladoFragment(
-                    id = rutinaId
-                ))
             }
         }
     }
 
+
+
+
+
     private fun adaptarLaVista() {
         // Configurar el RecyclerView en el hilo principal
-        binding.rvEjercicios.adapter = EntrenamientosAdapter(ejercicios,) { rutinaId ->
+        binding.rvEjercicios.adapter = EntrenamientosAdapter(ejercicios) { rutinaId ->
             findNavController().navigate(ComenzarEntrenamientoFragmentDirections.actionComenzarEntrenamientoFragmentToEjercicioDetalladoFragment(
                 id = rutinaId
             ))
