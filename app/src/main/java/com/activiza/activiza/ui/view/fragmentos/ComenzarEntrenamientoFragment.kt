@@ -74,6 +74,7 @@ class ComenzarEntrenamientoFragment : Fragment() {
     private fun inicializarEventos() {
         binding.btnComenzarRutina.setOnClickListener {
             if (binding.btnComenzarRutina.text.toString() == COMPLETAR.toString()) {
+                db.marcarComoCompletadoCalendario(rutina.id,obtenerFechaActual())
                 findNavController().popBackStack()
             } else {
                 for (ejercicio in ejercicios) {
