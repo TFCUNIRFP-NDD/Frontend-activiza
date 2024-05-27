@@ -29,6 +29,10 @@ class NotificationReceiver : BroadcastReceiver(){
         if (context == null) {
             return
         }
+        // Inicializa la base de datos
+        if (!::db.isInitialized) {
+            db = ActivizaDataBaseHelper(context)
+        }
 
         // Obtiene el token del usuario
         val usuarioData: UsuarioData? = db.getUsuario()

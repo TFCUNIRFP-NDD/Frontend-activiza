@@ -156,10 +156,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Asignadas las animaciones del navGraph por defecto a falta de los intents y los menus principales">
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="añadido las animaciones y corregido un error de tipografia">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/fonts/read_me.rtf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/fonts/themunday_regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -748,7 +747,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716757911923</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="añadido las animaciones y corregido un error de tipografia">
+      <option name="closed" value="true" />
+      <created>1716822946160</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1716822946160</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -776,6 +783,7 @@
     <MESSAGE value="Arreglado el bug de que no se borran los detalles del usuario, añadido una clausula que borra todas las filas de esos 2 campos cuando se le llama" />
     <MESSAGE value="Arreglado bug del perfil, el perfil no recargaba los datos de detalles del usuario porque llamaba a su ID actualizado para solucionarlo ahora llama al token que es su clave unica" />
     <MESSAGE value="Asignadas las animaciones del navGraph por defecto a falta de los intents y los menus principales" />
-    <option name="LAST_COMMIT_MESSAGE" value="Asignadas las animaciones del navGraph por defecto a falta de los intents y los menus principales" />
+    <MESSAGE value="añadido las animaciones y corregido un error de tipografia" />
+    <option name="LAST_COMMIT_MESSAGE" value="añadido las animaciones y corregido un error de tipografia" />
   </component>
 </project>
