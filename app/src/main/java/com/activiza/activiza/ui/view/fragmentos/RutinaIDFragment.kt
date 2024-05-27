@@ -87,6 +87,13 @@ class RutinaIDFragment : Fragment() {
     private fun anadirEventos() {
         binding.btnAgregar.setOnClickListener {
             db.borrarEjerciciosYRutinas()
+            if(rutina == null){
+                try {
+                    rutina = db.obtenerPrimeraRutina()!!
+                }catch (e:Exception){
+                    Log.d("error",e.toString())
+                }
+            }
             db.insertRutina(rutina)
             rutina.ejercicios.forEach{
                 var ejercicio:EjerciciosData = EjerciciosData(it.id,it.nombre,it.descripcion,it.repeticiones,it.duracion,it.descanso,it.media)
