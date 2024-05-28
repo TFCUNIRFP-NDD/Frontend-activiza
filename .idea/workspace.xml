@@ -158,7 +158,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="arreglado un bug de la base de datos hacía que no cogiese bien el id del siguiente ejercicio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/RutinaIDFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/RutinaIDFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/FeelsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/FeelsFragment.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +235,7 @@
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Users/nesto/Desktop"
+    "last_opened_file_path": "D:/Users/nesto/Desktop/Activiza nestor-kotlin/nuevo clone/Frontend-activiza"
   }
 }]]></component>
   <component name="RecentsManager">

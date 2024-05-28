@@ -55,7 +55,8 @@ class FeelsFragment : Fragment() {
         })
 
         binding.sendButton.setOnClickListener {
-            if(!db.getEntrenador()) {
+            val usuario = db.getUsuario()
+            if(usuario!!.entrenador) {
                 val messageContent = binding.messageEditText.text.toString()
                 if (messageContent.isNotEmpty()) {
                     val message = Message(
