@@ -1,5 +1,6 @@
 package com.activiza.activiza.domain
 
+import com.activiza.activiza.core.Constants
 import com.activiza.activiza.data.AuthData
 import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.EjerciciosData
@@ -44,6 +45,7 @@ interface APIListener {
     fun deleteRutina(@Path("rutina") rutina:Int): Call<RutinaData>
 
     @POST("api-token-auth/")
+
     fun authenticate(@Body authData: AuthData): Call<TokenResponse>
 
     @Headers("Authorization: Token $tokenRegister")
