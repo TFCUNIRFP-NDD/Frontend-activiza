@@ -9,60 +9,30 @@
     tools:context=".ui.view.fragmentos.PerfilFragment">
 
 
-<!--    <com.google.android.material.imageview.ShapeableImageView-->
-<!--        android:id="@+id/ivPerfil"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:contentDescription="@string/user_image"-->
-<!--        android:src="@drawable/img_user2"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:shapeAppearanceOverlay="@style/roundedImageView"-->
-<!--        app:strokeColor="@color/white"-->
-<!--        app:strokeWidth="1dp" />-->
-    <ImageView
-        android:id="@+id/ivPerfil"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/blue_light"
-        android:src="@drawable/ic_user"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/user_image"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/circle_background"
-         />
-
     <TextView
         android:id="@+id/saludo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/saludo"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="@string/saludo"
-        app:layout_constraintStart_toEndOf="@id/ivPerfil"
-        app:layout_constraintTop_toTopOf="@id/ivPerfil"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp"
-        android:textColor="@color/white"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         android:text=""
-        app:layout_constraintStart_toEndOf="@id/ivPerfil"
-        app:layout_constraintTop_toBottomOf="@id/saludo"/>
-
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/saludo"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivRun"
@@ -71,7 +41,7 @@
         android:layout_marginTop="24dp"
         android:src="@drawable/img_run_svg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPerfil" />
+        app:layout_constraintTop_toBottomOf="@id/saludo" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="180dp"
@@ -84,7 +54,7 @@
         app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivRun"
-        app:layout_constraintTop_toBottomOf="@id/ivPerfil">
+        app:layout_constraintTop_toBottomOf="@id/saludo">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -150,6 +120,7 @@
                     android:layout_marginStart="32dp"
                     android:text="@string/peso"
                     android:textSize="18sp"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView
@@ -158,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text=""
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -183,6 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:text="@string/altura"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -192,6 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text=""
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -218,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:text="@string/imc"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -227,6 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text=""
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -247,6 +223,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:textSize="14sp" />
 
             <TextView
@@ -256,7 +234,9 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="24dp"
+                android:textColor="@color/black"
                 android:text="@string/reset_values"
+
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

@@ -2,6 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_color_light">@color/black</color>
+    <color name="text_color_dark">@color/white</color>
+
 
     <color name="splash_background">#FF5722</color>
     <color name="orange_light">#EC6C44</color>

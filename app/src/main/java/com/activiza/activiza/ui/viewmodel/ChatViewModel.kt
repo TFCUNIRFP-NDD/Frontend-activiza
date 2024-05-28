@@ -30,7 +30,6 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val messages = repository.getMessages()
                 _messages.value = messages
-                playSendMessageSound()
             } catch (e: Exception) {
                 _error.value = "Error fetching messages"
             }

@@ -156,39 +156,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-  <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Arreglado bug de la base de datos y del perfil">
-        <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/FeelsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/FeelsFragment.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/OnboardingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/OnboardingActivity.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirEjerciciosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/AnadirEjerciciosFragment.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PerfilFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PerfilFragment.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/login/LoginActivity.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/ChatViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/ChatViewModel.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/NotificationReceiver.kt" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/fonts/read_me.rtf" beforeDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/fonts/themunday_regular.ttf" beforeDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_google_24.xml" beforeDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_send.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_send.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_user1.xml" beforeDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_user3.xml" beforeDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/texto_rb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/texto_rb.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/font/garet_heavy.otf" beforeDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding2.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding3.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_feels.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_feels.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_perfil.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-        <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
-    </list>    <option name="SHOW_DIALOG" value="false" />
+    <list default="true" id="d403c220-cb0c-4b79-a328-0b80d85ddc94" name="Changes" comment="Arreglado bug de la base de datos y del perfil">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/EntrenamientosFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PerfilFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/PerfilFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/fragmentos/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/view/splash/SplashActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/ChatViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/activiza/activiza/ui/viewmodel/ChatViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboarding2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialogo_personalizado_peso_altura.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialogo_personalizado_peso_altura.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_perfil.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
@@ -286,7 +270,7 @@
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/david/OneDrive/Escritorio/tfc/Frontend-activiza/app/src/main/res/raw"
+    "last_opened_file_path": "C:/Users/david/OneDrive/Escritorio/tfc/Frontend-activiza"
   }
 }]]></component>
   <component name="RecentsManager">

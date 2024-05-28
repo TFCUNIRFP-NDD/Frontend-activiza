@@ -1,39 +1,25 @@
 package com.activiza.activiza.ui.view.fragmentos
 
-import android.app.AlarmManager
-import android.app.PendingIntent
+
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import com.google.android.material.slider.RangeSlider
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.data.UserPreferences
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentSettingsBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
-import com.activiza.activiza.ui.view.HomeActivity
 import com.activiza.activiza.ui.view.login.LoginActivity
-import com.activiza.activiza.ui.view.splash.SplashActivity
-import com.activiza.activiza.ui.viewmodel.NotificationReceiver
-import com.google.android.material.slider.Slider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.math.round
 
 
 class SettingsFragment : Fragment() {
@@ -60,6 +46,20 @@ class SettingsFragment : Fragment() {
         val rootView = binding.root
 
         userPreferences = UserPreferences(requireContext())
+
+        // Obtener el estado guardado del modo oscuro desde las preferencias compartidas
+        val isDarkModeEnabled = userPreferences.darkModeEnabled
+
+        // Aplicar el estado del modo oscuro al switch
+        binding.switchDarkMode.isChecked = isDarkModeEnabled
+
+        // Aplicar el tema oscuro según el estado guardado
+        if (isDarkModeEnabled) {
+            enableDarkMode()
+        } else {
+            disableDarkMode()
+        }
+
 
         initUI()
         return rootView
@@ -149,14 +149,17 @@ class SettingsFragment : Fragment() {
 
     private fun enableDarkMode(){
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        (activity as? AppCompatActivity)?.delegate
+        (activity as? AppCompatActivity)?.delegate?.setTheme(R.style.Theme_Activiza)
+
 
     }
 
     private fun disableDarkMode(){
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         (activity as? AppCompatActivity)?.delegate
+
     }
+
 
     private fun setSystemVolume(volumePercentage: Int) {
         val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager

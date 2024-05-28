@@ -14,6 +14,7 @@
         android:text="Resetear valores"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_marginStart="8dp"
          />
 
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Introduzca el peso: "
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:layout_marginStart="8dp"/>
 
         <EditText
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:minWidth="48dp"
+            android:textColor="@color/black"
             android:inputType="number"
             android:gravity="center"
             android:text="0"/>
@@ -53,6 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Introduzca la altura: "
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:layout_marginStart="8dp"/>
 
         <EditText
@@ -61,6 +65,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:minWidth="48dp"
+            android:textColor="@color/black"
             android:gravity="center"
             android:inputType="number"
             android:text="0"/>
