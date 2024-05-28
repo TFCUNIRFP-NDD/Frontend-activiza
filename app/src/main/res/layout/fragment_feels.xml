@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@color/image_color">
+        android:background="@color/blue_light">
 
         <EditText
             android:id="@+id/messageEditText"

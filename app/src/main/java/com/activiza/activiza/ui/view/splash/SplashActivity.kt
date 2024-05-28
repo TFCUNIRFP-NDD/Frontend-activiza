@@ -5,12 +5,14 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.ImageView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.activiza.activiza.R
@@ -67,6 +69,18 @@ class SplashActivity : AppCompatActivity() {
         if (userPreferences.notificationsEnabled && !isNotificationAlreadySentToday() && db.obtenerPrimeraRutina() != null) {
             programarNotificacionDiaria()
         }
+
+//        // Establecemos el color de la imagen en funcion del modo oscuro
+//        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+//        when (nightMode) {
+//            Configuration.UI_MODE_NIGHT_YES -> {
+//
+//
+//            }
+//            Configuration.UI_MODE_NIGHT_NO -> {
+//
+//            }
+//        }
     }
 
      fun programarNotificacionDiaria() {

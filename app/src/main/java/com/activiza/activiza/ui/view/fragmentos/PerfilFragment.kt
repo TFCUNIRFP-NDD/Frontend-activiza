@@ -1,6 +1,7 @@
 package com.activiza.activiza.ui.view.fragmentos
 
 import android.content.Context
+import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -54,11 +55,12 @@ class PerfilFragment : Fragment() {
 
     //Para seleccionar imagen de perfil
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    //val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
             binding.ivPerfil.setImageURI(uri)
-            //saveImageUri(uri.toString())
-        } else {
 
+        } else {
+            Toast.makeText(requireContext(), "Fallo al cargar la imagen de perfil", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -71,6 +73,18 @@ class PerfilFragment : Fragment() {
 
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        // Establecemos el color de la imagen en funcion del modo oscuro
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightMode) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.ivRun.setImageResource(R.drawable.img_run_white)
+
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.ivRun.setImageResource(R.drawable.img_run_svg)
+            }
+        }
 
 
         // Inicializa la base de datos y obtiene los detalles del usuario
@@ -94,10 +108,7 @@ class PerfilFragment : Fragment() {
             binding.tvNombre.text = nombreUsuario
         }
 
-        // Carga la imagen guardada, si existe
-        //loadImageUri()
 
-        //carga los pasos y verifica si necesita reiniciarlos
         loadUserDetailsAndUpdateUI()
         updateProgressBars(peso, altura)
         initUI()
@@ -157,22 +168,6 @@ class PerfilFragment : Fragment() {
         }
     }
 
-    //Funciones para guardar y cargar la URI de la imagen
-//    private fun saveImageUri(uri: String) {
-//        val sharedPreferences = requireContext().getSharedPreferences("perfil_prefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.putString("profile_image_uri", uri)
-//        editor.apply()
-//    }
-//
-//    private fun loadImageUri() {
-//        val sharedPreferences = requireContext().getSharedPreferences("perfil_prefs", Context.MODE_PRIVATE)
-//        val uriString = sharedPreferences.getString("profile_image_uri", null)
-//        if (uriString != null) {
-//            val uri = Uri.parse(uriString)
-//            binding.ivPerfil.setImageURI(uri)
-//        }
-//    }
 
     // Funciones para el sensor de contador de pasos y Calorias
 
@@ -335,10 +330,7 @@ class PerfilFragment : Fragment() {
                 binding.tvCalculoImc.visibility = View.GONE
 
                 // Validaciones de peso y altura
-                if (peso in 40.0..200.0 && altura in 120.0..230.0) {
-                    // Actualiza los textos de la interfaz de usuario
-                    binding.tvPeso.text = "$nuevoPeso"
-                    binding.tvAltura.text = "$nuevaAltura"
+                if(nuevoPeso in 30.0..250.0 && nuevaAltura in 100.0..230.0) {
 
                     // Actualiza los detalles del usuario en la base de datos
                     token?.let { db.updateDetallesUsuarioPorToken(it, nuevoPeso, nuevaAltura) }

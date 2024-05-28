@@ -48,7 +48,7 @@ class EntrenamientosFragment : Fragment() {
     private fun initUI() {
         mostrarPanelDeControl()
         inicializarVariables()
-        inicializarEventos()
+        //inicializarEventos()
     }
 
     private fun mostrarPanelDeControl() {
@@ -117,35 +117,35 @@ class EntrenamientosFragment : Fragment() {
         }
     }
 
-    private fun inicializarEventos() {
-        binding.ivArrow.setOnClickListener {
-            // Cambiar la imagen y el estado de acuerdo con el estado actual
-            if (isArrowUp) {
-                binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-                // Aplicar la animación de entrada (desplazamiento hacia abajo)
-                val slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_down)
-                binding.rvRutinas.startAnimation(slideIn)
-                binding.rvRutinas.visibility = View.VISIBLE
-            } else {
-                binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-                // Aplicar la animación de salida (desplazamiento hacia arriba)
-                val slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_up)
-                slideOut.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationStart(animation: Animation) {}
-
-                    override fun onAnimationEnd(animation: Animation) {
-                        // Después de que la animación termine, ocultar el RecyclerView
-                        binding.rvRutinas.visibility = View.GONE
-                    }
-
-                    override fun onAnimationRepeat(animation: Animation) {}
-                })
-                binding.rvRutinas.startAnimation(slideOut)
-            }
-            // Cambiar el estado
-            isArrowUp = !isArrowUp
-        }
-    }
+//    private fun inicializarEventos() {
+//        binding.ivArrow.setOnClickListener {
+//            // Cambiar la imagen y el estado de acuerdo con el estado actual
+//            if (isArrowUp) {
+//                binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+//                // Aplicar la animación de entrada (desplazamiento hacia abajo)
+//                val slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+//                binding.rvRutinas.startAnimation(slideIn)
+//                binding.rvRutinas.visibility = View.VISIBLE
+//            } else {
+//                binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
+//                // Aplicar la animación de salida (desplazamiento hacia arriba)
+//                val slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+//                slideOut.setAnimationListener(object : Animation.AnimationListener {
+//                    override fun onAnimationStart(animation: Animation) {}
+//
+//                    override fun onAnimationEnd(animation: Animation) {
+//                        // Después de que la animación termine, ocultar el RecyclerView
+//                        binding.rvRutinas.visibility = View.GONE
+//                    }
+//
+//                    override fun onAnimationRepeat(animation: Animation) {}
+//                })
+//                binding.rvRutinas.startAnimation(slideOut)
+//            }
+//            // Cambiar el estado
+//            isArrowUp = !isArrowUp
+//        }
+//    }
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()

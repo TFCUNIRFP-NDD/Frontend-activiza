@@ -79,5 +79,4 @@ class FeelsFragment : Fragment() {
     private fun initUI() {
 
     }
-
 }

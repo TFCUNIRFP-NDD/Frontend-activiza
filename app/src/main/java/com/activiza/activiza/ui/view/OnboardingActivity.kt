@@ -100,23 +100,23 @@ class OnboardingActivity : AppCompatActivity() {
         val altura = alturaText.toFloatOrNull()
         var comprobacion = true
         when{
-            pesoText.isNullOrEmpty() -> {
-                errorPeso("El peso no puede estar vacio")
+            pesoText.isEmpty() -> {
+                errorPeso("El peso no puede estar vacío")
                 comprobacion = false
             }
-            nameText.isNullOrEmpty() -> {
-                errorName("El nombre no puede estar vacio")
-                comprobacion = false
-            }
-            alturaText.isNullOrEmpty() -> {
-                errorAltura("La altura no puede estar vacia")
-                comprobacion = false
-            }
-            peso == null || peso<30 || peso>250 ->{
+            peso == null || peso < 30 || peso > 250 -> {
                 errorPeso("El peso tiene que ser un número entre 30 y 250")
                 comprobacion = false
             }
-            altura == null || altura<100 || altura>230 ->{
+            nameText.isEmpty() -> {
+                errorName("El nombre no puede estar vacío")
+                comprobacion = false
+            }
+            alturaText.isEmpty() -> {
+                errorAltura("La altura no puede estar vacía")
+                comprobacion = false
+            }
+            altura == null || altura < 100 || altura > 230 -> {
                 errorAltura("La altura tiene que ser un número entre 100 y 230")
                 comprobacion = false
             }
@@ -155,7 +155,7 @@ class OnboardingActivity : AppCompatActivity() {
     private fun comunAltura(){
         binding.etAltura.setTextColor(getColor(R.color.white))
         binding.etAltura.setText("")
-        diccionarioErrors[name] = false
+        diccionarioErrors[altura] = false
     }
 
 }
