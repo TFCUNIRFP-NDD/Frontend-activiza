@@ -1,10 +1,12 @@
 package com.activiza.activiza.ui.view.fragmentos
 
 import android.content.Context
+import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import androidx.fragment.app.Fragment
@@ -52,15 +54,6 @@ class PerfilFragment : Fragment() {
         }
     }
 
-    //Para seleccionar imagen de perfil
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            binding.ivPerfil.setImageURI(uri)
-            //saveImageUri(uri.toString())
-        } else {
-
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +64,18 @@ class PerfilFragment : Fragment() {
 
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        // Establecemos el color de la imagen en funcion del modo oscuro
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightMode) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.ivRun.setImageResource(R.drawable.img_run_white)
+
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.ivRun.setImageResource(R.drawable.img_run_svg)
+            }
+        }
 
 
         // Inicializa la base de datos y obtiene los detalles del usuario
@@ -94,10 +99,7 @@ class PerfilFragment : Fragment() {
             binding.tvNombre.text = nombreUsuario
         }
 
-        // Carga la imagen guardada, si existe
-        //loadImageUri()
 
-        //carga los pasos y verifica si necesita reiniciarlos
         loadUserDetailsAndUpdateUI()
         updateProgressBars(peso, altura)
         initUI()
@@ -128,11 +130,6 @@ class PerfilFragment : Fragment() {
 
     // -----FUNCIONES----
     private fun initUI() {
-
-        binding.ivPerfil.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        }
-
         binding.tvReset.setOnClickListener {
             mostrarDialogoPesoAltura()
         }
@@ -157,22 +154,6 @@ class PerfilFragment : Fragment() {
         }
     }
 
-    //Funciones para guardar y cargar la URI de la imagen
-//    private fun saveImageUri(uri: String) {
-//        val sharedPreferences = requireContext().getSharedPreferences("perfil_prefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.putString("profile_image_uri", uri)
-//        editor.apply()
-//    }
-//
-//    private fun loadImageUri() {
-//        val sharedPreferences = requireContext().getSharedPreferences("perfil_prefs", Context.MODE_PRIVATE)
-//        val uriString = sharedPreferences.getString("profile_image_uri", null)
-//        if (uriString != null) {
-//            val uri = Uri.parse(uriString)
-//            binding.ivPerfil.setImageURI(uri)
-//        }
-//    }
 
     // Funciones para el sensor de contador de pasos y Calorias
 
@@ -269,13 +250,6 @@ class PerfilFragment : Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Detiene la escucha del sensor cuando el fragmento se destruye
-        sensorManager.unregisterListener(stepCounterListener)
-        _binding = null
-    }
-
     // Carga los detalles del usuario y actualiza las barras de progreso
     private fun loadUserDetailsAndUpdateUI() {
         // Carga los detalles del usuario desde la base de datos
@@ -307,7 +281,7 @@ class PerfilFragment : Fragment() {
 
         if (detallesUsuario != null) {
             // Utiliza los detalles del usuario para mostrar los datos en el diálogo
-            val builder = AlertDialog.Builder(requireContext())
+            val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog_Dark)
 
             // Configura el diseño del AlertDialog
             val inflater = requireActivity().layoutInflater
@@ -335,10 +309,7 @@ class PerfilFragment : Fragment() {
                 binding.tvCalculoImc.visibility = View.GONE
 
                 // Validaciones de peso y altura
-                if (peso in 40.0..200.0 && altura in 120.0..230.0) {
-                    // Actualiza los textos de la interfaz de usuario
-                    binding.tvPeso.text = "$nuevoPeso"
-                    binding.tvAltura.text = "$nuevaAltura"
+                if(nuevoPeso in 30.0..250.0 && nuevaAltura in 100.0..230.0) {
 
                     // Actualiza los detalles del usuario en la base de datos
                     token?.let { db.updateDetallesUsuarioPorToken(it, nuevoPeso, nuevaAltura) }
@@ -360,6 +331,14 @@ class PerfilFragment : Fragment() {
                 }
             }
             builder.setNegativeButton("Cancelar") { dialog, which -> }
+
+            // Establece el tema del diálogo en función del modo oscuro
+            val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            val isNightMode = nightMode == Configuration.UI_MODE_NIGHT_YES
+            if (isNightMode) {
+                builder.setInverseBackgroundForced(false) // Forzar el fondo inverso en modo oscuro
+            }
+
 
             builder.show()
         } else {
@@ -423,5 +402,11 @@ class PerfilFragment : Fragment() {
 
             else -> binding.tvCalculoImc.text = "Error al calcular tu IMC"
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Detiene la escucha del sensor cuando el fragmento se destruye
+        sensorManager.unregisterListener(stepCounterListener)
+        _binding = null
     }
 }

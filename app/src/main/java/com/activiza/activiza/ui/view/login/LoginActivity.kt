@@ -4,12 +4,15 @@ package com.activiza.activiza.ui.view.login
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.activiza.activiza.R
 import com.activiza.activiza.data.AuthData
 import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.TokenResponse
@@ -151,6 +154,41 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+        }
+
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightMode) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.layoutLogin.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.dark_blue
+                    )
+                )
+                binding.layoutRegister.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.dark_blue
+                    )
+                )
+
+            }
+
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.layoutLogin.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.white
+                    )
+                )
+
+                binding.layoutRegister.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.white
+                    )
+                )
             }
         }
     }

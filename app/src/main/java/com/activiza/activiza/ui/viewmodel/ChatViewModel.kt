@@ -1,10 +1,12 @@
 package com.activiza.activiza.ui.viewmodel
 
 import android.app.Application
+import android.media.MediaPlayer
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.activiza.activiza.R
 import com.activiza.activiza.data.Message
 import com.activiza.activiza.ui.view.fragmentos.mensajes.MessageRepository
 import kotlinx.coroutines.launch
@@ -40,10 +42,18 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
                 val sentMessage = repository.sendMessage(message)
                 sentMessage?.let {
                     _messages.value = _messages.value.orEmpty() + it
+                    playSendMessageSound()
                 }
             } catch (e: Exception) {
                 _error.value = "Error sending message"
             }
         }
+    }
+
+    private fun playSendMessageSound() {
+        // Aquí puedes reproducir el sonido que desees
+        // Por ejemplo:
+        val mediaPlayer = MediaPlayer.create(getApplication(), R.raw.mensaje)
+        mediaPlayer.start()
     }
 }

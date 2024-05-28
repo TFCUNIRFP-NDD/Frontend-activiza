@@ -37,6 +37,8 @@
         android:textSize="30sp"
         android:layout_marginVertical="20dp"
         android:text="@string/activiza"
+        android:fontFamily="@font/poppins_black"
+        android:textAllCaps="true"
         android:textStyle="bold"
         android:textColor="@color/splash_background"
         />
@@ -49,6 +51,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:textColor="@color/white"
+        android:textStyle="bold"
         tools:text="¿Cúal es tu meta?"
         />
 
@@ -86,6 +89,7 @@
         android:textSize="20sp"
         android:layout_gravity="center"
         android:text="@string/cual_es_tu_genero"
+        android:textStyle="bold"
         android:textColor="@color/white"
         />
 
@@ -133,6 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/siguiente"
+            android:fontFamily="@font/poppins_black"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"/>

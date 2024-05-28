@@ -57,19 +57,6 @@ class NotificationReceiver : BroadcastReceiver(){
             val channel = NotificationChannel("default", "Daily Notification", NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }
-
-        if (userPreferences.vibrationEnabled) {
-            val vibrator = ContextCompat.getSystemService(context, Vibrator::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                // Para dispositivos con API nivel 26 o superior
-                vibrator?.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                // Para dispositivos con API nivel inferior a 26
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(1000)
-            }
-        }
-
         notificationManager.notify(0, notification)
     }
 }

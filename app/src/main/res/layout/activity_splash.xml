@@ -4,45 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_light"
     tools:context=".ui.view.splash.SplashActivity">
 
 
     <ImageView
+        android:id="@+id/ivRun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_run_svg" />
+        android:src="@drawable/img_run_svg"
+        android:layout_margin="16dp"/>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="233dp"
+        android:id="@+id/tvName"
+        android:layout_width="277dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginEnd="97dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="546dp"
+        android:layout_marginEnd="58dp"
+        android:fontFamily="@font/poppins_black"
         android:text="@string/app_name"
-        android:textColor="@color/splash_background"
-        android:textSize="60sp"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_light"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="324dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="-2dp"
-        android:gravity="center"
-        android:text="Tu app de entrenamiento"
-        android:textColor="@color/splash_background"
-        android:textSize="30sp" />
+    <!--    <TextView-->
+<!--        android:layout_width="324dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/textView"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="51dp"-->
+<!--        android:layout_marginTop="37dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:layout_marginBottom="97dp"-->
+<!--        android:fontFamily="@font/poppins_black"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Tu app de entrenamiento"-->
+<!--        android:textColor="@color/blue_light"-->
+<!--        android:textSize="30sp" />-->
 
 
 </RelativeLayout>
