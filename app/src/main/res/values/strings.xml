@@ -9,10 +9,10 @@
     <string name="error">Error en el campo</string>
     <string name="none"></string>
     <string name="ganar_masa_muscular">Ganar masa muscular</string>
-    <string name="perder_peso">perder peso</string>
+    <string name="perder_peso">Perder peso</string>
     <string name="mujer">Mujer</string>
     <string name="hombre">Hombre</string>
-    <string name="comenzar">comenzar</string>
+    <string name="comenzar">Comenzar</string>
     <string name="borrar_cookies">Borrar Cookies</string>
 
     <!-- Campos del menu de abajo -->
@@ -41,8 +41,12 @@
     <string name="content_description">a</string>
     <string name="username">Username</string>
     <string name="btn_continue">Continue</string>
+    <string name="signin_sub"><u>Sign In</u></string>
+    <string name="signup_sub"><u>Sign Up</u></string>
+    <string name="btn_register">Sign Up</string>
+    <string name="descripcion_notificacion">Activa las notificaciones para que te avisemos de tus entrenamientos</string>
 
-
+    <!-- Campos anadir rutina -->
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="agregar">Agregar</string>
     <string name="panel_de_control">Panel de control</string>
@@ -58,4 +62,52 @@
     <string name="descanso">Descanso</string>
     <string name="minutos">Minutos</string>
     <string name="completar">Completar</string>
+    <string name="cual_es_tu_genero">¿Cual es tu genero?</string>
+    <string name="cual_es_tu_altura">¿Cual es tu altura?</string>
+    <string name="nombre">Nombre</string>
+    <string name="anadir_rutina">Añadir Rutina</string>
+    <string name="genero">Genero</string>
+    <string name="objetivo">Objetivo</string>
+    <string name="instrucciones_rutina">*Genero (H para hombre, M para mujer)\n*Objetivo (GRASA para perder grasa, MUSCULO para ganar músculo)\n*Lugar de entrenamiento (C para casa, G para gimnasio)\n*Duración añade los días que dura la rutina solo número entero</string>
+    <string name="rutina">Rutina</string>
+    <string name="descripcion">Descripción:</string>
+    <string name="ejercicios">Ejercicios:</string>
+    <string name="subir_imagen_rutina">Subir Imagen Rutina:</string>
+    <string name="nombre_de_lo_que_quieres_la_imagen">nombre de lo que quieres la imagen</string>
+    <string name="_10">10</string>
+    <string name="lugar">lugar</string>
+    <string name="selecciona_una_imagen">Selecciona una Imágen</string>
+    <string name="ejercicios_title">Ejercicios</string>
+    <string name="duracion">Duracion</string>
+    <string name="modificar_rutina">modificar rutina</string>
+
+    <!-- Settings-->
+    <string name="titulo_settings">Ajustes de la cuenta</string>
+    <string name="cuenta">Mi cuenta</string>
+    <string name="modo_oscuro">Modo oscuro</string>
+    <string name="notificaciones">Activar notificaciones</string>
+    <string name="volumen">Ajustar volumen</string>
+    <string name="vibracion">Activar vibración</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="mostrar_qr">Mostrar QR</string>
+    <string name="perfil">Perfil</string>
+    <string name="descripcion_modo_oscuro">Activa o desactiva el modo oscuro para cambio visual</string>
+
+    <!--Perfil-->
+    <string name="reset_values"><u>Resetear peso/altura</u></string>
+    <string name="btn_imc">Imc</string>
+    <string name="peso">Peso:</string>
+    <string name="altura">Altura:</string>
+    <string name="imc">Imc:</string>
+    <string name="saludo">Hola</string>
+
+    <!-- Feels -->
+    <string name="user_image">User Image</string>
+    <string name="type_message">Type a message</string>
+    <string name="send_message">Send Message</string>
+    <string name="nombre_usuario">nombre_usuario</string>
+
+
+    <string name="channel_description">This is my notification channel.</string>
 </resources>

@@ -2,7 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="Frontend-activiza.Activiza.app">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="tfc - copia.Activiza.app">
+        <State />
+      </entry>
+      <entry key="tfc.Activiza.app">
         <State />
       </entry>
     </value>

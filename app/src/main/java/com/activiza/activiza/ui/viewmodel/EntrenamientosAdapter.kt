@@ -1,5 +1,7 @@
 package com.activiza.activiza.ui.viewmodel
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +27,12 @@ private val onItemClick: (Int) -> Unit,)
 
     override fun onBindViewHolder(holder: EjerciciosViewHolder, position: Int) {
         val ejercicio = ejercicios[position]
+        //var db: ActivizaDataBaseHelper
+        //db = ActivizaDataBaseHelper(holder.itemView.context)
+        //var entrenamientoId = db.obtenerIdEntrenamientoPorIdEjercicio(ejercicio.id)
         holder.bind(ejercicio)
         holder.itemView.setOnClickListener {
-            onItemClick(ejercicio.id) // Pasar el ID de la rutina al hacer clic en el elemento
+            onItemClick(ejercicio.id) // Pasar el ID del entrenamiento al hacer clic en el elemento
         }
     }
 
@@ -39,13 +44,16 @@ private val onItemClick: (Int) -> Unit,)
         private val nombreEjercicio: TextView = itemView.findViewById(R.id.tvNombreEjercicioItem)
         private val imagenEjercicio: ImageView = itemView.findViewById(R.id.ivImagenEjercicioItem)
 
+        @SuppressLint("ResourceType")
         fun bind(ejercicio: EjerciciosData) {
             nombreEjercicio.text = ejercicio.nombre
             deUrlAImageView(ejercicio.media,imagenEjercicio)
             var db: ActivizaDataBaseHelper
             db = ActivizaDataBaseHelper(nombreEjercicio.context)
+            var entrenamientoId = db.obtenerIdEntrenamientoPorIdEjercicio(ejercicio.id)
+            var ejercicioBooleano =db.obtenerEstadoDeEntrenamiento(entrenamientoId,obtenerFechaActual())
 
-            if(db.obtenerEstadoDeEntrenamiento(ejercicio.id,obtenerFechaActual())){
+            if(ejercicioBooleano){
                 itemView.setBackgroundColor(itemView.context.getColor(R.color.green))
             }
         }

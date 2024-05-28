@@ -1,6 +1,7 @@
 package com.activiza.activiza.ui.view.fragmentos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.activiza.activiza.R
 import com.activiza.activiza.data.EjerciciosData
+import com.activiza.activiza.data.EntrenamientoData
 import com.activiza.activiza.databinding.FragmentComenzarEntrenamientoBinding
 import com.activiza.activiza.databinding.FragmentEjercicioDetalladoBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
@@ -43,8 +45,9 @@ class EjercicioDetalladoFragment : Fragment() {
 
     private fun inicializarEventos() {
         binding.btnCompletar.setOnClickListener {
-            db.marcarEntrenamientoComoCompletado(ejercicio.id,obtenerFechaActual())
-            findNavController().navigate(R.id.action_ejercicioDetalladoFragment_to_comenzarEntrenamientoFragment)
+            var idEntrenamiento = db.obtenerIdEntrenamientoPorIdEjercicio(args.id)
+            db.marcarEntrenamientoComoCompletado(idEntrenamiento,obtenerFechaActual())
+            findNavController().popBackStack()
         }
     }
     fun obtenerFechaActual(): String {

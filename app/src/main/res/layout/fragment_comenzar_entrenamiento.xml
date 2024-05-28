@@ -29,7 +29,7 @@
                 android:id="@+id/tvPorcentajeEjercicio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0%"
+                tools:text="0%"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="20dp"
                 android:textSize="20dp"
@@ -39,7 +39,7 @@
                 android:id="@+id/tvDiaDeEntreno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1 día de entrenamiento day"
+                tools:text="1 día de entrenamiento day"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="20dp"
                 android:layout_gravity="right"
@@ -53,7 +53,7 @@
             android:layout_weight="1"
             />
         <Button
-            android:id="@+id/btnFixed"
+            android:id="@+id/btnComenzarRutina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/comenzar_rutina"

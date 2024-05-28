@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/ob1"
     tools:context=".ui.view.Onboarding2Activity">
 
     <LinearLayout
@@ -14,7 +15,7 @@
         <View
             android:id="@+id/viewOrangeLine"
             android:layout_width="0dp"
-            android:background="@color/splash_background"
+            android:background="@color/blue_light"
             android:layout_height="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="50dp"
@@ -33,17 +34,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:layout_marginVertical="20dp"
         android:text="@string/activiza"
+        android:textStyle="bold"
+        android:textColor="@color/splash_background"
         />
     <TextView
         android:id="@+id/tvPresentacionOnboarding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_marginTop="24dp"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
-        tools:text="¿Ya veo Nestor Un placer conocerte quieres decirnos cual es tu meta?"
+        android:textColor="@color/white"
+        tools:text="¿Cúal es tu meta?"
         />
 
         <RadioGroup
@@ -52,19 +58,25 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
             >
 
             <RadioButton
                 android:id="@+id/rbGanarMasa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ganar_masa_muscular" />
+                android:checked="true"
+                android:text="@string/ganar_masa_muscular"
+                android:textColor="@drawable/texto_rb"
+                android:textSize="16sp"/>
 
             <RadioButton
                 android:id="@+id/rbPerderPeso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/perder_peso" />
+                android:text="@string/perder_peso"
+                android:textColor="@drawable/texto_rb"
+                android:textSize="16sp"/>
 
         </RadioGroup>
     <TextView
@@ -72,13 +84,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_marginHorizontal="20dp"
-        android:text="¿Cual es tu genero?"
+        android:layout_gravity="center"
+        android:text="@string/cual_es_tu_genero"
+        android:textColor="@color/white"
         />
 
     <RadioGroup
         android:id="@+id/rgPersona"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         >
@@ -87,33 +101,44 @@
             android:id="@+id/rbHombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hombre" />
+            android:checked="true"
+            android:text="@string/hombre"
+            android:textColor="@drawable/texto_rb"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/rbMujer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@drawable/texto_rb"
             android:text="@string/mujer" />
 
     </RadioGroup>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnNext"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="40dp"
+        android:backgroundTint="@color/blue_light"
+        app:cardCornerRadius="16dp"
         >
 
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
+            android:layout_gravity="center"
             android:text="@string/siguiente"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
 </LinearLayout>

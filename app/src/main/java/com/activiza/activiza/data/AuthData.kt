@@ -3,8 +3,8 @@ package com.activiza.activiza.data
 import com.google.gson.annotations.SerializedName
 
 data class AuthData(
-    val username: String = "admin",
-    val password: String = "admin"
+    val username: String,
+    val password: String
 )
 
 data class LoginRequest(

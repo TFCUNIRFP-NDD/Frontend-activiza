@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/entrenamientosFragment"
+        android:icon="@drawable/ic_entrenamientos"
+        android:title="@string/entrenamientos"
+        />
+    <item
+        android:id="@+id/anadirRutinaFragment"
+        android:icon="@drawable/ic_add"
+        android:title="@string/anadir_rutina"
+        />
+    <item
+        android:id="@+id/feelsFragment"
+        android:icon="@drawable/ic_feel"
+        android:title="@string/feel"
+        />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"
+        />
+</menu>

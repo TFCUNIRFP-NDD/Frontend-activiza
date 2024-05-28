@@ -1,17 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.fragmentos.FeelsFragment"
-    android:background="@color/black"
-    android:id="@+id/fragment_feels"
-    >
+    android:orientation="vertical"
+    tools:context=".ui.view.fragmentos.FeelsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Barra Superior -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="?attr/colorPrimary"
+        android:padding="10dp">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/gray_line"
+            android:src="@drawable/ic_user"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/user_image"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_background" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_usuario"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Lista de Mensajes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
+    <!-- Barra Inferior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@color/image_color">
+
+        <EditText
+            android:id="@+id/messageEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/type_message"
+            android:background="@drawable/edit_text_background"
+            android:padding="10dp"
+            android:maxLines="4"
+            android:inputType="textMultiLine" />
+
+        <ImageView
+            android:id="@+id/sendButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_send"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/send_message"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            />
+    </LinearLayout>
+</LinearLayout>

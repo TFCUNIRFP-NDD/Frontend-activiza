@@ -46,6 +46,7 @@ class Onboarding2Activity : AppCompatActivity() {
         val intent = Intent(this, Onboarding3Activity::class.java).apply {
             putExtra("nombre", intent.getStringExtra("nombre").toString())
             putExtra("peso", intent.getStringExtra("peso").toString())
+            putExtra("altura", intent.getStringExtra("altura").toString())
             putExtra("objetivo", objetivoButton)
             putExtra("genero", generoButton)
         }
@@ -55,7 +56,8 @@ class Onboarding2Activity : AppCompatActivity() {
     private fun inicializarVariables() {
         val nombre = intent.getStringExtra("nombre").toString()
         val peso = intent.getStringExtra("peso").toString()
-        binding.tvPresentacionOnboarding.setText("¿Ya veo $nombre, con que pesas $peso Kilogramos, un placer conocerte quieres decirnos cual es tu objetivo?")
+        val altura = intent.getStringExtra("altura").toString()
+        binding.tvPresentacionOnboarding.setText("Cúal es tu objetivo?")
         functions = OnboardingFunctions()
     }
 

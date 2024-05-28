@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.activiza.activiza.R
+import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.databinding.ActivityOnboarding3Binding
+import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.viewmodel.OnboardingFunctions
 
 class Onboarding3Activity : AppCompatActivity() {
@@ -14,6 +16,7 @@ class Onboarding3Activity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboarding3Binding
     private lateinit var functions: OnboardingFunctions
     private var genero = "Hombre"
+    private lateinit var db:ActivizaDataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,20 +39,19 @@ class Onboarding3Activity : AppCompatActivity() {
 
     private fun siguienteIntent() {
         guardarSesiones()
-        val homeAcitivity = Intent(this,HomeActivity::class.java)
-        startActivity(homeAcitivity)
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     private fun guardarSesiones() {
-        val sharedPreferences = getSharedPreferences("datos_sesion", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
-        editor.putString("genero", intent.getStringExtra("genero"))
-        editor.putString("nombre", intent.getStringExtra("nombre"))
-        editor.putString("peso", intent.getStringExtra("peso"))
-        editor.putString("objetivo", intent.getStringExtra("objetivo"))
-
-        editor.apply()
+        db = ActivizaDataBaseHelper(this)
+        val altura: Double? = intent.getStringExtra("altura")?.toDouble()
+        val peso:Double? = intent.getStringExtra("peso")?.toDouble()
+        val genero:String? = intent.getStringExtra("genero")
+        val objetivo:String? = intent.getStringExtra("objetivo")
+        val usuariosDetalles:DetallesUsuarioData = DetallesUsuarioData(altura!!,peso!!,genero!!,objetivo!!)
+        db.insertDetallesUsuario(usuariosDetalles,db.getUsuario()!!.token)
     }
 
     private fun inicializarVariables() {
@@ -58,12 +60,13 @@ class Onboarding3Activity : AppCompatActivity() {
         var nombre = intent.getStringExtra("nombre").toString()
         var peso = intent.getStringExtra("peso").toString()
         var objetivo = intent.getStringExtra("objetivo").toString()
+        var altura = intent.getStringExtra("altura").toString()
         Log.i("info", genero)
-        if (genero == this.genero) {
-            binding.ivActivizaGenero.setImageResource(R.drawable.ic_male_man)
-        }else{
-            binding.ivActivizaGenero.setImageResource(R.drawable.ic_female_woman)
-        }
-        binding.tvPresentacionOnboarding.text = "Entonces $nombre eres de genero $genero pesas $peso y tu objetivo es $objetivo"
+//        if (genero == this.genero) {
+//            binding.ivActivizaGenero.setImageResource(R.drawable.ic_male_man)
+//        }else{
+//            binding.ivActivizaGenero.setImageResource(R.drawable.ic_female_woman)
+//        }
+        binding.tvPresentacionOnboarding.text = "Entonces $nombre eres $genero, pesas $peso, tu altura es de $altura y tu objetivo es $objetivo. Bienvenid@"
     }
 }
