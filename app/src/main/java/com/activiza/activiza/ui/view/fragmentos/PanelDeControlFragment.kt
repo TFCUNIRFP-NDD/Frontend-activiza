@@ -46,8 +46,25 @@ class PanelDeControlFragment : Fragment() {
     ): View? {
         _binding = FragmentPanelDeControlBinding.inflate(inflater, container, false)
         val rootView = binding.root
+
+        // Establece colores en funcion del modo oscuro
+        val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+            // Modo Oscuro
+            //binding.tvNameRutinaPanelControl.setTextColor(resources.getColor(R.color.white,null))
+            binding.btnPanelDeControl.background = resources.getDrawable(R.drawable.button_custom, null)
+
+
+        } else {
+            // Modo Claro
+            //binding.tvNameRutinaPanelControl.setTextColor(resources.getColor(R.color.black,null))
+        }
+
         initUI()
         return rootView
+
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

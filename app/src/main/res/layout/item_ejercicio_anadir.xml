@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:fontFamily="@font/poppins_black"
             tools:text="Nombre de la rutina"
             android:textAlignment="center"
             />

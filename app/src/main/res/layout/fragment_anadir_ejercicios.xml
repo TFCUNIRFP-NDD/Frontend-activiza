@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:text="@string/ejercicios_title"
+            android:fontFamily="@font/poppins_black"
             android:gravity="center"
             android:layout_marginVertical="20dp"
             />
@@ -38,20 +39,24 @@
             android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             />
+
         <TextView
             android:id="@+id/tvEjerciciosSeleccionados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="26sp"
             android:layout_gravity="bottom|center_horizontal"
+            android:fontFamily="@font/poppins_medium"
             android:textAlignment="center"
-            tools:text="0/7"
-            />
+            android:textSize="26sp"
+            tools:text="0/7" />
+
         <Button
             android:id="@+id/btnAnadirRutina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/anadir_rutina"
+            android:fontFamily="@font/poppins_black"
+            android:background="@drawable/button_background_light"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_margin="16dp"
             />

@@ -101,23 +101,23 @@ class OnboardingActivity : AppCompatActivity() {
         var comprobacion = true
         when{
             pesoText.isEmpty() -> {
-                errorPeso("El peso no puede estar vacío")
+                errorPeso("No puede estar vacío")
                 comprobacion = false
             }
             peso == null || peso < 30 || peso > 250 -> {
-                errorPeso("El peso tiene que ser un número entre 30 y 250")
+                errorPeso("Tiene que estar entre 30 y 250 kg")
                 comprobacion = false
             }
             nameText.isEmpty() -> {
-                errorName("El nombre no puede estar vacío")
+                errorName("No puede estar vacío")
                 comprobacion = false
             }
             alturaText.isEmpty() -> {
-                errorAltura("La altura no puede estar vacía")
+                errorAltura("No puede estar vacío")
                 comprobacion = false
             }
             altura == null || altura < 100 || altura > 230 -> {
-                errorAltura("La altura tiene que ser un número entre 100 y 230")
+                errorAltura("Tiene que estar entre 100 y 230 cm")
                 comprobacion = false
             }
         }
@@ -143,17 +143,17 @@ class OnboardingActivity : AppCompatActivity() {
         diccionarioErrors[altura] = true
     }
     private fun comunPeso(){
-        binding.etPeso.setTextColor(getColor(R.color.white))
+        binding.etPeso.setTextColor(getColor(R.color.blue_light))
         binding.etPeso.setText("")
         diccionarioErrors[peso] = false
     }
     private fun comunName(){
-        binding.etName.setTextColor(getColor(R.color.white))
+        binding.etName.setTextColor(getColor(R.color.blue_light))
         binding.etName.setText("")
         diccionarioErrors[name] = false
     }
     private fun comunAltura(){
-        binding.etAltura.setTextColor(getColor(R.color.white))
+        binding.etAltura.setTextColor(getColor(R.color.blue_light))
         binding.etAltura.setText("")
         diccionarioErrors[altura] = false
     }

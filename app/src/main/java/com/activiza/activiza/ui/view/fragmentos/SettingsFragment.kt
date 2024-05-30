@@ -4,6 +4,7 @@ package com.activiza.activiza.ui.view.fragmentos
 import android.content.Context
 import com.google.android.material.slider.RangeSlider
 import android.content.Intent
+import android.content.res.Configuration
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -60,6 +61,28 @@ class SettingsFragment : Fragment() {
             disableDarkMode()
         }
 
+// Establece el color de los iconos en funcion del modo oscuro
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightMode) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.ivDelete.setImageResource(R.drawable.ic_delete_white)
+                binding.ivDarkMode.setImageResource(R.drawable.ic_dark_mode_white)
+                binding.ivQr.setImageResource(R.drawable.ic_qr_white)
+                binding.ivUser.setImageResource(R.drawable.ic_user_perfil_white)
+                binding.ivNotification.setImageResource(R.drawable.ic_notifications_white)
+                binding.ivVolumen.setImageResource(R.drawable.ic_volume_white)
+
+
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.ivDelete.setImageResource(R.drawable.ic_delete)
+                binding.ivDarkMode.setImageResource(R.drawable.ic_dark_mode)
+                binding.ivQr.setImageResource(R.drawable.ic_qr)
+                binding.ivUser.setImageResource(R.drawable.ic_user_perfil)
+                binding.ivNotification.setImageResource(R.drawable.ic_notifications)
+                binding.ivVolumen.setImageResource(R.drawable.ic_volume)
+            }
+        }
 
         initUI()
         return rootView
@@ -113,29 +136,21 @@ class SettingsFragment : Fragment() {
             }
         })
 
-
-
         binding.tvEliminarCuenta.setOnClickListener {
             val usuarioData: UsuarioData? = db.getUsuario()
-
             if (usuarioData != null) {
                 val token = usuarioData.token
                 db.borrarUsuario(token)
                 clearPreferences(requireContext())
+                // Desactiva el modo oscuro
+                disableDarkMode()
+
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             } else {
 
             }
-        }
-
-        binding.tvCerrarSesion.setOnClickListener {
-            clearPreferences(requireContext())
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-
         }
 
         binding.tvPerfil.setOnClickListener {
@@ -149,14 +164,14 @@ class SettingsFragment : Fragment() {
 
     private fun enableDarkMode(){
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        (activity as? AppCompatActivity)?.delegate?.setTheme(R.style.Theme_Activiza)
+
 
 
     }
 
     private fun disableDarkMode(){
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        (activity as? AppCompatActivity)?.delegate
+
 
     }
 

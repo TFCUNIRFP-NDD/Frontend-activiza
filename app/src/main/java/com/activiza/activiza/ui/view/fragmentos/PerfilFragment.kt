@@ -1,6 +1,8 @@
 package com.activiza.activiza.ui.view.fragmentos
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -9,15 +11,19 @@ import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.activiza.activiza.R
 import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.UsuarioData
@@ -27,32 +33,24 @@ import java.util.Calendar
 import java.util.Date
 
 
-class PerfilFragment : Fragment() {
+class PerfilFragment : Fragment(), SensorEventListener{
 
     private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var sensorManager: SensorManager
+    private var sensorManager: SensorManager? = null
     private var stepSensor: Sensor? = null
+    private var isCounterSensorPresent = false
+    private var totalSteps = 0f
+    private var previousTotalSteps = 0f
 
+    private val PERMISSION_REQUEST_CODE = 101
 
     lateinit var db: ActivizaDataBaseHelper
     private var detallesUsuarioData: DetallesUsuarioData? = null
     private var peso: Double = 0.0
     private var altura: Double = 0.0
     private var caloriesPorKm: Double = 0.0
-    private var stepsToday: Int = 0
-
-    private val handler = android.os.Handler(Looper.getMainLooper())
-    private val resetStepsTask = object : Runnable {
-        override fun run() {
-            // Reiniciar los pasos y guardar la nueva hora de reinicio
-            stepsToday = 0
-            saveStepsResetTime(Calendar.getInstance().time)
-            // Programa la próxima ejecución del reinicio de pasos en 24 horas
-            handler.postDelayed(this, 24 * 60 * 60 * 1000) // 24 horas en milisegundos
-        }
-    }
 
 
     override fun onCreateView(
@@ -62,10 +60,24 @@ class PerfilFragment : Fragment() {
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-        // Establecemos el color de la imagen en funcion del modo oscuro
+        // Verificar si los permisos están concedidos
+        try {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+                // Si los permisos no están concedidos, solicitarlos
+                requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), PERMISSION_REQUEST_CODE)
+            } else {
+                // Si los permisos están concedidos, inicializar el sensor
+                initSensor()
+            }
+
+        }catch (e: Exception){
+            Log.e("pasos,","permisos denegados $e")
+            Toast.makeText(requireContext(), "Permisos denegados", Toast.LENGTH_SHORT).show()
+        }
+
+        // Establece el color de la imagen en funcion del modo oscuro
         val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (nightMode) {
             Configuration.UI_MODE_NIGHT_YES -> {
@@ -83,19 +95,17 @@ class PerfilFragment : Fragment() {
         detallesUsuarioData = db.getDetallesUsuario()
         peso = detallesUsuarioData?.peso ?: 0.0
         altura = detallesUsuarioData?.altura ?: 0.0// Asigna 0.0 si el peso es nulo
-        caloriesPorKm =
-            0.05 * peso // Calcula las calorías por kilómetro basadas en el peso del usuario
+        caloriesPorKm = 0.05 * peso // Calcula las calorías por kilómetro basadas en el peso del usuario
 
         // Actualiza los TextView con los valores del usuario
-        binding.tvPeso.text = peso.toString() + " kg"
-        binding.tvAltura.text = altura.toInt().toString() + " cm"
+        binding.tvPeso.text = "$peso kg"
+        binding.tvAltura.text = "${altura.toInt()} cm"
 
 
         // Obtiene y muestra el nombre del usuario
         val usuarioData: UsuarioData? = db.getUsuario()
         usuarioData.let {
             val nombreUsuario = it?.nombre
-
             binding.tvNombre.text = nombreUsuario
         }
 
@@ -103,30 +113,9 @@ class PerfilFragment : Fragment() {
         loadUserDetailsAndUpdateUI()
         updateProgressBars(peso, altura)
         initUI()
-        loadSteps()
-        checkStepsReset()
-
-
-
-        if (stepSensor != null) {
-            stepSensor?.let {
-                sensorManager.registerListener(
-                    stepCounterListener,
-                    it,
-                    SensorManager.SENSOR_DELAY_UI
-                )
-            }
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Este dispositivo no tiene sensor de pasos",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
 
         return rootView
     }
-
 
     // -----FUNCIONES----
     private fun initUI() {
@@ -135,8 +124,6 @@ class PerfilFragment : Fragment() {
         }
         binding.llImc.visibility = View.GONE
         binding.pbImc.visibility = View.GONE
-
-
 
         binding.btnImc.setOnClickListener {
             detallesUsuarioData = db.getDetallesUsuario()
@@ -154,121 +141,70 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    private fun initSensor() {
+        try {
+            // Inicializar el SensorManager y el sensor
+            sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-    // Funciones para el sensor de contador de pasos y Calorias
-
-    // Maneja el sensor de contador de pasos
-    private val stepCounterListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent?) {
-            // Verifica si el evento no es nulo y es del tipo correcto (contador de pasos)
-            event?.let {
-                if (it.sensor.type == Sensor.TYPE_STEP_COUNTER) {
-                    // Actualiza la interfaz de usuario con el nuevo recuento de pasos
-                    val steps = it.values[0].toInt()
-                    updateStepCount(steps)
-                    val caloriesBurned = calculateCaloriesBurned(steps)
-                    updateCaloriesBurned(caloriesBurned)
-
-                }
+            if (stepSensor != null) {
+                isCounterSensorPresent = true
+            } else {
+                Toast.makeText(requireContext(), "Sensor no disponible", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "Error al inicializar el sensor", Toast.LENGTH_SHORT).show()
         }
     }
 
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        try {
+            if (requestCode == PERMISSION_REQUEST_CODE) {
+                // Verificar si el usuario concedió los permisos
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Si los permisos están concedidos, inicializar el sensor
+                    initSensor()
+                } else {
+                    // Si los permisos no están concedidos, informar al usuario y tomar medidas alternativas (opcional)
+                    Toast.makeText(requireContext(), "Los permisos necesarios para contador", Toast.LENGTH_SHORT).show()
+                    // Puedes deshabilitar funcionalidades relacionadas con el sensor o pedir permisos nuevamente
+                }
+            }
+        }catch(e: Exception){
+            Log.e("pasos,","error al pedir permisos $e")
+            Toast.makeText(requireContext(), "Permisos denegados", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
     //Calcula las calorias quemadas
     private fun calculateCaloriesBurned(steps: Int): Double {
-        // Estimación promedio de la distancia por paso (en kilómetros)
         val distancePerStep = 0.762
-        // Convertir pasos en distancia (en kilómetros)
         val distanceWalked = steps * distancePerStep
-        // Calcular las calorías quemadas
         return caloriesPorKm * distanceWalked
     }
 
 
     //Actualiza las calorias
     private fun updateCaloriesBurned(caloriesBurned: Double) {
-        // Actualiza la interfaz de usuario con las calorías quemadas
         binding.tvCalorias.text = "Calorías quemadas: $caloriesBurned"
     }
 
-
-    //Actualiza los pasos
-    private fun updateStepCount(steps: Int) {
-        // Actualiza la interfaz de usuario con el nuevo recuento de pasos
-        binding.tvCountSteps.text = "Pasos: $steps"
-    }
-
-    //Carga los pasos
-    private fun loadSteps() {
-        val savedResetTime = getSavedResetTime()
-        val currentTime = Calendar.getInstance().time
-        if (savedResetTime != null && isMoreThan24HoursAgo(savedResetTime, currentTime)) {
-            // Si han pasado más de 24 horas desde el último reinicio, reinicia los pasos
-            stepsToday = 0
-            saveStepsResetTime(currentTime)
-        }
-    }
-
-    //Guarda la hora de reinicio de los pasos
-    private fun saveStepsResetTime(currentTime: Date) {
-        // Guardar la hora de reinicio de los pasos en la base de datos
-        val currentTime = Calendar.getInstance().time
-
-    }
-
-    //Carga la hora de reinicio de los pasos
-    private fun getSavedResetTime(): Date? {
-        return null
-    }
-
-    // Verifica si han pasado más de 24 horas desde el previousTime hasta el currentTime
-    private fun checkStepsReset() {
-        val savedResetTime = getSavedResetTime()
-        val currentTime = Calendar.getInstance().time
-        if (savedResetTime == null || isMoreThan24HoursAgo(savedResetTime, currentTime)) {
-            // Si han pasado más de 24 horas desde el último reinicio, reinicia los pasos
-            stepsToday = 0
-            saveStepsResetTime(currentTime)
-        } else {
-            // Si no ha pasado más de 24 horas, programa el reinicio de los pasos para después de 24 horas
-            val timeDifference = savedResetTime.time + (24 * 60 * 60 * 1000) - currentTime.time
-            handler.postDelayed(resetStepsTask, timeDifference)
-        }
-    }
-
-    // Verifica si han pasado más de 24 horas desde el previousTime hasta el currentTime
-    private fun isMoreThan24HoursAgo(previousTime: Date, currentTime: Date): Boolean {
-        // Verificar si ha pasado más de 24 horas desde el previousTime hasta el currentTime
-        val diff = currentTime.time - previousTime.time
-        val hours = diff / (1000 * 60 * 60)
-        return hours >= 24
-    }
-
-
     // Carga los detalles del usuario y actualiza las barras de progreso
     private fun loadUserDetailsAndUpdateUI() {
-        // Carga los detalles del usuario desde la base de datos
         detallesUsuarioData = db.getDetallesUsuario()
         peso = detallesUsuarioData?.peso ?: 0.0
         altura = detallesUsuarioData?.altura ?: 0.0
-
-        // Actualiza las barras de progreso con los valores del usuario
         updateProgressBars(peso, altura)
     }
 
-
     // Actualiza las barras de progreso con los valores del usuario
     private fun updateProgressBars(peso: Double, altura: Double) {
-        // Calcula el progreso para las barras de progreso de peso y altura
         val progresoPeso = ((peso - 30) / (250 - 40) * 100).toInt()
         val progresoAltura = ((altura - 100) / (230 - 120) * 100).toInt()
-
-        // Establece el progreso en las barras de progreso
         binding.pbPeso.progress = progresoPeso.coerceIn(0, 100)
         binding.pbAltura.progress = progresoAltura.coerceIn(0, 100)
     }
@@ -351,7 +287,6 @@ class PerfilFragment : Fragment() {
         }
     }
 
-
     //Calcula el Imc
     private fun calcularIMC(peso: Double, altura: Double): Double {
         // Fórmula para calcular el IMC: peso (kg) / (altura (m) * altura (m))
@@ -403,10 +338,66 @@ class PerfilFragment : Fragment() {
             else -> binding.tvCalculoImc.text = "Error al calcular tu IMC"
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        try {
+            if (isCounterSensorPresent) {
+                sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+            }
+        } catch (e: Exception) {
+            Log.e("pasos","error al registrar el sensor $e")
+            Toast.makeText(requireContext(), "Error al registrar el sensor", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        try {
+            if (isCounterSensorPresent) {
+                sensorManager?.unregisterListener(this)
+            }
+        } catch (e: Exception) {
+            Log.e("pasos","error al desregistrar el sensor $e")
+            Toast.makeText(requireContext(), "Error al desregistrar el sensor", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        try {
+            if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
+                if (previousTotalSteps == 0f) {
+                    previousTotalSteps = event.values[0]
+                }
+
+                val currentSteps = event.values[0]
+                val stepsSinceReset = currentSteps - previousTotalSteps
+                binding.tvCountSteps.text = stepsSinceReset.toInt().toString()
+
+                // Puedes actualizar las calorías quemadas aquí
+                val caloriesBurned = calculateCaloriesBurned(stepsSinceReset.toInt())
+                updateCaloriesBurned(caloriesBurned)
+            }
+        } catch (e: Exception) {
+            Log.e("pasos","error al actualizar los pasos $e")
+            Toast.makeText(requireContext(), "Error al actualizar los pasos del sensor", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        TODO("Not yet implemented")
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
-        // Detiene la escucha del sensor cuando el fragmento se destruye
-        sensorManager.unregisterListener(stepCounterListener)
-        _binding = null
+        try {
+            // Detiene la escucha del sensor cuando el fragmento se destruye
+//            sensorManager.unregisterListener(stepCounterListener)
+            _binding = null
+        } catch (e: Exception) {
+            Log.e("pasos","error al destruir la vista $e")
+            Toast.makeText(requireContext(), "Error al destruir la vista", Toast.LENGTH_SHORT).show()
+        }
     }
 }

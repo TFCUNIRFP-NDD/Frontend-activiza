@@ -44,6 +44,8 @@ class RutinaIDFragment : Fragment() {
         db = ActivizaDataBaseHelper(binding.btnAgregar.context)
         initUI()
         return binding.root
+
+
     }
 
     private fun anadirDatosRetrofit() {

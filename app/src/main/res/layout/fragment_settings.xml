@@ -24,6 +24,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/ivUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -52,6 +53,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/ivDarkMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -100,6 +102,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/ivNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -148,6 +151,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/ivVolumen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -192,6 +196,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/ivQr"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_margin="16dp"
@@ -212,6 +217,7 @@
         android:layout_height="1dp"
         android:layout_marginVertical="4dp"/>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -219,6 +225,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/ivDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -231,33 +238,6 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:text="@string/eliminar_cuenta"/>
-
-    </LinearLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginVertical="4dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_logout"/>
-
-        <TextView
-            android:id="@+id/tvCerrarSesion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:text="@string/cerrar_sesion"/>
 
     </LinearLayout>
 

@@ -2,12 +2,15 @@ package com.activiza.activiza.ui.view.fragmentos
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -49,7 +52,10 @@ class EntrenamientosFragment : Fragment() {
         mostrarPanelDeControl()
         inicializarVariables()
         inicializarEventos()
+       // mostrarShimmer()
     }
+
+
 
     private fun mostrarPanelDeControl() {
         db = ActivizaDataBaseHelper(binding.tvRutinaName.context)
@@ -71,6 +77,7 @@ class EntrenamientosFragment : Fragment() {
         binding.tvRutinaName.text = "Rutinas ${detallesUsuario!!.genero}".uppercase()
         anadirDatosRetrofit()
     }
+
 
     private fun anadirDatosRetrofit() {
         val binding = _binding ?: return  // Verificar si _binding es nulo y salir de la función si lo es
