@@ -330,6 +330,10 @@ class ActivizaDataBaseHelper(context:Context) :
         // Borrar todas las rutinas
         val borrarRutinasQuery = "DELETE FROM $TABLE_NAME_RUTINAS"
         db?.execSQL(borrarRutinasQuery)
+
+        // Borrar todos los calendarios
+        val borrarDiasCalendario = "DELETE FROM $TABLE_NAME_CALENDARIO_ENTRENAMIENTO"
+        db?.execSQL(borrarDiasCalendario)
     }
     fun obtenerPrimeraRutina(): RutinaData? {
         var rutina: RutinaData? = null
@@ -638,5 +642,6 @@ class ActivizaDataBaseHelper(context:Context) :
         db.close()
         return updatedRows > 0
     }
+
 
 }

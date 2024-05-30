@@ -58,9 +58,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="@color/white"
                     android:background="@drawable/button_background_light"
-                    android:text="@string/eliminar_rutina"/>
+                    android:text="@string/eliminar_rutina"
+                    android:textColor="@color/white" />
             </LinearLayout>
         </HorizontalScrollView>
 

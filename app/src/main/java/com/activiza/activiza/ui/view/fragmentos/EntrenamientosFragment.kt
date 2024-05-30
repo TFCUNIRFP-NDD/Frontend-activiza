@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -52,10 +53,8 @@ class EntrenamientosFragment : Fragment() {
         mostrarPanelDeControl()
         inicializarVariables()
         inicializarEventos()
-       // mostrarShimmer()
+        // mostrarShimmer()
     }
-
-
 
     private fun mostrarPanelDeControl() {
         db = ActivizaDataBaseHelper(binding.tvRutinaName.context)
@@ -78,17 +77,17 @@ class EntrenamientosFragment : Fragment() {
         anadirDatosRetrofit()
     }
 
-
     private fun anadirDatosRetrofit() {
         val binding = _binding ?: return  // Verificar si _binding es nulo y salir de la función si lo es
 
         // Iniciar el progressBar hasta que cargue los datos
         binding.pbCargaRutina.visibility = View.VISIBLE
+        binding.ivArrow.isEnabled = false // Deshabilitar la flecha mientras se cargan los datos
 
         // Utilizar el scope del ciclo de vida del fragmento para manejar las corrutinas
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                //Recoger token de sql lite
+                // Recoger token de sql lite
                 val token = db.obtenerToken()
                 // Realizar la solicitud HTTP en el hilo de fondo
                 val call = withContext(Dispatchers.IO) {
@@ -101,14 +100,16 @@ class EntrenamientosFragment : Fragment() {
                 val rutinas = call.body()
                 if (rutinas != null) {
                     // Configurar el RecyclerView en el hilo principal
-                    binding.rvRutinas.adapter = RutinasAdapter(rutinas) { rutinaId ->
-                        findNavController().navigate(
-                            EntrenamientosFragmentDirections.actionEntrenamientosFragmentToRutinaIDFragment(
-                                id = rutinaId
+                    withContext(Dispatchers.Main) {
+                        binding.rvRutinas.adapter = RutinasAdapter(rutinas) { rutinaId ->
+                            findNavController().navigate(
+                                EntrenamientosFragmentDirections.actionEntrenamientosFragmentToRutinaIDFragment(
+                                    id = rutinaId
+                                )
                             )
-                        )
+                        }
+                        binding.rvRutinas.layoutManager = LinearLayoutManager(requireContext())
                     }
-                    binding.rvRutinas.layoutManager = LinearLayoutManager(requireContext())
                 } else {
                     // Manejar el caso donde la respuesta es nula
                     Log.e("Error", "La respuesta de la llamada Retrofit es nula")
@@ -120,6 +121,7 @@ class EntrenamientosFragment : Fragment() {
             } finally {
                 // Ocultar el progressBar después de cargar los datos o manejar el error
                 binding.pbCargaRutina.visibility = View.GONE
+                binding.ivArrow.isEnabled = true // Habilitar la flecha después de que se carguen los datos
             }
         }
     }

@@ -26,5 +26,4 @@
     <style name="BlancoFondo" >
         <item name="android:background">#fef7ff</item>
     </style>
-
 </resources>

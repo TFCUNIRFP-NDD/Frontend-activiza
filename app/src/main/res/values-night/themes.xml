@@ -8,4 +8,12 @@
     </style>
 
     <style name="Theme.Activiza" parent="Base.Theme.Activiza" />
+    <!-- Estilo del botón en el modo oscuro -->
+    <style name="ButtonStyle.Dark" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_background_dark</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+    </style>
+    <style name="BlancoFondo" >
+        <item name="android:background">@color/dark_blue</item>
+    </style>
 </resources>

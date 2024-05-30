@@ -29,6 +29,7 @@ import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentPerfilBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
+import java.text.DecimalFormat
 import java.util.Calendar
 import java.util.Date
 
@@ -182,15 +183,41 @@ class PerfilFragment : Fragment(), SensorEventListener{
 
     //Calcula las calorias quemadas
     private fun calculateCaloriesBurned(steps: Int): Double {
-        val distancePerStep = 0.762
-        val distanceWalked = steps * distancePerStep
-        return caloriesPorKm * distanceWalked
+        val detallesUsuario = db.getDetallesUsuario()
+        val altura = detallesUsuario?.altura ?: 0
+        val peso = detallesUsuario?.peso ?: 0.0
+
+        // Calculo de la zancada
+        val zancada = (altura.toDouble()/100) * 0.414
+
+        // Calculo de la distancia total recorrida
+        val distancia = zancada * steps
+
+        // Velocidad promedio en m/s
+        val velocidad = 0.9
+
+        // Calculo del tiempo total caminando en segundos
+        val tiempoSegundos = distancia / velocidad
+
+        // Convertir el tiempo a horas
+        val tiempoHoras = tiempoSegundos / 3600
+
+        // MET promedio para caminar a un ritmo moderado
+        val met = 3.5
+
+        // Calculo de las calorías quemadas
+        val calorias = met * peso * tiempoHoras
+        return calorias
     }
+
+
 
 
     //Actualiza las calorias
     private fun updateCaloriesBurned(caloriesBurned: Double) {
-        binding.tvCalorias.text = "Calorías quemadas: $caloriesBurned"
+        val decimalFormat = DecimalFormat("#.##")
+        val formattedCaloriesBurned = decimalFormat.format(caloriesBurned)
+        binding.tvCalorias.text = "Calorías: $formattedCaloriesBurned"
     }
 
     // Carga los detalles del usuario y actualiza las barras de progreso

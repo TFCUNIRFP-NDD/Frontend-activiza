@@ -188,7 +188,6 @@ class SplashActivity : AppCompatActivity() {
     private fun enableDarkMode(){
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
-
     private fun disableDarkMode(){
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        tools:src="@drawable/ic_prueba_fondo"
+        tools:src="@drawable/not_found"
         />
 
 </FrameLayout>

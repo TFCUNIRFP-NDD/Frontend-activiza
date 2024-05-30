@@ -48,8 +48,13 @@ class RutinasAdapter (
             deUrlAImageView(rutina.media,imagenRutina)
         }
     }
-    fun deUrlAImageView(url:String, imageView:ImageView){
-        Picasso.get().load(url).into(imageView)
+    fun deUrlAImageView(url: String?, imageView: ImageView) {
+        if (!url.isNullOrEmpty()) {
+            Picasso.get().load(url).into(imageView)
+        } else {
+            // Manejar el caso en el que el URL está vacío, tal vez cargar una imagen por defecto
+            Picasso.get().load(R.drawable.not_found).into(imageView)
+        }
     }
 
 }

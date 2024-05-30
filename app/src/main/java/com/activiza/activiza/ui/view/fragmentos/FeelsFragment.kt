@@ -83,5 +83,6 @@ class FeelsFragment : Fragment() {
             binding.messageEditText.visibility = View.GONE
             binding.sendButton.visibility = View.GONE
         }
+        binding.tvNombreUsuario.text = usuarioData?.nombre
     }
 }

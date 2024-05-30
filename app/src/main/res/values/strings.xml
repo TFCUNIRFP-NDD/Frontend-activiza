@@ -80,6 +80,7 @@
     <string name="ejercicios_title">Ejercicios</string>
     <string name="duracion">Duracion</string>
     <string name="modificar_rutina">modificar rutina</string>
+    <string name="acabar_rutina">Acabar rutina</string>
 
     <!-- Settings-->
     <string name="titulo_settings">Ajustes de la cuenta</string>
