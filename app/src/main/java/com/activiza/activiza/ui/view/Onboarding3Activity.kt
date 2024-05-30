@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.RadioButton
 import com.activiza.activiza.R
 import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.UsuarioData
@@ -47,12 +48,13 @@ class Onboarding3Activity : AppCompatActivity() {
 
     private fun guardarSesiones() {
         db = ActivizaDataBaseHelper(this)
+        val lugarButton = binding.root.findViewById<RadioButton>(binding.rgLugar.checkedRadioButtonId).text.toString()
         val altura: Double? = intent.getStringExtra("altura")?.toDouble()
         val peso:Double? = intent.getStringExtra("peso")?.toDouble()
         val genero:String? = intent.getStringExtra("genero")
         val objetivo:String? = intent.getStringExtra("objetivo")
         val nombre: String? = intent.getStringExtra("nombre")
-        val usuariosDetalles:DetallesUsuarioData = DetallesUsuarioData(altura!!,peso!!,genero!!,objetivo!!)
+        val usuariosDetalles:DetallesUsuarioData = DetallesUsuarioData(altura!!,peso!!,genero!!,objetivo!!, lugarButton)
         db.insertDetallesUsuario(usuariosDetalles,db.getUsuario()!!.token)
 
 }

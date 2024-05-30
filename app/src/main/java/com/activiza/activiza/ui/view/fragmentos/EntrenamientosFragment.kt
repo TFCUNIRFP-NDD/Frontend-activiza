@@ -17,7 +17,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
+import com.activiza.activiza.data.DetallesUsuarioData
 import com.activiza.activiza.data.RutinaData
+import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentEntrenamientosBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
@@ -25,6 +27,7 @@ import com.activiza.activiza.ui.viewmodel.RutinasAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
@@ -89,11 +92,36 @@ class EntrenamientosFragment : Fragment() {
             try {
                 // Recoger token de sql lite
                 val token = db.obtenerToken()
+                var call: Response<List<RutinaData>>? = null
+                val usuario = db.getDetallesUsuario()
                 // Realizar la solicitud HTTP en el hilo de fondo
-                val call = withContext(Dispatchers.IO) {
-                    getRetrofit().create(APIListener::class.java)
-                        .getTodasRutinas("Token $token")
-                        .execute()
+                if(usuario?.genero.isNullOrEmpty() && usuario?.objetivo.isNullOrEmpty() && usuario?.lugar_entrenamiento.isNullOrEmpty()) {
+                    call = withContext(Dispatchers.IO) {
+                        getRetrofit().create(APIListener::class.java)
+                            .getTodasRutinas("Token $token")
+                            .execute()
+                    }
+                }else{
+                    var genero:String = ""
+                    when(usuario?.genero.toString()){
+                        "Hombre" -> genero = "H"
+                        "Mujer" -> genero = "M"
+                    }
+                    var lugar:String = ""
+                    when(usuario?.lugar_entrenamiento.toString()){
+                        "Gimnasio" -> lugar = "G"
+                        "Casa" -> lugar = "C"
+                    }
+                    var objetivo:String = ""
+                    when(usuario?.objetivo.toString()){
+                        "Ganar masa muscular" -> objetivo = "MUSCULO"
+                        "Perder peso" -> objetivo = "GRASA"
+                    }
+                    call = withContext(Dispatchers.IO) {
+                        getRetrofit().create(APIListener::class.java)
+                            .getRutinasFiltradas("Token $token",genero,lugar,objetivo)
+                            .execute()
+                    }
                 }
 
                 // Verificar si la respuesta no es nula

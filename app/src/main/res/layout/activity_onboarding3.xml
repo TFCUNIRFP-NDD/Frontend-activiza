@@ -56,6 +56,46 @@
         android:layout_marginTop="24dp"
         tools:text="Entonces Nestor eres de genero masculino pesas 80kg y tu objetivo es ganar mas muscular"
         />
+    <TextView
+    android:id="@+id/tvLugarEntrenamiento"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:layout_marginTop="24dp"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="20dp"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    tools:text="¿Donde entrenas?"
+    />
+
+    <RadioGroup
+        android:id="@+id/rgLugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        >
+
+        <RadioButton
+            android:id="@+id/rbGym"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/gimnasio"
+            android:textColor="@drawable/texto_rb"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rbCasa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/casa"
+            android:textColor="@drawable/texto_rb"
+            android:textSize="16sp"/>
+
+    </RadioGroup>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
