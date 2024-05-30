@@ -35,7 +35,7 @@
     <string name="hint_password">Password</string>
     <string name="acces_google">Acount Google</string>
     <string name="reset_password">Forgot password?</string>
-    <string name="create_account">New user?</string>
+    <string name="create_account">¿No tienes cuenta?</string>
     <string name="register">Register</string>
     <string name="signup">Sign Up</string>
     <string name="content_description">a</string>

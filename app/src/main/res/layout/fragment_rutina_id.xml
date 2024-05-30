@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.fragmentos.RutinaIDFragment"
-    android:id="@+id/fragment_rutina_id"
-    >
+    android:id="@+id/fragment_rutina_id">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="30sp"
+            android:fontFamily="@font/poppins_black"
+            android:textSize="24sp"
             android:layout_marginVertical="20dp"
             android:text="@string/plan_de_entrenamiento"
 
@@ -25,6 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:cardCornerRadius="16dp"
+            android:layout_marginHorizontal="4dp"
             android:layout_marginBottom="20dp"
             >
             <ImageView
@@ -38,7 +41,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/blue_light"
+                android:background="@color/splash_background"
                 android:scaleType="centerCrop"
                 android:alpha="0.5"
                 />
@@ -47,10 +50,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="26sp"
-                android:textStyle="bold"
+                android:textSize="24sp"
+                android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
                 tools:text="Nombre de la rutina"
+
                 />
         </androidx.cardview.widget.CardView>
         <TextView
@@ -81,8 +85,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 tools:text="Para hombres, mujeres y niños"
-                android:textColor="@color/splash_background"
+                android:textColor="@color/blue_light"
                 />
         </LinearLayout>
         <View
@@ -99,7 +104,9 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="@string/agregar"
-            android:background="@drawable/button_custom"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_black"
+            android:background="@drawable/button_background_light"
             android:textAllCaps="true"
             />
         <LinearLayout
@@ -113,9 +120,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/eliminar_rutina"
                 android:textAllCaps="true"
-                android:backgroundTint="@color/error"
+                android:textColor="@color/white"
+                android:background="@drawable/button_background_light"
+                android:layout_marginBottom="4dp"
                 android:textSize="12dp"
                 android:visibility="gone"
                 />
@@ -123,10 +134,13 @@
                 android:id="@+id/btnModificarRutina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_gravity="center"
                 android:text="@string/modificar_rutina"
                 android:textAllCaps="true"
-                android:backgroundTint="@color/blue"
+                android:textColor="@color/white"
+                android:background="@drawable/button_background_light"
                 android:textSize="12dp"
                 android:visibility="gone"
                 />

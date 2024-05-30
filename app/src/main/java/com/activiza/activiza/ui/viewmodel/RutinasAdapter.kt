@@ -1,5 +1,6 @@
 package com.activiza.activiza.ui.viewmodel
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class RutinasAdapter(
+class RutinasAdapter (
     private val rutinas: List<RutinaData>,
     private val onItemClick: (Int) -> Unit,)
     : RecyclerView.Adapter<RutinasAdapter.RutinaViewHolder>() {
@@ -30,7 +31,9 @@ class RutinasAdapter(
         holder.itemView.setOnClickListener {
             onItemClick(rutina.id) // Pasar el ID de la rutina al hacer clic en el elemento
         }
+
     }
+
 
     override fun getItemCount(): Int {
         return rutinas.size

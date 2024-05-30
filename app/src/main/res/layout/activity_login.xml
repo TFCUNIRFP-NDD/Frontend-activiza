@@ -27,6 +27,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="48dp"
             android:text="@string/signin"
+            android:fontFamily="@font/poppins_black"
             android:textColor="@color/blue_light"
             android:textSize="24dp"
             android:textStyle="bold" />
@@ -39,6 +40,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="48dp"
             android:text="@string/signup"
+            android:fontFamily="@font/poppins_black"
+            android:visibility="invisible"
             android:textColor="@color/blue_light"
             android:textSize="24dp"
             android:textStyle="bold" />
@@ -140,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/signup"
-                    android:textColor="@color/blue_light"
+                    android:textColor="@color/splash_background"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -264,7 +267,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/signin"
-                    android:textColor="@color/blue_light"
+                    android:textColor="@color/splash_background"
                     android:textStyle="bold" />
             </LinearLayout>
 

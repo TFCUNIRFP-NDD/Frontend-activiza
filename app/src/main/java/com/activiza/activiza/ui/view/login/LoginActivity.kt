@@ -54,6 +54,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+
+
         // Configuración de Retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("http://34.163.215.184/activiza/") // Reemplaza con la URL base de tu API
@@ -172,7 +174,6 @@ class LoginActivity : AppCompatActivity() {
                         R.color.dark_blue
                     )
                 )
-
             }
 
             Configuration.UI_MODE_NIGHT_NO -> {
