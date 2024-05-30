@@ -351,7 +351,7 @@ class ActivizaDataBaseHelper(context:Context) :
 
                 // Aquí debes manejar la lista de ejercicios, dependiendo de cómo estén almacenados en la base de datos
 
-                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media,duracion)
+                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media,duracion, null, null, null)
             }else{
                 null //si no se encuentra ningún dato, devuelve null
             }

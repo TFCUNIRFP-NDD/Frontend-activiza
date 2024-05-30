@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenResumed
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.activiza.activiza.R
@@ -149,6 +150,22 @@ class RutinaIDFragment : Fragment() {
     private fun remplazarDatosRutina() {
         binding.tvNameRutina.text = rutina.nombre
         binding.tvDetalles.text = rutina.descripcion
+        var genero:String = ""
+        var lugar:String = ""
+        var objetivo:String = ""
+        when(rutina.genero){
+            "H" -> genero = "hombre"
+            "M" -> genero = "mujer"
+        }
+        when(rutina.lugar_entrenamiento){
+            "C" -> lugar = "casa"
+            "G" -> lugar = "gimnasio"
+        }
+        when(rutina.objetivo){
+            "GRASA" -> objetivo = "perdida de grasa"
+            "MUSCULO" -> objetivo = "ganancia de masa muscular"
+        }
+        binding.tvCategorias.text = "$lugar, $objetivo, $genero"
         deUrlAImageView(rutina.media, binding.ivRutinaItem)
         val usuarioData: UsuarioData? = db.getUsuario()
         if (usuarioData?.entrenador == true) {
