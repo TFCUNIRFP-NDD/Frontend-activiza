@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.activiza.activiza.R
 import com.activiza.activiza.data.EjerciciosData
 import com.activiza.activiza.data.RutinaData
+import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentRutinaIdBinding
 import com.activiza.activiza.domain.APIListener
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
@@ -142,10 +143,13 @@ class RutinaIDFragment : Fragment() {
         binding.tvNameRutina.text = rutina.nombre
         binding.tvDetalles.text = rutina.descripcion
         deUrlAImageView(rutina.media,binding.ivRutinaItem)
-        if(db.getEntrenador()){
+        val usuarioData: UsuarioData? = db.getUsuario()
+        if(usuarioData?.entrenador == true){
             binding.btnEliminar.visibility = View.VISIBLE
             binding.btnModificarRutina.visibility = View.VISIBLE
         }
+        //Hasta la implementacion se queda en gone
+        binding.btnModificarRutina.visibility = View.GONE
     }
 
     fun deUrlAImageView(url:String, imageView: ImageView){

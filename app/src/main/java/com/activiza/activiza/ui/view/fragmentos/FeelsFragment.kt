@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.activiza.activiza.R
 import com.activiza.activiza.data.Message
+import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentFeelsBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
 import com.activiza.activiza.ui.viewmodel.ChatAdapter
@@ -77,6 +78,10 @@ class FeelsFragment : Fragment() {
     }
 
     private fun initUI() {
-
+        val usuarioData: UsuarioData? = db.getUsuario()
+        if(usuarioData?.entrenador == false){
+            binding.messageEditText.visibility = View.GONE
+            binding.sendButton.visibility = View.GONE
+        }
     }
 }

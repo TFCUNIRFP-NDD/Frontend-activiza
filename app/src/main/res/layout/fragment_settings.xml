@@ -229,7 +229,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_delete"/>
+            android:src="@drawable/ic_close"/>
 
         <TextView
             android:id="@+id/tvEliminarCuenta"
@@ -237,7 +237,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:text="@string/eliminar_cuenta"/>
+            android:text="@string/cerrar_sesion"/>
 
     </LinearLayout>
 
