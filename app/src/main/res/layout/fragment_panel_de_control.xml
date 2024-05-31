@@ -148,7 +148,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="8dp"
             android:background="@drawable/button_background_light"
             android:text="@string/comenzar_entrenamiento" />
     </LinearLayout>

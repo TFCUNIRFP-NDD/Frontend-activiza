@@ -46,8 +46,8 @@
         android:id="@+id/tvPresentacionOnboarding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:textColor="@color/white"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center"
             >
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/ganar_masa_muscular"
-                android:textColor="@drawable/texto_rb"
+                android:textColor="@drawable/text_rb_colors"
                 android:textSize="16sp"/>
 
             <RadioButton
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/perder_peso"
-                android:textColor="@drawable/texto_rb"
+                android:textColor="@drawable/text_rb_colors"
                 android:textSize="16sp"/>
 
         </RadioGroup>
@@ -86,7 +86,7 @@
         android:id="@+id/tvGenero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_gravity="center"
         android:text="@string/cual_es_tu_genero"
         android:textStyle="bold"
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/hombre"
-            android:textColor="@drawable/texto_rb"
+            android:textColor="@drawable/text_rb_colors"
             android:textSize="16sp" />
 
         <RadioButton
@@ -115,10 +115,52 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@drawable/texto_rb"
+            android:textColor="@drawable/text_rb_colors"
             android:text="@string/mujer" />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvLugarEntrenamiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        tools:text="¿Donde entrenas?"
+        />
+
+    <RadioGroup
+        android:id="@+id/rgLugar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        >
+
+        <RadioButton
+            android:id="@+id/rbGym"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/gimnasio"
+            android:textColor="@drawable/text_rb_colors"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rbCasa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/casa"
+            android:textColor="@drawable/text_rb_colors"
+            android:textSize="16sp"/>
+
+    </RadioGroup>
+
 
 
     <androidx.cardview.widget.CardView
@@ -127,7 +169,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="40dp"
+        android:layout_marginVertical="20dp"
         android:backgroundTint="@color/blue_light"
         app:cardCornerRadius="16dp"
         >

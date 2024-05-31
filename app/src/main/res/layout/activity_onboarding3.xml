@@ -69,33 +69,33 @@
     tools:text="¿Donde entrenas?"
     />
 
-    <RadioGroup
-        android:id="@+id/rgLugar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center"
-        >
+<!--    <RadioGroup-->
+<!--        android:id="@+id/rgLugar"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        >-->
 
-        <RadioButton
-            android:id="@+id/rbGym"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/gimnasio"
-            android:textColor="@drawable/texto_rb"
-            android:textSize="16sp"/>
+<!--        <RadioButton-->
+<!--            android:id="@+id/rbGym"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:checked="true"-->
+<!--            android:text="@string/gimnasio"-->
+<!--            android:textColor="@drawable/rb_checked"-->
+<!--            android:textSize="16sp"/>-->
 
-        <RadioButton
-            android:id="@+id/rbCasa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/casa"
-            android:textColor="@drawable/texto_rb"
-            android:textSize="16sp"/>
+<!--        <RadioButton-->
+<!--            android:id="@+id/rbCasa"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/casa"-->
+<!--            android:textColor="@drawable/rb_checked"-->
+<!--            android:textSize="16sp"/>-->
 
-    </RadioGroup>
+<!--    </RadioGroup>-->
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

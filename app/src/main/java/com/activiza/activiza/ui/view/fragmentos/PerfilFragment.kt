@@ -217,7 +217,7 @@ class PerfilFragment : Fragment(), SensorEventListener{
     private fun updateCaloriesBurned(caloriesBurned: Double) {
         val decimalFormat = DecimalFormat("#.##")
         val formattedCaloriesBurned = decimalFormat.format(caloriesBurned)
-        binding.tvCalorias.text = "Calorías: $formattedCaloriesBurned"
+        binding.tvCalorias.text = "$formattedCaloriesBurned kcal"
     }
 
     // Carga los detalles del usuario y actualiza las barras de progreso
