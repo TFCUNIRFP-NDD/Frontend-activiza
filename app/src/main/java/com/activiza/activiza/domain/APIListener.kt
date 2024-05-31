@@ -37,7 +37,8 @@ interface APIListener {
 
     @GET("rutina")
     fun getTodasRutinas(@Header("Authorization") token: String): Call<List<RutinaData>>
-
+    @GET("rutina")
+    fun getRutinasFiltradas(@Header("Authorization") token: String, @Query("genero") genero:String, @Query("lugar_entrenamiento") lugar_entrenamiento:String, @Query("objetivo") objetivo:String): Call<List<RutinaData>>
     @GET("rutina/{rutina}")
     fun getRutina(@Path("rutina") rutina:Int): Call<RutinaData>
 

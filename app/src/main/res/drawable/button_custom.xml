@@ -5,7 +5,6 @@
         <shape android:shape="rectangle">
             <corners android:radius="16dp" /> <!-- Radio para redondear las esquinas -->
             <solid android:color="@color/blue_light" /> <!-- Color de fondo del botón -->
-
         </shape>
     </item>
     <!-- Estado normal -->

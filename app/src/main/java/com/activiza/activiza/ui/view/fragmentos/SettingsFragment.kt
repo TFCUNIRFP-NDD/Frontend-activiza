@@ -1,37 +1,26 @@
 package com.activiza.activiza.ui.view.fragmentos
 
-import android.app.AlarmManager
-import android.app.PendingIntent
+
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import com.google.android.material.slider.RangeSlider
 import android.content.Intent
+import android.content.res.Configuration
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import com.activiza.activiza.R
 import com.activiza.activiza.data.UserPreferences
 import com.activiza.activiza.data.UsuarioData
 import com.activiza.activiza.databinding.FragmentSettingsBinding
 import com.activiza.activiza.domain.ActivizaDataBaseHelper
-import com.activiza.activiza.ui.view.HomeActivity
 import com.activiza.activiza.ui.view.login.LoginActivity
-import com.activiza.activiza.ui.view.splash.SplashActivity
-import com.activiza.activiza.ui.viewmodel.NotificationReceiver
-import com.google.android.material.slider.Slider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.math.round
 
 
 class SettingsFragment : Fragment() {
@@ -39,15 +28,13 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     lateinit var db: ActivizaDataBaseHelper
-    lateinit var notificationReceiver: SplashActivity
     private lateinit var userPreferences: UserPreferences
-    //private lateinit var mediaPlayer: MediaPlayer
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         db = ActivizaDataBaseHelper(context)
-        userPreferences = (context as HomeActivity).userPreferences
+
 
     }
 
@@ -61,6 +48,42 @@ class SettingsFragment : Fragment() {
 
         userPreferences = UserPreferences(requireContext())
 
+        // Obtener el estado guardado del modo oscuro desde las preferencias compartidas
+        val isDarkModeEnabled = userPreferences.darkModeEnabled
+
+        // Aplicar el estado del modo oscuro al switch
+        binding.switchDarkMode.isChecked = isDarkModeEnabled
+
+        // Aplicar el tema oscuro según el estado guardado
+        if (isDarkModeEnabled) {
+            enableDarkMode()
+        } else {
+            disableDarkMode()
+        }
+
+// Establece el color de los iconos en funcion del modo oscuro
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightMode) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.ivDelete.setImageResource(R.drawable.ic_delete_white)
+                binding.ivDarkMode.setImageResource(R.drawable.ic_dark_mode_white)
+                binding.ivQr.setImageResource(R.drawable.ic_qr_white)
+                binding.ivUser.setImageResource(R.drawable.ic_user_perfil_white)
+                binding.ivNotification.setImageResource(R.drawable.ic_notifications_white)
+                binding.ivVolumen.setImageResource(R.drawable.ic_volume_white)
+
+
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.ivDelete.setImageResource(R.drawable.ic_delete)
+                binding.ivDarkMode.setImageResource(R.drawable.ic_dark_mode)
+                binding.ivQr.setImageResource(R.drawable.ic_qr)
+                binding.ivUser.setImageResource(R.drawable.ic_user_perfil)
+                binding.ivNotification.setImageResource(R.drawable.ic_notifications)
+                binding.ivVolumen.setImageResource(R.drawable.ic_volume)
+            }
+        }
+
         initUI()
         return rootView
     }
@@ -68,39 +91,35 @@ class SettingsFragment : Fragment() {
     private fun initUI() {
         binding.switchDarkMode.isChecked = userPreferences.darkModeEnabled
         binding.switchNotification.isChecked = userPreferences.notificationsEnabled
-        binding.switchVibration.isChecked = userPreferences.vibrationEnabled
         binding.rsVolumen.setValues(userPreferences.volume.toFloat())
+
+        val clickSound = MediaPlayer.create(requireContext(), R.raw.switch2)
+
 
         // Configurar listeners para los cambios en la configuración
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             userPreferences.darkModeEnabled = isChecked
+            if(isChecked){
+                enableDarkMode()
+            }else{
+                disableDarkMode()
+            }
+
+            clickSound.start()
 
         }
 
         binding.switchNotification.setOnCheckedChangeListener { _, isChecked ->
             userPreferences.notificationsEnabled = isChecked
 
-        }
-
-        binding.switchVibration.setOnCheckedChangeListener { _, isChecked ->
-            userPreferences.vibrationEnabled = isChecked
+            clickSound.start()
 
         }
+
 
         binding.rsVolumen.addOnChangeListener { _, value, _ ->
             setSystemVolume(value.toInt())
-//            // Obtiene el valor del volumen como un porcentaje (entre 0 y 100)
-//            val volumePercentage = value.toInt()
-//            // Calcula el valor del volumen basado en el porcentaje
-//            val maxVolume =
-//                (requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager).getStreamMaxVolume(
-//                    AudioManager.STREAM_MUSIC
-//                )
-//            val volume = (maxVolume * volumePercentage) / 100
-//            // Establece el volumen del sistema
-//            val audioManager =
-//                requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-//            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
+
         }
 
         binding.rsVolumen.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
@@ -117,29 +136,21 @@ class SettingsFragment : Fragment() {
             }
         })
 
-
-
         binding.tvEliminarCuenta.setOnClickListener {
             val usuarioData: UsuarioData? = db.getUsuario()
-
             if (usuarioData != null) {
                 val token = usuarioData.token
                 db.borrarUsuario(token)
                 clearPreferences(requireContext())
+                // Desactiva el modo oscuro
+                disableDarkMode()
+
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             } else {
 
             }
-        }
-
-        binding.tvCerrarSesion.setOnClickListener {
-            clearPreferences(requireContext())
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-
         }
 
         binding.tvPerfil.setOnClickListener {
@@ -151,6 +162,20 @@ class SettingsFragment : Fragment() {
 
     }
 
+    private fun enableDarkMode(){
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+
+    }
+
+    private fun disableDarkMode(){
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
+    }
+
+
     private fun setSystemVolume(volumePercentage: Int) {
         val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
@@ -158,18 +183,6 @@ class SettingsFragment : Fragment() {
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
     }
 
-//    private fun playTestSound() {
-//        if (this::mediaPlayer.isInitialized) {
-//            mediaPlayer.release()
-//        }
-//        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.test_sound) // Asegúrate de tener un archivo de sonido llamado test_sound en la carpeta res/raw
-//        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-//        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-//        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-//        val volume = currentVolume / maxVolume.toFloat()
-//        mediaPlayer.setVolume(volume, volume)
-//        mediaPlayer.start()
-//    }
 
     private fun playTestSound() {
         mediaPlayer?.release()

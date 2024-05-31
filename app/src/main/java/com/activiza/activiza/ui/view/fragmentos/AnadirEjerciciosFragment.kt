@@ -1,6 +1,7 @@
 package com.activiza.activiza.ui.view.fragmentos
 
 import android.annotation.SuppressLint
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -121,6 +122,7 @@ class AnadirEjerciciosFragment : Fragment() {
                     if (ejercicio != null) {
                         Log.d("ejercicioSubido",ejercicio.toString())
                         Toast.makeText(binding.btnAnadirRutina.context,"Rutina añadida con exito",Toast.LENGTH_LONG).show()
+                        playSuccessSound()
                         findNavController().navigate(R.id.action_anadirEjerciciosFragment_to_entrenamientosFragment)
                     }else{
                         Toast.makeText(binding.btnAnadirRutina.context,"La Rutina no a podido subirse",Toast.LENGTH_LONG).show()
@@ -128,6 +130,13 @@ class AnadirEjerciciosFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun playSuccessSound() {
+        // Aquí puedes reproducir el sonido que desees
+        // Por ejemplo:
+        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.add)
+        mediaPlayer.start()
     }
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()

@@ -1,6 +1,7 @@
 package com.activiza.activiza.ui.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,6 +75,13 @@ class EjerciciosAdapter(
                 }
             }else{
                 itemView.setBackgroundColor(itemView.context.getColor(R.color.transparent))
+            }
+            Log.d("messageDuracion",duracion.text.toString())
+            if(duracion.text.equals("null") || duracion.text.isNullOrEmpty()){
+                duracion.text = "NO"
+            }
+            if(descanso.text.equals("null") || descanso.text.isNullOrEmpty()){
+                duracion.text = "NO"
             }
         }
     }

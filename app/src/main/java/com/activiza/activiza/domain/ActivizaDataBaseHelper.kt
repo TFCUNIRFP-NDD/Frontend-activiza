@@ -24,7 +24,7 @@ class ActivizaDataBaseHelper(context:Context) :
         companion object{
 
             private const val DATABASENAME = "activiza.db"
-            private const val DATABASE_VERSION = 5
+            private const val DATABASE_VERSION = 6
 
             //Create all Rutinas
             private const val TABLE_NAME_RUTINAS = "rutinas"
@@ -76,6 +76,7 @@ class ActivizaDataBaseHelper(context:Context) :
             private const val COLUMN_PESO = "peso"
             private const val COLUMN_GENERO = "genero"
             private const val COLUMN_OBJETIVO = "objetivo"
+            private const val COLUMN_LUGAR_ENTRENAMIENTO = "lugar_entrenamiento"
             private const val COLUMN_ID_USUARIO = "id_usuario"
 
 
@@ -135,6 +136,7 @@ class ActivizaDataBaseHelper(context:Context) :
                 + COLUMN_PESO + " REAL,"
                 + COLUMN_GENERO + " TEXT,"
                 + COLUMN_OBJETIVO + " TEXT,"
+                + COLUMN_LUGAR_ENTRENAMIENTO + " TEXT,"
                 + COLUMN_ID_USUARIO + " INTEGER,"
                 + " FOREIGN KEY (" + COLUMN_ID_USUARIO + ") REFERENCES " + TABLE_NAME_USUARIOS + "(" + COLUMN_ID + ") ON DELETE CASCADE"
                 + ")")
@@ -255,6 +257,7 @@ class ActivizaDataBaseHelper(context:Context) :
             put(COLUMN_PESO, detalles.peso)
             put(COLUMN_GENERO, detalles.genero)
             put(COLUMN_OBJETIVO, detalles.objetivo)
+            put(COLUMN_LUGAR_ENTRENAMIENTO, detalles.lugar_entrenamiento)
             put(COLUMN_ID_USUARIO, id)
             // Aquí podrías incluir más columnas si deseas
         }
@@ -273,8 +276,9 @@ class ActivizaDataBaseHelper(context:Context) :
             val peso = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PESO))
             val genero = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENERO))
             val objetivo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OBJETIVO))
+            val lugar = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LUGAR_ENTRENAMIENTO))
 
-            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo)
+            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo,lugar)
         }
 
         cursor.close()
@@ -330,6 +334,10 @@ class ActivizaDataBaseHelper(context:Context) :
         // Borrar todas las rutinas
         val borrarRutinasQuery = "DELETE FROM $TABLE_NAME_RUTINAS"
         db?.execSQL(borrarRutinasQuery)
+
+        // Borrar todos los calendarios
+        val borrarDiasCalendario = "DELETE FROM $TABLE_NAME_CALENDARIO_ENTRENAMIENTO"
+        db?.execSQL(borrarDiasCalendario)
     }
     fun obtenerPrimeraRutina(): RutinaData? {
         var rutina: RutinaData? = null
@@ -347,7 +355,7 @@ class ActivizaDataBaseHelper(context:Context) :
 
                 // Aquí debes manejar la lista de ejercicios, dependiendo de cómo estén almacenados en la base de datos
 
-                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media,duracion)
+                rutina = RutinaData(id, nombre, descripcion, entrenador, listOf(), media,duracion, null, null, null)
             }else{
                 null //si no se encuentra ningún dato, devuelve null
             }
@@ -618,8 +626,9 @@ class ActivizaDataBaseHelper(context:Context) :
             val peso = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PESO))
             val genero = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GENERO))
             val objetivo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OBJETIVO))
+            val lugar = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LUGAR_ENTRENAMIENTO))
 
-            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo)
+            detallesUsuario = DetallesUsuarioData(altura, peso, genero, objetivo,lugar)
         }
 
         cursor.close()
@@ -638,5 +647,6 @@ class ActivizaDataBaseHelper(context:Context) :
         db.close()
         return updatedRows > 0
     }
+
 
 }

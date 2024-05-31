@@ -2,6 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_color_light">@color/black</color>
+    <color name="text_color_dark">@color/white</color>
+
 
     <color name="splash_background">#FF5722</color>
     <color name="orange_light">#EC6C44</color>
@@ -15,7 +18,7 @@
     <color name="green">#CCFF00</color>
     <color name="transparent">#0065FF44</color>
     <color name="blue">#22caff</color>
-    <color name="blue_dark">#1E3A8C</color>
+    <color name="dark_blue">#F7091425</color>
     <color name="blue_background">#5763DE</color>
     <color name="blue_light">#6fb3ff</color>
     <color name="blue_light3">#709EE3</color>

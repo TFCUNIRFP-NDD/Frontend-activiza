@@ -36,7 +36,9 @@
         android:layout_marginVertical="20dp"
         android:gravity="center"
         android:text="@string/activiza"
+        android:fontFamily="@font/poppins_black"
         android:textStyle="bold"
+        android:textAllCaps="true"
         android:textColor="@color/splash_background"
         android:textSize="30sp" />
 
@@ -47,13 +49,14 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="24dp"
         android:gravity="center"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:text="¿Como te llamamos?"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/etName"
-        android:layout_width="120dp"
+        android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
@@ -72,12 +75,13 @@
         android:layout_marginHorizontal="20dp"
         android:gravity="center"
         android:text="¿Cuanto pesas?"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/etPeso"
-        android:layout_width="50dp"
+        android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
@@ -85,7 +89,6 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:hint="kg"
-        android:inputType="number"
         android:textColor="@color/blue_light"
 
         android:textColorHint="@color/blue_light"/>
@@ -97,19 +100,20 @@
         android:layout_marginHorizontal="20dp"
         android:gravity="center"
         android:text="¿Cuanto mides?"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/etAltura"
-        android:layout_width="50dp"
+        android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_marginTop="4dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:gravity="center"
+        android:textStyle="bold"
         android:hint="cm"
-        android:inputType="number"
         android:textColor="@color/blue_light"
         android:textColorHint="@color/blue_light" />
 
@@ -140,6 +144,7 @@
                 android:text="@string/siguiente"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:fontFamily="@font/poppins_black"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>

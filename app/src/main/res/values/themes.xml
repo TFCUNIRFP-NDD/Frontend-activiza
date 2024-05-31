@@ -3,6 +3,19 @@
     <style name="Base.Theme.Activiza" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/blue_light</item>
+        <item name="colorAccent">@color/blue_light</item>
+        <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <style name="ButtonStyle.Light" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_background_light</item>
+        <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <!-- Estilo del botón en el modo oscuro -->
+    <style name="ButtonStyle.Dark" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_background_dark</item>
+        <item name="android:textColor">@color/text_color_dark</item>
     </style>
 
 
@@ -13,5 +26,4 @@
     <style name="BlancoFondo" >
         <item name="android:background">#fef7ff</item>
     </style>
-
 </resources>

@@ -35,7 +35,7 @@
     <string name="hint_password">Password</string>
     <string name="acces_google">Acount Google</string>
     <string name="reset_password">Forgot password?</string>
-    <string name="create_account">New user?</string>
+    <string name="create_account">¿No tienes cuenta?</string>
     <string name="register">Register</string>
     <string name="signup">Sign Up</string>
     <string name="content_description">a</string>
@@ -68,6 +68,10 @@
     <string name="anadir_rutina">Añadir Rutina</string>
     <string name="genero">Genero</string>
     <string name="objetivo">Objetivo</string>
+    <string name="add_genero">"H -hombre, M - mujer"</string>
+    <string name="add_lugar">C - casa, G - gimnasio</string>
+    <string name="add_objetivo">GRASA para perdida, \nMUSCULO para ganancia</string>
+    <string name="add_duracion">Días de duración</string>
     <string name="instrucciones_rutina">*Genero (H para hombre, M para mujer)\n*Objetivo (GRASA para perder grasa, MUSCULO para ganar músculo)\n*Lugar de entrenamiento (C para casa, G para gimnasio)\n*Duración añade los días que dura la rutina solo número entero</string>
     <string name="rutina">Rutina</string>
     <string name="descripcion">Descripción:</string>
@@ -75,11 +79,12 @@
     <string name="subir_imagen_rutina">Subir Imagen Rutina:</string>
     <string name="nombre_de_lo_que_quieres_la_imagen">nombre de lo que quieres la imagen</string>
     <string name="_10">10</string>
-    <string name="lugar">lugar</string>
+    <string name="lugar">Lugar</string>
     <string name="selecciona_una_imagen">Selecciona una Imágen</string>
     <string name="ejercicios_title">Ejercicios</string>
     <string name="duracion">Duracion</string>
     <string name="modificar_rutina">modificar rutina</string>
+    <string name="acabar_rutina">Acabar rutina</string>
 
     <!-- Settings-->
     <string name="titulo_settings">Ajustes de la cuenta</string>
@@ -110,4 +115,6 @@
 
 
     <string name="channel_description">This is my notification channel.</string>
+    <string name="casa">Casa</string>
+    <string name="gimnasio">Gimnasio</string>
 </resources>

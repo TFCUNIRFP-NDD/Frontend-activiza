@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.fragmentos.EntrenamientosFragment"
     android:orientation="vertical"
-    android:id="@+id/fragment_rutinas"
-    >
+    android:id="@+id/fragment_rutinas">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/BlancoFondo"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:text="@string/seleccionar_entrenamiento"
+            android:fontFamily="@font/poppins_black"
             android:gravity="center"
             android:layout_marginVertical="20dp"
             />
@@ -32,20 +32,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:gravity="center"
-                >
+                android:gravity="center">
                 <Button
                     android:id="@+id/btnPanelDeControl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/panel_de_control"
-                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_background_light"
                     />
                 <Button
                     android:id="@+id/btnEntrenamientos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/entrenamientos"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_background_light"
                     android:layout_marginStart="10dp"
                     />
                 <Button
@@ -53,10 +55,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/eliminar_rutina"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_background_light"
                     android:layout_marginStart="10dp"
                     />
             </LinearLayout>
         </HorizontalScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/rutinas_hombre"
+            android:fontFamily="@font/poppins_medium"
             android:layout_marginVertical="20dp"
             android:textSize="16sp"
             android:layout_marginStart="10dp"
@@ -93,13 +99,14 @@
             android:visibility="gone"
             />
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRutinas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_weight="1"
-        android:elevation="-1dp"
-        />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRutinas"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:elevation="-1dp" />
+
 
 </LinearLayout>

@@ -100,24 +100,24 @@ class OnboardingActivity : AppCompatActivity() {
         val altura = alturaText.toFloatOrNull()
         var comprobacion = true
         when{
-            pesoText.isNullOrEmpty() -> {
-                errorPeso("El peso no puede estar vacio")
+            pesoText.isEmpty() -> {
+                errorPeso("No puede estar vacío")
                 comprobacion = false
             }
-            nameText.isNullOrEmpty() -> {
-                errorName("El nombre no puede estar vacio")
+            peso == null || peso < 30 || peso > 250 -> {
+                errorPeso("Tiene que estar entre 30 y 250 kg")
                 comprobacion = false
             }
-            alturaText.isNullOrEmpty() -> {
-                errorAltura("La altura no puede estar vacia")
+            nameText.isEmpty() -> {
+                errorName("No puede estar vacío")
                 comprobacion = false
             }
-            peso == null || peso<30 || peso>250 ->{
-                errorPeso("El peso tiene que ser un número entre 30 y 250")
+            alturaText.isEmpty() -> {
+                errorAltura("No puede estar vacío")
                 comprobacion = false
             }
-            altura == null || altura<100 || altura>230 ->{
-                errorAltura("La altura tiene que ser un número entre 100 y 230")
+            altura == null || altura < 100 || altura > 230 -> {
+                errorAltura("Tiene que estar entre 100 y 230 cm")
                 comprobacion = false
             }
         }
@@ -143,19 +143,19 @@ class OnboardingActivity : AppCompatActivity() {
         diccionarioErrors[altura] = true
     }
     private fun comunPeso(){
-        binding.etPeso.setTextColor(getColor(R.color.white))
+        binding.etPeso.setTextColor(getColor(R.color.blue_light))
         binding.etPeso.setText("")
         diccionarioErrors[peso] = false
     }
     private fun comunName(){
-        binding.etName.setTextColor(getColor(R.color.white))
+        binding.etName.setTextColor(getColor(R.color.blue_light))
         binding.etName.setText("")
         diccionarioErrors[name] = false
     }
     private fun comunAltura(){
-        binding.etAltura.setTextColor(getColor(R.color.white))
+        binding.etAltura.setTextColor(getColor(R.color.blue_light))
         binding.etAltura.setText("")
-        diccionarioErrors[name] = false
+        diccionarioErrors[altura] = false
     }
 
 }

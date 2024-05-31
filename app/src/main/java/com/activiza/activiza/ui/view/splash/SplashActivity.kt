@@ -5,12 +5,16 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.activiza.activiza.R
@@ -60,13 +64,36 @@ class SplashActivity : AppCompatActivity() {
             .build()
         apiService = retrofit.create(APIListener::class.java)
 
-
-
         comprobarDatos()
+
+
+
         // Programar la notificación diaria si aún no se ha enviado hoy
         if (userPreferences.notificationsEnabled && !isNotificationAlreadySentToday() && db.obtenerPrimeraRutina() != null) {
             programarNotificacionDiaria()
         }
+
+        // Comprobar si el modo oscuro está activado y cambiar el tema en consecuencia
+        val isDarkModeEnabled = userPreferences.darkModeEnabled
+        if (isDarkModeEnabled) {
+            enableDarkMode()
+        } else {
+            disableDarkMode()
+        }
+
+        //Establecemos la imagen y las letras en funcion del modo oscuro
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val isNightMode = nightMode == Configuration.UI_MODE_NIGHT_YES
+
+        val imageResourceId = if (isNightMode) R.drawable.img_run_white else R.drawable.img_run_svg
+        val textColorResourceId = if (isNightMode) R.color.splash_background else R.color.blue_light
+
+
+       val imagen = findViewById<ImageView>(R.id.ivRun)
+        imagen.setImageResource(imageResourceId)
+
+        val textView = findViewById<TextView>(R.id.tvName)
+        textView.setTextColor(resources.getColor(textColorResourceId))
     }
 
      fun programarNotificacionDiaria() {
@@ -78,7 +105,11 @@ class SplashActivity : AppCompatActivity() {
         }
 
         val intent = Intent(applicationContext, NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -152,5 +183,12 @@ class SplashActivity : AppCompatActivity() {
                 Log.d("Error","No hay conexion")
             }
         })
+    }
+
+    private fun enableDarkMode(){
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
+    private fun disableDarkMode(){
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
