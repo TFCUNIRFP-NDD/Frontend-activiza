@@ -364,17 +364,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="H -hombre, M - mujer"
+                android:text="@string/add_genero"
                 android:textColor="@color/gray_dark" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
-                android:text="C - casa, G - gimnasio"
+                android:text="@string/add_lugar"
                 android:textColor="@color/gray_dark" />
 
         </LinearLayout>
@@ -436,14 +438,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="GRASA para perdida, \nMUSCULO para ganancia"
+                android:text="@string/add_objetivo"
                 android:textColor="@color/gray_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:text="Días de duración"
+                android:text="@string/add_duracion"
                 android:textColor="@color/gray_dark" />
 
         </LinearLayout>
