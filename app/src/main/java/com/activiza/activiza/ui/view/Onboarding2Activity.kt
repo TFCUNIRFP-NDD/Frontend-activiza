@@ -43,12 +43,14 @@ class Onboarding2Activity : AppCompatActivity() {
         //Basicamente lo que hace es recoger del RadioGroup la opcion marcada y de la opcion el texto en String
         val objetivoButton = binding.root.findViewById<RadioButton>(binding.rgObjetivo.checkedRadioButtonId).text.toString()
         val generoButton = binding.root.findViewById<RadioButton>(binding.rgPersona.checkedRadioButtonId).text.toString()
+        val lugarButton = binding.root.findViewById<RadioButton>(binding.rgLugar.checkedRadioButtonId).text.toString()
         val intent = Intent(this, Onboarding3Activity::class.java).apply {
             putExtra("nombre", intent.getStringExtra("nombre").toString())
             putExtra("peso", intent.getStringExtra("peso").toString())
             putExtra("altura", intent.getStringExtra("altura").toString())
             putExtra("objetivo", objetivoButton)
             putExtra("genero", generoButton)
+            putExtra("lugar", lugarButton)
         }
         startActivity(intent)
     }

@@ -48,13 +48,13 @@ class Onboarding3Activity : AppCompatActivity() {
 
     private fun guardarSesiones() {
         db = ActivizaDataBaseHelper(this)
-        val lugarButton = binding.root.findViewById<RadioButton>(binding.rgLugar.checkedRadioButtonId).text.toString()
+        val lugar:String? = intent.getStringExtra("lugar")
         val altura: Double? = intent.getStringExtra("altura")?.toDouble()
         val peso:Double? = intent.getStringExtra("peso")?.toDouble()
         val genero:String? = intent.getStringExtra("genero")
         val objetivo:String? = intent.getStringExtra("objetivo")
         val nombre: String? = intent.getStringExtra("nombre")
-        val usuariosDetalles:DetallesUsuarioData = DetallesUsuarioData(altura!!,peso!!,genero!!,objetivo!!, lugarButton)
+        val usuariosDetalles:DetallesUsuarioData = DetallesUsuarioData(altura!!,peso!!,genero!!,objetivo!!, lugar!!)
         db.insertDetallesUsuario(usuariosDetalles,db.getUsuario()!!.token)
 
 }
@@ -65,6 +65,7 @@ class Onboarding3Activity : AppCompatActivity() {
         var nombre = intent.getStringExtra("nombre").toString()
         var peso = intent.getStringExtra("peso").toString()
         var objetivo = intent.getStringExtra("objetivo").toString()
+        var lugar = intent.getStringExtra("lugar").toString()
         var altura = intent.getStringExtra("altura").toString()
         Log.i("info", genero)
 //        if (genero == this.genero) {
